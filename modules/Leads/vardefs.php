@@ -53,6 +53,14 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'default' => '0',
                 'comment' => 'Has Lead been converted to a Contact (and other Sugar objects)'
             ),
+        'card_id' =>
+        array(
+            'name' => 'card_id',
+            'type' => 'id',
+            'reportable' => false,
+            'vname' => 'LBL_CARD_ID',
+            'comment' => 'Card Id of lead'
+        ),
         'refered_by' =>
             array(
                 'name' => 'refered_by',
@@ -403,16 +411,6 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'len' => '255',
                 'comment' => 'Portal application that resulted in created of lead',
                 'studio' => 'false',
-            ),
-        'website' =>
-            array(
-                'name' => 'website',
-                'vname' => 'LBL_WEBSITE',
-                'type' => 'url',
-                'dbType' => 'varchar',
-                'len' => 255,
-                'link_target' => '_blank',
-                'comment' => 'URL of website for the company',
             ),
 
         'tasks' =>
