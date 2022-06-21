@@ -61,6 +61,42 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
             'vname' => 'LBL_CARD_ID',
             'comment' => 'Card Id of lead'
         ),
+        'processing_date' =>
+        array(
+            'name' => 'processing_date',
+            'vname' => 'LBL_PROCESSING_DATE',
+            'massupdate' => false,
+            'type' => 'date',
+            'comment' => 'The processing date of the leads'
+        ),
+        'statement_date' =>
+        array(
+            'name' => 'statement_date',
+            'vname' => 'LBL_STATEMENT_DATE',
+            'massupdate' => false,
+            'type' => 'date',
+            'comment' => 'The statement date of the leads'
+        ),
+
+        'sale_stage' =>
+        array(
+            'name' => 'sale_stage',
+            'vname' => 'LBL_SALE_STAGE',
+            'type' => 'enum',
+            'options' => 'sale_stage_dom',
+            'len' => '255',
+            'comment' => 'How did the sale stage come about',
+        ),
+
+        'lead_status' =>
+        array(
+            'name' => 'lead_status',
+            'vname' => 'LBL_LEAD_STATUS',
+            'type' => 'enum',
+            'options' => 'lead_status_dom',
+            'len' => '255',
+            'comment' => 'How did the lead status come about',
+        ),
         'refered_by' =>
             array(
                 'name' => 'refered_by',
