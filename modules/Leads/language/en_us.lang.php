@@ -55,6 +55,7 @@ $mod_strings = array(
     'ERR_DELETE_RECORD' => 'A record number must be specified to delete the lead.',
     'LBL_ACCOUNT_DESCRIPTION' => 'Account Description',
     'LBL_ACCOUNT_ID' => 'Account ID',
+    'LBL_FULL_NAME' => 'Full Name',
     'LBL_ACCOUNT_NAME' => 'Account Name:',
     'LBL_ACTIVITIES_SUBPANEL_TITLE' => 'Activities',
     'LBL_ADD_BUSINESSCARD' => 'Add Business Card',
