@@ -8,6 +8,8 @@ class CustomLeadsViewtest extends ViewList
     public function display()
     {
         echo"hello";
+        require_once('modules/AOS_PDF_Templates/formLetter.php');
+        formLetter::DVPopupHtml('Leads');
         parent::display();
     }   
 }
