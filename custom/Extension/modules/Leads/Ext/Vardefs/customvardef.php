@@ -46,13 +46,13 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
 
 
         'converted' =>
-            array(
-                'name' => 'converted',
-                'vname' => 'LBL_CONVERTED',
-                'type' => 'bool',
-                'default' => '0',
-                'comment' => 'Has Lead been converted to a Contact (and other Sugar objects)'
-            ),
+        array(
+            'name' => 'converted',
+            'vname' => 'LBL_CONVERTED',
+            'type' => 'bool',
+            'default' => '0',
+            'comment' => 'Has Lead been converted to a Contact (and other Sugar objects)'
+        ),
         'card_id' =>
         array(
             'name' => 'card_id',
@@ -107,6 +107,16 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
             'options' => 'lead_status_dom',
             'len' => '255',
             'comment' => 'How did the lead status come about',
+        ),
+
+        'call_status' =>
+        array(
+            'name' => 'call_status',
+            'vname' => 'LBL_CALL_STATUS',
+            'type' => 'enum',
+            'options' => 'call_status_lead_dom',
+            'len' => '255',
+            'comment' => 'How did the lead call come about',
         ),
 
         'refered_by' =>
