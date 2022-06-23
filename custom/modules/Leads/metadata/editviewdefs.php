@@ -65,7 +65,14 @@ array (
         0 => 
         array (
           0 => 'first_name',
-          1 => 'phone_mobile',
+          1 => array(
+            'name' => 'phone_mobile',
+            'label' => 'LBL_PHONE_MOBILE',
+            'displayParams' =>
+            array(
+              'required' => true,
+            ),
+          ),
         ),
         1 => 
         array (

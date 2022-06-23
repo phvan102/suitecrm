@@ -27,10 +27,10 @@ class CustomLeadsViewunaeffect extends ViewList
         //global $current_user;
         $this->processSearchForm();
         if ($this->where != "") {
-            $this->where .= " AND (leads.call_status IN ('01_NCT_Engaged', '02_NCT_No_response', '03_NCT_Not_available', '04_NCT_Relative_call_back', '05_NCT_Relative_call_new', '06_NCT_Invalid_number')) ";
+            $this->where .= "AND (leads.assigned_user_id = {$user_id_current}) AND (leads.call_status IN ('01_NCT_Engaged', '02_NCT_No_response', '03_NCT_Not_available', '04_NCT_Relative_call_back', '05_NCT_Relative_call_new', '06_NCT_Invalid_number')) ";
         }
         else {
-            $this->where .= "(leads.call_status IN ('01_NCT_Engaged', '02_NCT_No_response', '03_NCT_Not_available', '04_NCT_Relative_call_back', '05_NCT_Relative_call_new', '06_NCT_Invalid_number'))";
+            $this->where .= "(leads.assigned_user_id = {$user_id_current}) AND (leads.call_status IN ('01_NCT_Engaged', '02_NCT_No_response', '03_NCT_Not_available', '04_NCT_Relative_call_back', '05_NCT_Relative_call_new', '06_NCT_Invalid_number'))";
         }
 
         $this->lv->searchColumns = $this->searchForm->searchColumns;
@@ -41,8 +41,8 @@ class CustomLeadsViewunaeffect extends ViewList
         if(empty($_REQUEST['search_form_only']) || $_REQUEST['search_form_only'] == false)
         {
             $this->lv->setup($this->seed, 'include/ListView/ListViewGeneric.tpl', $this->where, $this->params);
-            $savedSearchName = empty($_REQUEST['saved_search_select_name']) ? '' : (' - ' . $_REQUEST['saved_search_select_name']);
-            echo get_form_header($GLOBALS['mod_strings']['LBL_LIST_FORM_TITLE'] . $savedSearchName, '', false);
+            //$savedSearchName = empty($_REQUEST['saved_search_select_name']) ? '' : (' - ' . $_REQUEST['saved_search_select_name']);
+            //echo get_form_header($GLOBALS['mod_strings']['LBL_LIST_FORM_TITLE'] . $savedSearchName, '', false);
             echo $this->lv->display();
         }
         //$this->params['custom_from'] = "leads ";

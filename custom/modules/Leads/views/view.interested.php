@@ -27,10 +27,10 @@ class CustomLeadsViewinterested extends ViewList
         //global $current_user;
         $this->processSearchForm();
         if ($this->where != "") {
-            $this->where .= " AND (leads.call_status IN ('01_INT_no_money_in_card', '02_INT_Consider_Call_back', '03_INT_Client_need_a_card', '04_INT_Client_interest_but_no_pick_up', '05_INT_Client_interest_but_no_pick_up', '01_AGD_Approved_and_paid_money', '02_AGD_Schedules_Application_with_disbursement', '03_AGD_Agreed_but_still_not_contact')) ";
+            $this->where .= "  AND (leads.assigned_user_id = {$user_id_current}) AND (leads.call_status IN ('01_INT_no_money_in_card', '02_INT_Consider_Call_back', '03_INT_Client_need_a_card', '04_INT_Client_interest_but_no_pick_up', '05_INT_Client_interest_but_no_pick_up', '01_AGD_Approved_and_paid_money', '02_AGD_Schedules_Application_with_disbursement', '03_AGD_Agreed_but_still_not_contact')) ";
         }
         else {
-            $this->where .= "(leads.call_status IN ('01_INT_no_money_in_card', '02_INT_Consider_Call_back', '03_INT_Client_need_a_card', '04_INT_Client_interest_but_no_pick_up', '05_INT_Client_interest_but_no_pick_up', '01_AGD_Approved_and_paid_money', '02_AGD_Schedules_Application_with_disbursement', '03_AGD_Agreed_but_still_not_contact'))";
+            $this->where .= "(leads.assigned_user_id = {$user_id_current}) AND (leads.call_status IN ('01_INT_no_money_in_card', '02_INT_Consider_Call_back', '03_INT_Client_need_a_card', '04_INT_Client_interest_but_no_pick_up', '05_INT_Client_interest_but_no_pick_up', '01_AGD_Approved_and_paid_money', '02_AGD_Schedules_Application_with_disbursement', '03_AGD_Agreed_but_still_not_contact'))";
         }
 
         $this->lv->searchColumns = $this->searchForm->searchColumns;
@@ -41,8 +41,8 @@ class CustomLeadsViewinterested extends ViewList
         if(empty($_REQUEST['search_form_only']) || $_REQUEST['search_form_only'] == false)
         {
             $this->lv->setup($this->seed, 'include/ListView/ListViewGeneric.tpl', $this->where, $this->params);
-            $savedSearchName = empty($_REQUEST['saved_search_select_name']) ? '' : (' - ' . $_REQUEST['saved_search_select_name']);
-            echo get_form_header($GLOBALS['mod_strings']['LBL_LIST_FORM_TITLE'] . $savedSearchName, '', false);
+            //$savedSearchName = empty($_REQUEST['saved_search_select_name']) ? '' : (' - ' . $_REQUEST['saved_search_select_name']);
+            //echo get_form_header("CUSTOMER INTERESTED AMD AGREE", '', false);
             echo $this->lv->display();
         }
         //$this->params['custom_from'] = "leads ";
