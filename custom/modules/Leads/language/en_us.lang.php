@@ -10,4 +10,10 @@ $mod_strings = array(
   'LBL_LEAD_STATUS' => 'Lead Status',
   'LBL_STATEMENT_DATE_1' => 'Statement Date 1',
   'LBL_CALL_STATUS' => 'Call Status',
+  
+
+  'LNK_ALLOTTED_CUSTOMERS_LIST' => 'View Allotted Customers', 
+  'LNK_UNAFFECTED_CUSTOMERS_LIST' => 'View Unaffected Customers', 
+  'LNK_INTERESTED_CUSTOMERS_LIST' => 'View Interested Customers',
+
 );
