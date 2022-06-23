@@ -9,4 +9,5 @@ $mod_strings = array(
   'LBL_SALE_STAGE' => 'Sale Stage',
   'LBL_LEAD_STATUS' => 'Lead Status',
   'LBL_STATEMENT_DATE_1' => 'Statement Date 1',
+  'LBL_CALL_STATUS' => 'Call Status',
 );
