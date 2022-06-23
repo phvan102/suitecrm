@@ -102,6 +102,9 @@ array (
           0 => 'processing_date',
           1 => 'statement_date',
         ),
+        6 => array (
+          0 => 'call_status',
+        ),
 /*         4 => 
         array (
           0 => 
