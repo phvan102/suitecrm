@@ -41,6 +41,6 @@
 class CustomLeadsController extends SugarController {
     function action_test(){
         $GLOBALS['log']->fatal('Am in Controller');
-        $this->view = "test";
+        $this->view = "allotted";
     }
 }
