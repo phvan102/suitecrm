@@ -27,7 +27,7 @@ if (ACLController::checkAccess('Leads', 'list', true)) {
 }
 
 if (ACLController::checkAccess('Leads', 'list', true)) {
-    $module_menu[]=array("index.php?module=Leads&action=test&return_module=Leads&return_action=DetailView", $mod_strings['LNK_UNAFFECTED_CUSTOMERS_LIST'],"List", 'Leads');
+    $module_menu[]=array("index.php?module=Leads&action=unaeffect&return_module=Leads&return_action=DetailView", $mod_strings['LNK_UNAFFECTED_CUSTOMERS_LIST'],"List", 'Leads');
 }
 
 if (ACLController::checkAccess('Leads', 'list', true)) {
