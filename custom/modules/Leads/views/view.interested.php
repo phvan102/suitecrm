@@ -38,7 +38,7 @@ class CustomLeadsViewinterested extends ViewList
             $this->where .= "  AND (leads.assigned_user_id = {$user_id_current}) AND (leads.call_status IN ('01_INT_no_money_in_card', '02_INT_Consider_Call_back', '03_INT_Client_need_a_card', '04_INT_Client_interest_but_no_pick_up', '05_INT_Client_interest_but_no_pick_up', '01_AGD_Approved_and_paid_money', '02_AGD_Schedules_Application_with_disbursement', '03_AGD_Agreed_but_still_not_contact')) ";
         }
         else {
-            $this->where .= "(leads.assigned_user_id = {$user_id_current}) AND (leads.call_status IN ('01_INT_no_money_in_card', '02_INT_Consider_Call_back', '03_INT_Client_need_a_card', '04_INT_Client_interest_but_no_pick_up', '05_INT_Client_interest_but_no_pick_up', '01_AGD_Approved_and_paid_money', '02_AGD_Schedules_Application_with_disbursement', '03_AGD_Agreed_but_still_not_contact'))";
+            $this->where .= "(leads.assigned_user_id = '". $user_id_current ."') AND (leads.call_status IN ('01_INT_no_money_in_card', '02_INT_Consider_Call_back', '03_INT_Client_need_a_card', '04_INT_Client_interest_but_no_pick_up', '05_INT_Client_interest_but_no_pick_up', '01_AGD_Approved_and_paid_money', '02_AGD_Schedules_Application_with_disbursement', '03_AGD_Agreed_but_still_not_contact'))";
         }
 
         $this->lv->searchColumns = $this->searchForm->searchColumns;

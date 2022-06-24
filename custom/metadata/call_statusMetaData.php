@@ -1,4 +1,7 @@
 <?php
+if (!defined('sugarEntry') || !sugarEntry) {
+    die('Not A Valid Entry Point');
+}
 /**
  *
  * SugarCRM Community Edition is a customer relationship management program developed by
@@ -38,20 +41,12 @@
  * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
-class CustomLeadsController extends SugarController {
-    function action_allotted(){
-        $GLOBALS['log']->fatal('Am in Controller');
-        $this->view = "allotted";
-    }
-
-    function action_unaeffect(){
-        $GLOBALS['log']->fatal('Am in Controller');
-        $this->view = "unaeffect";
-    }
-
-    function action_interested(){
-        $GLOBALS['log']->fatal('Am in Controller');
-        $this->view = "interested";
-    }
-
-}
+$dictionary['call_status'] = array(
+    'table' => 'call_status', 'fields' => array(
+        array('name' => 'id', 'type' => 'varchar', 'len' => '36',), 
+        array('name' => 'name', 'type' => 'varchar', 'len' => '36'), 
+        array('name' => 'detail_id', 'type' => 'varchar', 'len' => '36')
+    ), 'indices' => array(
+        array('name' => 'call_status_bugspk', 'type' => 'primary', 'fields' => array('id'))
+    )
+);

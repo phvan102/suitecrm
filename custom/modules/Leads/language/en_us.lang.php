@@ -1,6 +1,6 @@
 <?php
-// created: 2022-06-21 09:52:37
-$mod_strings = array(
+// created: 2022-06-24 05:32:30
+$mod_strings = array (
   'LBL_PRIMARY_ADDRESS_STATE' => '',
   'LBL_FIRST_NAME' => 'Full Name',
   'LBL_CARD_ID' => 'Card ID',
@@ -11,10 +11,8 @@ $mod_strings = array(
   'LBL_STATEMENT_DATE_1' => 'Statement Date 1',
   'LBL_CALL_STATUS' => 'Call Status',
   'LBL_PHONE_MOBILE' => 'Phone Mobile',
-  
-
-  'LNK_ALLOTTED_CUSTOMERS_LIST' => 'View Allotted Customers', 
-  'LNK_UNAFFECTED_CUSTOMERS_LIST' => 'View Unaffected Customers', 
+  'LNK_ALLOTTED_CUSTOMERS_LIST' => 'View Allotted Customers',
+  'LNK_UNAFFECTED_CUSTOMERS_LIST' => 'View Unaffected Customers',
   'LNK_INTERESTED_CUSTOMERS_LIST' => 'View Interested Customers',
-
+  'LBL_LIST_CHILD' => 'list child',
 );

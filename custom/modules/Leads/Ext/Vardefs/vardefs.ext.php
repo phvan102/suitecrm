@@ -742,4 +742,10 @@ $dictionary['Lead']['fields']['jjwg_maps_lat_c']['inline_edit']=1;
 $dictionary['Lead']['fields']['jjwg_maps_lng_c']['inline_edit']=1;
 
  
+
+ // created: 2022-06-24 05:32:30
+$dictionary['Lead']['fields']['list_child_c']['inline_edit']='1';
+$dictionary['Lead']['fields']['list_child_c']['labelValue']='list child';
+
+ 
 ?>
