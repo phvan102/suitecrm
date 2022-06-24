@@ -1,4 +1,4 @@
-<?php
+a<?php
 if (!defined('sugarEntry') || !sugarEntry) {
     die('Not A Valid Entry Point');
 }
@@ -41,12 +41,11 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
-$dictionary['call_status'] = array(
-    'table' => 'call_status', 'fields' => array(
+$dictionary['detail_call_status'] = array(
+    'table' => 'detail_call_status', 'fields' => array(
         array('name' => 'id', 'type' => 'varchar', 'len' => '36',), 
         array('name' => 'name', 'type' => 'varchar', 'len' => '36'), 
-        array('name' => 'detail_id', 'type' => 'varchar', 'len' => '36')
     ), 'indices' => array(
-        array('name' => 'call_statuspk', 'type' => 'primary', 'fields' => array('id'))
+        array('name' => 'detail_call_statuspk', 'type' => 'primary', 'fields' => array('id'))
     )
 );
