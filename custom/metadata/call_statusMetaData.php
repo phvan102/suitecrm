@@ -43,9 +43,8 @@ if (!defined('sugarEntry') || !sugarEntry) {
 
 $dictionary['call_status'] = array(
     'table' => 'call_status', 'fields' => array(
-        array('name' => 'id', 'type' => 'varchar', 'len' => '36',), 
-        array('name' => 'name', 'type' => 'varchar', 'len' => '36'), 
-        array('name' => 'detail_id', 'type' => 'varchar', 'len' => '36')
+        array('name' => 'id', 'type' => 'varchar', 'len' => '36',),
+        array('name' => 'name', 'type' => 'varchar', 'len' => '36'),
     ), 'indices' => array(
         array('name' => 'call_statuspk', 'type' => 'primary', 'fields' => array('id'))
     )
