@@ -3667,6 +3667,10 @@ $app_strings['LBL_THANKS_FOR_SUBMITTING'] = 'Thank you for submitting your inter
 $app_strings['ERR_IP_CHANGE'] = 'Your session was terminated due to a significant change in your IP address';
 $app_strings['ERR_RETURN'] = 'Return to Home';
 
+$app_strings['LBL_ALLOTTED_CUSTOMER'] = 'ALLOTTED CUSTOMERS';
+$app_strings['LBL_CUSTOMERS_HAVE_NOT_CONTACTED'] = 'CUSTOMERS HAVE NOT CONTACTED';
+$app_strings['LBL_CUSTOMERS_ARE_INTERESTED_OR_AGREE'] = 'CUSTOMERS ARE INTERESTED OR AGREE';
+
 
 $app_list_strings['oauth2_grant_type_dom'] = array(
     'password' => 'Password Grant',

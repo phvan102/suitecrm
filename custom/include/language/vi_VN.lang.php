@@ -3688,6 +3688,10 @@ $app_strings['LBL_THANKS_FOR_SUBMITTING'] = 'Cảm ơn bạn đã quan tâm.';
 $app_strings['ERR_IP_CHANGE'] = 'Phiên của kết nối bị chấm dứt do sự thay đổi địa chỉ IP của bạn';
 $app_strings['ERR_RETURN'] = 'Trở về trang chủ';
 
+$app_strings['LBL_ALLOTTED_CUSTOMER'] = 'KHÁCH HÀNG ĐƯỢC PHÂN PHỐI';
+$app_strings['LBL_CUSTOMERS_HAVE_NOT_CONTACTED'] = 'KHÁCH HÀNG CHƯA TÁC ĐỘNG';
+$app_strings['LBL_CUSTOMERS_ARE_INTERESTED_OR_AGREE'] = 'KHÁCH HÀNG QUAN TÂM HOẶC ĐỒNG Ý';
+
 
 $app_list_strings['oauth2_grant_type_dom'] = array(
     'password' => 'Cung cấp mật khẩu',

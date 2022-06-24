@@ -18,9 +18,6 @@ array (
         array (
           0 => 'SAVE',
           1 => 'CANCEL',
-          3 => array (
-            'customCode' => '<input id="SAVE_HEADER" class="button primary" type="submit" value="SAVE AND NEXT" name="button" onclick="var _form = document.getElementById(\'EditView\'); _form.action.value=\'Save\'; if(check_form(\'EditView\'))SUGAR.ajaxUI.submitForm(_form);return false;" accesskey="a" title="SAVE AND NEXT">'
-          ),
         ),
       ),
       'maxColumns' => '2',

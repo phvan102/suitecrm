@@ -18,6 +18,14 @@ class CustomLeadsViewinterested extends ViewList
         parent::preDisplay();
     } */
 
+    public function _getModuleTitleParams( $show_help = true )
+    {
+        global $sugar_version, $sugar_flavor, $server_unique_key, $current_language, $action;
+        //[logic here]ETCETCETC
+        $params[] = $GLOBALS['app_strings']['LBL_CUSTOMERS_ARE_INTERESTED_OR_AGREE'];
+        return $params;
+    }
+
     public function listViewProcess() {
         include_once 'data/SugarBean.php';
         global $current_user;

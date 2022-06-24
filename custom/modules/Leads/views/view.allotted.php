@@ -18,6 +18,15 @@ class CustomLeadsViewallotted extends ViewList
         parent::preDisplay();
     } */
 
+    // Call function  _getModuleTitleParams( $show_help = true ) to custom title for new tab bar
+    public function _getModuleTitleParams( $show_help = true )
+    {
+        global $sugar_version, $sugar_flavor, $server_unique_key, $current_language, $action;
+        //[logic here]ETCETCETC
+        $params[] = $GLOBALS['app_strings']['LBL_ALLOTTED_CUSTOMER'];
+        return $params;
+    }
+
     public function listViewProcess() {
         include_once 'data/SugarBean.php';
         global $current_user;
