@@ -11,6 +11,7 @@ $mod_strings = array(
   'LBL_STATEMENT_DATE_1' => 'Statement Date 1',
   'LBL_CALL_STATUS' => 'Trạng thái cuộc gọi',
   'LBL_PHONE_MOBILE' => 'Di động',
+  'LBL_DETAIL_CALL_STATUS' => 'Chi tiết cuộc gọi',
   
 
   'LNK_ALLOTTED_CUSTOMERS_LIST' => 'Khách hàng được phân bổ', 
