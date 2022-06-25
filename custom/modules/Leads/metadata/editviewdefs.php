@@ -107,7 +107,10 @@ array (
           1 => 'statement_date',
         ),
         6 => array (
-          0 => 'call_status',
+          0 => 'call_status_lead',
+        ),
+        7 => array (
+          0 => 'call_status_description_lead',
         ),
 /*         4 => 
         array (

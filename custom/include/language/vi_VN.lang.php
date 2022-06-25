@@ -434,7 +434,7 @@ $app_list_strings = array(
         'RFS' => 'Khách hàng từ chối',
     ),
 
-    'call_status_lead_dom' => array (
+    'call_status_description_lead_dom' => array (
         '01_NCT_Engaged' => 'Số khách hàng đang bận',
         '02_NCT_No_response' => 'Không có phản hồi từ khách hàng ', 
         '03_NCT_Not_available' => 'Số điện thoại khách hàng không sẵn sàng (tắt máy, không tín hiệu ) - theo dõi lại.',

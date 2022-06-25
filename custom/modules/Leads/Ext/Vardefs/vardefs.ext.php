@@ -112,13 +112,32 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
             'comment' => 'How did the lead status come about',
         ),
 
-        'call_status' =>
+        'call_status_id' =>
         array(
-            'name' => 'call_status',
+            'name' => 'call_status_id',
+            'vname' => 'LBL_CALL_STATUS',
+            'type' => 'varchar',
+            'len' => '255',
+            'comment' => 'How did the lead call come about',
+        ),
+
+        'call_status_lead' => array(
+            'name' => 'call_status_lead',
             'vname' => 'LBL_CALL_STATUS',
             'type' => 'enum',
             'options' => 'call_status_lead_dom',
             'len' => '255',
+            'source' => 'non-db',
+            'comment' => 'How did the lead call come about',
+        ),
+
+        'call_status_description_lead' => array(
+            'name' => 'call_status_description_lead',
+            'vname' => 'LBL_DETAIL_CALL_STATUS',
+            'type' => 'enum',
+            'options' => 'call_status_description_lead_dom',
+            'len' => '255',
+            'source' => 'non-db',
             'comment' => 'How did the lead call come about',
         ),
 
