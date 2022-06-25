@@ -358,7 +358,16 @@ $app_list_strings = array(
         'Recycled' => 'Recycled',
         'Dead' => 'Dead',
     ),
+
     'call_status_lead_dom' => array (
+        'NCT' => 'Never contact',
+        'COT' => 'Contacted',
+        'INT' => 'Interest', 
+        'AGD' => 'Agreed',
+        'RFS' => 'Refuse',
+    ),
+
+    'call_status_description_lead_dom' => array (
         '01_NCT_Engaged' => 'Engaged',
         '02_NCT_No_response' => 'No response', 
         '03_NCT_Not_available' => 'Not available (turn off, no signal)',

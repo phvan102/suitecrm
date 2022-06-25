@@ -425,6 +425,15 @@ $app_list_strings = array(
         'Recycled' => 'Tái sử dụng',
         'Dead' => 'Chết',
     ),
+
+    'call_status_lead_dom' => array (
+        'NCT' => 'Chưa liên hệ',
+        'COT' => 'Đã liên hệ',
+        'INT' => 'Khách hàng quan tâm', 
+        'AGD' => 'Khách hàng đồng ý',
+        'RFS' => 'Khách hàng từ chối',
+    ),
+
     'call_status_lead_dom' => array (
         '01_NCT_Engaged' => 'Số khách hàng đang bận',
         '02_NCT_No_response' => 'Không có phản hồi từ khách hàng ', 
