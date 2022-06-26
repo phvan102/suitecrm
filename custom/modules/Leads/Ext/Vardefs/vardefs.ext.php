@@ -129,6 +129,10 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
             'len' => '255',
             'source' => 'non-db',
             'comment' => 'How did the lead call come about',
+            'displayParams' => 
+                array (
+                    'javascript' => 'onchange=getStatesFromDb(this)',
+                ),
         ),
 
         'call_status_description_lead' => array(
@@ -737,6 +741,10 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
     //This enables optimistic locking for Saves From EditView
 , 'optimistic_locking' => true,
 );
+
+unset($dictionary['Lead']['fields']['call_status_lead']['options']);
+unset($dictionary['Lead']['fields']['call_status_description_lead']['options']);
+$dictionary['Lead']['fields']['call_status_lead']['function'] = 'getCallStatusLeadFromDb';
 
 VardefManager::createVardef('Leads', 'Lead', array('default', 'assignable', 'security_groups',
     'person'));
