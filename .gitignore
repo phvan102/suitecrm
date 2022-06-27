@@ -10,9 +10,9 @@ upload/*
 modules/AOD_Index/Index/*
 install/status.json
 # Configuration files should be ignored.
-/config.php
-/config_override.php
-/config_si.php
+#/config.php
+#/config_override.php
+#/config_si.php
 # Connector configuration should also be ignored.
 custom/modules/Connectors/connectors/sources/ext/*/*/config.php
 # Logs files can safely be ignored.
