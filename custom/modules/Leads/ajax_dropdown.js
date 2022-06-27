@@ -21,14 +21,4 @@ $(document).ready(function() {
             dataType: 'html'
         });
     });
-
-    $('#SAVE').click(function() {
-        var call_status_lead = $('#call_status_lead option:selected').val();
-        var call_status_description_lead = $('#call_status_description_lead option:selected').val();
-        console.log(call_status_lead, call_status_description_lead);
-        var _form = document.getElementById('EditView'); _form.action.value='Save'; 
-        if(check_form('EditView'))
-            SUGAR.ajaxUI.submitForm(_form);
-        return false;
-    })
 });

@@ -11,6 +11,7 @@ function getCallStatusLeadFromDb() {
     
     $list = array();
 
+
     while (($row = $db->fetchByAssoc($result)) != null) {
         $list[$row['id']] = $row['description'];
     }
