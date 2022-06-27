@@ -104,7 +104,7 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
             'name' => 'lead_status',
             'vname' => 'LBL_LEAD_STATUS',
             'type' => 'enum',
-            'options' => 'lead_status_dom',
+            'options' => 'call_status_description_lead_dom',
             'len' => '255',
             'comment' => 'How did the lead status come about',
         ),
