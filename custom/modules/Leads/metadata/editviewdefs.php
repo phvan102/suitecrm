@@ -16,7 +16,9 @@ array (
         ),
         'buttons' => 
         array (
-          0 => 'SAVE',
+          0 => array(
+            'customCode' => '<input title="Save" accesskey="a" class="button primary" onclick="var call_status_lead = $(\'#call_status_lead option:selected\').val();var call_status_description_lead = $(\'#call_status_description_lead option:selected\').val();console.log(call_status_lead, call_status_description_lead);var _form = document.getElementById(\'EditView\'); _form.action.value=\'Save\'; if(check_form(\'EditView\'))SUGAR.ajaxUI.submitForm(_form);return false;" type="submit" name="button" value="Save" id="SAVE">'
+          ),
           1 => 'CANCEL',
         ),
       ),
@@ -95,29 +97,13 @@ array (
         ),
         4 =>
         array(
-          0 =>
-          array(
-            'name' => 'sale_stage',
-            'comment' => 'How did the contact come about',
-            'label' => 'LBL_SALE_STAGE',
-          ),
-          1 =>
-          array(
-            'name' => 'lead_status',
-            'comment' => 'How did the contact come about',
-            'label' => 'LBL_LEAD_STATUS',
-          ),
+          0 => 'call_status_lead',
+          1 => 'call_status_description_lead',
         ),
         5 => 
         array (
           0 => 'processing_date',
           1 => 'statement_date',
-        ),
-        6 => array (
-          0 => 'call_status_lead',
-        ),
-        7 => array (
-          0 => 'call_status_description_lead',
         ),
 /*         4 => 
         array (
