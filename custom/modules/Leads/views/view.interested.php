@@ -35,10 +35,10 @@ class CustomLeadsViewinterested extends ViewList
         //global $current_user;
         $this->processSearchForm();
         if ($this->where != "") {
-            $this->where .= "  AND (leads.assigned_user_id = {$user_id_current}) AND (leads.call_status IN ('01_INT_no_money_in_card', '02_INT_Consider_Call_back', '03_INT_Client_need_a_card', '04_INT_Client_interest_but_no_pick_up', '05_INT_Client_interest_but_no_pick_up', '01_AGD_Approved_and_paid_money', '02_AGD_Schedules_Application_with_disbursement', '03_AGD_Agreed_but_still_not_contact')) ";
+            $this->where .= "  AND (leads.assigned_user_id = {$user_id_current}) AND (leads.call_status IN ('3','4')) ";
         }
         else {
-            $this->where .= "(leads.assigned_user_id = {$user_id_current}) AND (leads.call_status IN ('01_INT_no_money_in_card', '02_INT_Consider_Call_back', '03_INT_Client_need_a_card', '04_INT_Client_interest_but_no_pick_up', '05_INT_Client_interest_but_no_pick_up', '01_AGD_Approved_and_paid_money', '02_AGD_Schedules_Application_with_disbursement', '03_AGD_Agreed_but_still_not_contact'))";
+            $this->where .= "(leads.assigned_user_id = '{$user_id_current}') AND (leads.call_status_lead IN ('3', '4'))";
         }
 
         $this->lv->searchColumns = $this->searchForm->searchColumns;

@@ -35,10 +35,10 @@ class CustomLeadsViewunaeffect extends ViewList
         //global $current_user;
         $this->processSearchForm();
         if ($this->where != "") {
-            $this->where .= "AND (leads.assigned_user_id = {$user_id_current}) AND (leads.call_status IN ('01_NCT_Engaged', '02_NCT_No_response', '03_NCT_Not_available', '04_NCT_Relative_call_back', '05_NCT_Relative_call_new', '06_NCT_Invalid_number')) ";
+            $this->where .= "AND (leads.assigned_user_id = {$user_id_current}) AND (leads.call_status_lead IN ('1')) ";
         }
         else {
-            $this->where .= "(leads.assigned_user_id = {$user_id_current}) AND (leads.call_status IN ('01_NCT_Engaged', '02_NCT_No_response', '03_NCT_Not_available', '04_NCT_Relative_call_back', '05_NCT_Relative_call_new', '06_NCT_Invalid_number'))";
+            $this->where .= "(leads.assigned_user_id = {$user_id_current}) AND (leads.call_status_lead IN ('1'))";
         }
 
         $this->lv->searchColumns = $this->searchForm->searchColumns;
