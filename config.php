@@ -1,9 +1,43 @@
 <?php
-// created: 2022-06-21 05:57:31
+// created: 2022-06-28 06:00:02
 $sugar_config = array (
   'addAjaxBannedModules' => 
   array (
     0 => 'SecurityGroups',
+    1 => 'Home',
+    2 => 'Meetings',
+    3 => 'Calls',
+    4 => 'Cases',
+    5 => 'Tasks',
+    6 => 'AOK_KnowledgeBase',
+    7 => 'Leads',
+    8 => 'AOR_Reports',
+    9 => 'FP_events',
+    10 => 'AOK_Knowledge_Base_Categories',
+    11 => 'FP_Event_Locations',
+    12 => 'AOS_PDF_Templates',
+    13 => 'AOS_Invoices',
+    14 => 'AOW_WorkFlow',
+    15 => 'jjwg_Areas',
+    16 => 'jjwg_Address_Cache',
+    17 => 'AOS_Quotes',
+    18 => 'jjwg_Markers',
+    19 => 'jjwg_Maps',
+    20 => 'AOS_Products',
+    21 => 'AOS_Product_Categories',
+    22 => 'AOR_Scheduled_Reports',
+    23 => 'Contacts',
+    24 => 'AOS_Contracts',
+    25 => 'Accounts',
+    26 => 'Notes',
+    27 => 'Prospects',
+    28 => 'Opportunities',
+    29 => 'Spots',
+    30 => 'ProspectLists',
+    31 => 'AM_ProjectTemplates',
+    32 => 'AOBH_BusinessHours',
+    33 => 'ResourceCalendar',
+    34 => 'Bugs',
   ),
   'admin_access_control' => false,
   'admin_export_only' => false,
@@ -303,7 +337,7 @@ $sugar_config = array (
     'timeout' => 86400,
   ),
   'js_custom_version' => 1,
-  'js_lang_version' => 1,
+  'js_lang_version' => 2,
   'languages' => 
   array (
     'en_us' => 'English (US)',

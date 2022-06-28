@@ -301,9 +301,10 @@ $(window).resize(function () {
 
 // jQuery to toggle sidebar
 function loadSidebar() {
+  $(document).ready(function() {
   if ($('#sidebar_container').length) {
     $('#buttontoggle').click(function () {
-      $('.sidebar').toggle();
+      $('#sidebar-left').toggle();
       if ($('.sidebar').is(':visible')) {
         $.cookie('sidebartoggle', 'expanded');
         $('#buttontoggle').removeClass('button-toggle-collapsed');
@@ -346,7 +347,7 @@ function loadSidebar() {
       $('#bootstrap-container').removeClass('collapsedSidebar');
       $('#bootstrap-container').addClass('expandedSidebar');
     }
-  }
+  }})
 }
 
 // Alerts Notification

@@ -3922,6 +3922,10 @@ select#sales_stage_advanced {
     width: 30%;
   }
 
+  .edit-view-field #call_status_description_lead {
+    max-width: 300px;
+  }
+
   .col-sm-12 [field=first_name].edit-view-field input[type="text"]#first_name {
     width: 29.5%;
   }
