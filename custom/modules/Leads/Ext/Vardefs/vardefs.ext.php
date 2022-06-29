@@ -54,15 +54,530 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
             'vname' => 'LBL_CONVERTED',
             'type' => 'bool',
             'default' => '0',
+            'exportable' => false,
+            'importable' => false,
             'comment' => 'Has Lead been converted to a Contact (and other Sugar objects)'
+        ),
+        'description' => array(
+            'name' => 'description',
+            'vname' => 'LBL_DESCRIPTION',
+            'type' => 'text',
+            'comment' => 'Full text of the note',
+            'rows' => 6,
+            'cols' => 80,
+            'exportable' => false,
+            'importable' => false,
+        ),
+        'date_entered' => array(
+            'name' => 'date_entered',
+            'vname' => 'LBL_DATE_ENTERED',
+            'type' => 'datetime',
+            'group' => 'created_by_name',
+            'comment' => 'Date record created',
+            'enable_range_search' => true,
+            'options' => 'date_range_search_dom',
+            'inline_edit' => false,
+            'exportable' => false,
+            'importable' => false,
+        ),
+        'date_modified' => array(
+            'name' => 'date_modified',
+            'vname' => 'LBL_DATE_MODIFIED',
+            'type' => 'datetime',
+            'group' => 'modified_by_name',
+            'comment' => 'Date record last modified',
+            'enable_range_search' => true,
+            'options' => 'date_range_search_dom',
+            'inline_edit' => false,
+            'exportable' => false,
+            'importable' => false,
+        ),
+        'modified_user_id' => array(
+            'name' => 'modified_user_id',
+            'rname' => 'user_name',
+            'id_name' => 'modified_user_id',
+            'vname' => 'LBL_MODIFIED',
+            'type' => 'assigned_user_name',
+            'table' => 'users',
+            'isnull' => 'false',
+            'group' => 'modified_by_name',
+            'dbType' => 'id',
+            'reportable' => true,
+            'comment' => 'User who last modified record',
+            'massupdate' => false,
+            'inline_edit' => false,
+            'exportable' => false,
+            'importable' => false,
+        ),
+        'modified_by_name' => array(
+            'name' => 'modified_by_name',
+            'vname' => 'LBL_MODIFIED_NAME',
+            'type' => 'relate',
+            'reportable' => false,
+            'source' => 'non-db',
+            'rname' => 'user_name',
+            'table' => 'users',
+            'id_name' => 'modified_user_id',
+            'module' => 'Users',
+            'link' => 'modified_user_link',
+            'duplicate_merge' => 'disabled',
+            'massupdate' => false,
+            'inline_edit' => false,
+            'exportable' => false,
+            'importable' => false,
+        ),
+        'created_by' => array(
+            'name' => 'created_by',
+            'rname' => 'user_name',
+            'id_name' => 'modified_user_id',
+            'vname' => 'LBL_CREATED',
+            'type' => 'assigned_user_name',
+            'table' => 'users',
+            'isnull' => 'false',
+            'dbType' => 'id',
+            'group' => 'created_by_name',
+            'comment' => 'User who created record',
+            'massupdate' => false,
+            'inline_edit' => false,
+            'exportable' => false,
+            'importable' => false,
+        ),
+        'created_by_name' => array(
+            'name' => 'created_by_name',
+            'vname' => 'LBL_CREATED',
+            'type' => 'relate',
+            'reportable' => false,
+            'link' => 'created_by_link',
+            'rname' => 'user_name',
+            'source' => 'non-db',
+            'table' => 'users',
+            'id_name' => 'created_by',
+            'module' => 'Users',
+            'duplicate_merge' => 'disabled',
+            'exportable' => false,
+            'importable' => false,
+            'massupdate' => false,
+            'inline_edit' => false,
+        ),
+        'website' => array(
+            'name' => 'website',
+            'vname' => 'LBL_WEBSITE',
+            'type' => 'url',
+            'dbType' => 'varchar',
+            'len' => 255,
+            'exportable' => false,
+            'importable' => false,
+            'comment' => 'URL of website for the company',
+        ),
+        'salutation' => array(
+            'name' => 'salutation',
+            'vname' => 'LBL_SALUTATION',
+            'type' => 'enum',
+            'options' => 'salutation_dom',
+            'massupdate' => false,
+            'len' => '255',
+            'exportable' => false,
+            'importable' => false,
+            'comment' => 'Contact salutation (e.g., Mr, Ms)'
+        ),
+        'last_name' => array(
+            'name' => 'last_name',
+            'vname' => 'LBL_LAST_NAME',
+            'type' => 'varchar',
+            'len' => '100',
+            'unified_search' => true,
+            'full_text_search' => array('boost' => 3),
+            'comment' => 'Last name of the contact',
+            'merge_filter' => 'selected',
+            'exportable' => false,
+            'importable' => false,
+            'importable' => 'required',
+        ),
+        'title' => array(
+            'name' => 'title',
+            'vname' => 'LBL_TITLE',
+            'type' => 'varchar',
+            'len' => '100',
+            'exportable' => false,
+            'importable' => false,
+            'comment' => 'The title of the contact'
+        ),
+        'photo' => array(
+            'name' => 'photo',
+            'vname' => 'LBL_PHOTO',
+            'type' => 'image',
+            'massupdate' => false,
+            'comments' => '',
+            'help' => '',
+            'exportable' => false,
+            'importable' => false,
+            'reportable' => true,
+            'len' => 255,
+            'dbType' => 'varchar',
+            'width' => '160',
+            'height' => '160',
+            'studio' => array('listview' => true),
+        ),
+        'do_not_call' => array(
+            'name' => 'do_not_call',
+            'vname' => 'LBL_DO_NOT_CALL',
+            'type' => 'bool',
+            'default' => '0',
+            'audited' => true,
+            'exportable' => false,
+            'importable' => false,
+            'comment' => 'An indicator of whether contact can be called'
+        ),
+        'phone_mobile' => array(
+            'name' => 'phone_mobile',
+            'vname' => 'LBL_MOBILE_PHONE',
+            'type' => 'phone',
+            'dbType' => 'varchar',
+            'len' => 100,
+            'unified_search' => true,
+            'full_text_search' => array('boost' => 1),
+            'comment' => 'Mobile phone number of the contact',
+            'merge_filter' => 'enabled',
+        ),
+        'phone_work' => array(
+            'name' => 'phone_work',
+            'vname' => 'LBL_OFFICE_PHONE',
+            'type' => 'phone',
+            'dbType' => 'varchar',
+            'len' => 100,
+            'audited' => true,
+            'exportable' => false,
+            'importable' => false,
+            'unified_search' => true,
+            'full_text_search' => array('boost' => 1),
+            'comment' => 'Work phone number of the contact',
+            'merge_filter' => 'enabled',
+        ),
+        'phone_other' => array(
+            'name' => 'phone_other',
+            'vname' => 'LBL_OTHER_PHONE',
+            'type' => 'phone',
+            'dbType' => 'varchar',
+            'len' => 100,
+            'exportable' => false,
+            'importable' => false,
+            'unified_search' => true,
+            'full_text_search' => array('boost' => 1),
+            'comment' => 'Other phone number for the contact',
+            'merge_filter' => 'enabled',
+        ),
+        'phone_fax' => array(
+            'name' => 'phone_fax',
+            'vname' => 'LBL_FAX_PHONE',
+            'type' => 'phone',
+            'dbType' => 'varchar',
+            'len' => 100,
+            'unified_search' => true,
+            'exportable' => false,
+            'importable' => false,
+            'full_text_search' => array('boost' => 1),
+            'comment' => 'Contact fax number',
+            'merge_filter' => 'enabled',
+        ),
+        'email' => array(
+            'name' => 'email',
+            'type' => 'email',
+            'query_type' => 'default',
+            'source' => 'non-db',
+            'operator' => 'subquery',
+            'exportable' => false,
+            'importable' => false,
+            'subquery' => 'SELECT eabr.bean_id FROM email_addr_bean_rel eabr JOIN email_addresses ea ON (ea.id = eabr.email_address_id) WHERE eabr.deleted=0 AND ea.email_address LIKE',
+            'db_field' => array(
+                'id',
+            ),
+            'vname' => 'LBL_ANY_EMAIL',
+        ),
+        'email1' => array(
+            'name' => 'email1',
+            'vname' => 'LBL_EMAIL_ADDRESS',
+            'type' => 'varchar',
+            'function' => array(
+                'name' => 'getEmailAddressWidget',
+                'returns' => 'html'
+            ),
+            'source' => 'non-db',
+            'group' => 'email1',
+            'merge_filter' => 'enabled',
+            'exportable' => false,
+            'importable' => false,
+            'studio' => array('editview' => true, 'editField' => true, 'searchview' => false, 'popupsearch' => false),
+            // bug 46859
+            'full_text_search' => array('boost' => 3, 'analyzer' => 'whitespace'),
+            //bug 54567
+        ),
+        'email2' => array(
+            'name' => 'email2',
+            'vname' => 'LBL_OTHER_EMAIL_ADDRESS',
+            'type' => 'varchar',
+            'function' => array(
+                'name' => 'getEmailAddressWidget',
+                'returns' => 'html'
+            ),
+            'source' => 'non-db',
+            'group' => 'email2',
+            'exportable' => false,
+            'importable' => false,
+            'merge_filter' => 'enabled',
+            'studio' => 'false',
+        ),
+        'invalid_email' => array(
+            'name' => 'invalid_email',
+            'vname' => 'LBL_INVALID_EMAIL',
+            'source' => 'non-db',
+            'type' => 'bool',
+            'massupdate' => false,
+            'exportable' => false,
+            'importable' => false,
+            'studio' => 'false',
+        ),
+        'email_opt_out' => array(
+            'name' => 'email_opt_out',
+            'vname' => 'LBL_EMAIL_OPT_OUT',
+            'source' => 'non-db',
+            'type' => 'bool',
+            'massupdate' => false,
+            'exportable' => false,
+            'importable' => false,
+            'studio' => 'false',
+        ),
+        'lawful_basis' => array(
+            'name' => 'lawful_basis',
+            'vname' => 'LBL_LAWFUL_BASIS',
+            'type' => 'multienum',
+            'massupdate' => true,
+            'no_default' => false,
+            'comments' => '',
+            'inline_edit' => true,
+            'reportable' => true,
+            'exportable' => false,
+            'importable' => false,
+            'merge_filter' => 'enabled',
+            'len' => 100,
+            'size' => '20',
+            'options' => 'lawful_basis_dom',
+            'audited' => true,
+        ),
+        'date_reviewed' => array(
+            'name' => 'date_reviewed',
+            'vname' => 'LBL_DATE_REVIEWED',
+            'type' => 'date',
+            'massupdate' => true,
+            'audited' => true,
+            'exportable' => false,
+            'importable' => false,
+        ),
+        'lawful_basis_source' => array(
+            'name' => 'lawful_basis_source',
+            'vname' => 'LBL_LAWFUL_BASIS_SOURCE',
+            'type' => 'enum',
+            'massupdate' => true,
+            'no_default' => false,
+            'comments' => '',
+            'inline_edit' => true,
+            'reportable' => true,
+            'merge_filter' => 'enabled',
+            'len' => 100,
+            'size' => '20',
+            'options' => 'lawful_basis_source_dom',
+            'audited' => true,
+            'exportable' => false,
+            'importable' => false,
+        ),
+        'primary_address_street_2' => array(
+            'name' => 'primary_address_street_2',
+            'vname' => 'LBL_PRIMARY_ADDRESS_STREET_2',
+            'type' => 'varchar',
+            'len' => '150',
+            'source' => 'non-db',
+            'exportable' => false,
+            'importable' => false,
+        ),
+        'primary_address_street_3' => array(
+            'name' => 'primary_address_street_3',
+            'vname' => 'LBL_PRIMARY_ADDRESS_STREET_3',
+            'type' => 'varchar',
+            'len' => '150',
+            'source' => 'non-db',
+            'exportable' => false,
+            'importable' => false,
+        ),
+        'primary_address_city' => array(
+            'name' => 'primary_address_city',
+            'vname' => 'LBL_PRIMARY_ADDRESS_CITY',
+            'type' => 'varchar',
+            'len' => '100',
+            'group' => 'primary_address',
+            'comment' => 'City for primary address',
+            'merge_filter' => 'enabled',
+            'exportable' => false,
+            'importable' => false,
+        ),
+        'primary_address_state' => array(
+            'name' => 'primary_address_state',
+            'vname' => 'LBL_PRIMARY_ADDRESS_STATE',
+            'type' => 'varchar',
+            'len' => '100',
+            'group' => 'primary_address',
+            'comment' => 'State for primary address',
+            'merge_filter' => 'enabled',
+            'exportable' => false,
+            'importable' => false,
+        ),
+        'primary_address_postalcode' => array(
+            'name' => 'primary_address_postalcode',
+            'vname' => 'LBL_PRIMARY_ADDRESS_POSTALCODE',
+            'type' => 'varchar',
+            'len' => '20',
+            'group' => 'primary_address',
+            'comment' => 'Postal code for primary address',
+            'merge_filter' => 'enabled',
+            'exportable' => false,
+            'importable' => false,
+
+        ),
+        'primary_address_country' => array(
+            'name' => 'primary_address_country',
+            'vname' => 'LBL_PRIMARY_ADDRESS_COUNTRY',
+            'type' => 'varchar',
+            'group' => 'primary_address',
+            'comment' => 'Country for primary address',
+            'merge_filter' => 'enabled',
+            'exportable' => false,
+            'importable' => false,
+        ),
+        'alt_address_street' => array(
+            'name' => 'alt_address_street',
+            'vname' => 'LBL_ALT_ADDRESS_STREET',
+            'type' => 'varchar',
+            'len' => '150',
+            'group' => 'alt_address',
+            'comment' => 'Street address for alternate address',
+            'merge_filter' => 'enabled',
+            'exportable' => false,
+            'importable' => false,
+        ),
+        'alt_address_street_2' => array(
+            'name' => 'alt_address_street_2',
+            'vname' => 'LBL_ALT_ADDRESS_STREET_2',
+            'type' => 'varchar',
+            'len' => '150',
+            'source' => 'non-db',
+            'exportable' => false,
+            'importable' => false,
+        ),
+        'alt_address_street_3' => array(
+            'name' => 'alt_address_street_3',
+            'vname' => 'LBL_ALT_ADDRESS_STREET_3',
+            'type' => 'varchar',
+            'len' => '150',
+            'source' => 'non-db',
+            'exportable' => false,
+            'importable' => false,
+        ),
+        'alt_address_city' => array(
+            'name' => 'alt_address_city',
+            'vname' => 'LBL_ALT_ADDRESS_CITY',
+            'type' => 'varchar',
+            'len' => '100',
+            'group' => 'alt_address',
+            'comment' => 'City for alternate address',
+            'merge_filter' => 'enabled',
+            'exportable' => false,
+            'importable' => false,
+        ),
+        'alt_address_state' => array(
+            'name' => 'alt_address_state',
+            'vname' => 'LBL_ALT_ADDRESS_STATE',
+            'type' => 'varchar',
+            'len' => '100',
+            'group' => 'alt_address',
+            'comment' => 'State for alternate address',
+            'merge_filter' => 'enabled',
+            'exportable' => false,
+            'importable' => false,
+        ),
+        'alt_address_postalcode' => array(
+            'name' => 'alt_address_postalcode',
+            'vname' => 'LBL_ALT_ADDRESS_POSTALCODE',
+            'type' => 'varchar',
+            'len' => '20',
+            'group' => 'alt_address',
+            'comment' => 'Postal code for alternate address',
+            'merge_filter' => 'enabled',
+            'exportable' => false,
+            'importable' => false,
+        ),
+        'alt_address_country' => array(
+            'name' => 'alt_address_country',
+            'vname' => 'LBL_ALT_ADDRESS_COUNTRY',
+            'type' => 'varchar',
+            'group' => 'alt_address',
+            'comment' => 'Country for alternate address',
+            'merge_filter' => 'enabled',
+            'exportable' => false,
+            'importable' => false,
+        ),
+        'assistant' => array(
+            'name' => 'assistant',
+            'vname' => 'LBL_ASSISTANT',
+            'type' => 'varchar',
+            'len' => '75',
+            'unified_search' => true,
+            'full_text_search' => array('boost' => 2),
+            'comment' => 'Name of the assistant of the contact',
+            'merge_filter' => 'enabled',
+            'exportable' => false,
+            'importable' => false,
+        ),
+        'assistant_phone' => array(
+            'name' => 'assistant_phone',
+            'vname' => 'LBL_ASSISTANT_PHONE',
+            'type' => 'phone',
+            'dbType' => 'varchar',
+            'len' => 100,
+            'group' => 'assistant',
+            'unified_search' => true,
+            'full_text_search' => array('boost' => 1),
+            'comment' => 'Phone number of the assistant of the contact',
+            'merge_filter' => 'enabled',
+            'exportable' => false,
+            'importable' => false,
+        ),
+        // 'email_addresses' => array(
+        //     'name' => 'email_addresses',
+        //     'type' => 'link',
+        //     'relationship' => strtolower($object_name) . '_email_addresses',
+        //     'source' => 'non-db',
+        //     'vname' => 'LBL_EMAIL_ADDRESSES',
+        //     'reportable' => false,
+        //     'exportable' => false,
+        //     'importable' => false,
+        //     'unified_search' => true,
+        //     'rel_fields' => array('primary_address' => array('type' => 'bool')),
+        // ),
+        // Used for non-primary mail import
+        'email_addresses_non_primary' => array(
+            'name' => 'email_addresses_non_primary',
+            'type' => 'email',
+            'source' => 'non-db',
+            'vname' => 'LBL_EMAIL_NON_PRIMARY',
+            'studio' => false,
+            'reportable' => false,
+            'massupdate' => false,
+            'exportable' => false,
+            'importable' => false,
         ),
         'card_id' =>
         array(
             'name' => 'card_id',
             'type' => 'id',
-            'reportable' => false,
             'vname' => 'LBL_CARD_ID',
-            'reportable' => false,
             'comment' => 'Card Id of lead'
         ),
         'processing_date' =>
@@ -83,14 +598,14 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
             'comment' => 'The statement date of the leads'
         ),
 
-        'statement_date_1' =>
-        array(
-            'name' => 'statement_date_1',
-            'vname' => 'LBL_STATEMENT_DATE_1',
-            'massupdate' => false,
-            'type' => 'date',
-            'comment' => 'The statement date of the leads'
-        ),
+        // 'statement_date_1' =>
+        // array(
+        //     'name' => 'statement_date_1',
+        //     'vname' => 'LBL_STATEMENT_DATE_1',
+        //     'massupdate' => false,
+        //     'type' => 'date',
+        //     'comment' => 'The statement date of the leads'
+        // ),
 
         'sale_stage' =>
         array(
@@ -99,6 +614,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
             'type' => 'enum',
             'options' => 'sale_stage_dom',
             'len' => '255',
+            'exportable' => false,
+            'importable' => false,
             'comment' => 'How did the sale stage come about',
         ),
 
@@ -109,6 +626,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
             'type' => 'enum',
             'options' => 'call_status_description_lead_dom',
             'len' => '255',
+            'exportable' => false,
+            'importable' => false,
             'comment' => 'How did the lead status come about',
         ),
 
@@ -118,6 +637,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
             'type' => 'enum',
             'options' => 'call_status_lead_dom',
             'len' => '255',
+            'exportable' => false,
+            'importable' => false,
             'comment' => 'How did the lead call come about',
         ),
 
@@ -127,6 +648,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
             'type' => 'enum',
             'options' => 'call_status_description_lead_dom',
             'len' => '255',
+            'exportable' => false,
+            'importable' => false,
             'comment' => 'How did the lead call come about',
         ),
 
@@ -136,6 +659,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'vname' => 'LBL_REFERED_BY',
                 'type' => 'varchar',
                 'len' => '100',
+                'exportable' => false,
+                'importable' => false,
                 'comment' => 'Identifies who refered the lead',
                 'merge_filter' => 'enabled',
             ),
@@ -147,6 +672,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'options' => 'lead_source_dom',
                 'len' => '100',
                 'audited' => true,
+                'exportable' => false,
+                'importable' => false,
                 'comment' => 'Lead source (ex: Web, print)',
                 'merge_filter' => 'enabled',
             ),
@@ -156,6 +683,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'vname' => 'LBL_LEAD_SOURCE_DESCRIPTION',
                 'type' => 'text',
                 'group' => 'lead_source',
+                'exportable' => false,
+                'importable' => false,
                 'comment' => 'Description of the lead source'
             ),
         'status' =>
@@ -164,6 +693,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'vname' => 'LBL_STATUS',
                 'type' => 'enum',
                 'len' => '100',
+                'exportable' => false,
+                'importable' => false,
                 'options' => 'lead_status_dom',
                 'audited' => true,
                 'comment' => 'Status of the lead',
@@ -175,6 +706,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'vname' => 'LBL_STATUS_DESCRIPTION',
                 'type' => 'text',
                 'group' => 'status',
+                'exportable' => false,
+                'importable' => false,
                 'comment' => 'Description of the status of the lead'
             ),
         'department' =>
@@ -183,6 +716,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'vname' => 'LBL_DEPARTMENT',
                 'type' => 'varchar',
                 'len' => '100',
+                'exportable' => false,
+                'importable' => false,
                 'comment' => 'Department the lead belongs to',
                 'merge_filter' => 'enabled',
             ),
@@ -191,6 +726,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'name' => 'reports_to_id',
                 'vname' => 'LBL_REPORTS_TO_ID',
                 'type' => 'id',
+                'exportable' => false,
+                'importable' => false,
                 'reportable' => false,
                 'comment' => 'ID of Contact the Lead reports to'
             ),
@@ -209,6 +746,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'source' => 'non-db',
                 'reportable' => false,
                 'massupdate' => false,
+                'exportable' => false,
+                'importable' => false,
             ),
         'reports_to_link' => array(
             'name' => 'reports_to_link',
@@ -218,7 +757,9 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
             'side' => 'right',
             'source' => 'non-db',
             'vname' => 'LBL_REPORTS_TO',
-            'reportable' => false
+            'reportable' => false,
+            'exportable' => false,
+            'importable' => false,
         ),
         'reportees' => array(
             'name' => 'reportees',
@@ -228,7 +769,9 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
             'side' => 'left',
             'source' => 'non-db',
             'vname' => 'LBL_REPORTS_TO',
-            'reportable' => false
+            'reportable' => false,
+            'exportable' => false,
+            'importable' => false,
         ),
         'contacts' => array(
             'name' => 'contacts',
@@ -237,7 +780,9 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
             'module' => "Contacts",
             'source' => 'non-db',
             'vname' => 'LBL_CONTACTS',
-            'reportable' => false
+            'reportable' => false,
+            'exportable' => false,
+            'importable' => false,
         ),
         'account_name' =>
             array(
@@ -248,6 +793,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'unified_search' => true,
                 'full_text_search' => 1,
                 'comment' => 'Account name for lead',
+                'exportable' => false,
+            'importable' => false,
             ),
 
 
@@ -260,6 +807,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'source' => 'non-db',
                 'vname' => 'LBL_ACCOUNT',
                 'duplicate_merge' => 'disabled',
+                'exportable' => false,
+                'importable' => false,
             ),
 
         'account_description' =>
@@ -270,7 +819,9 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'group' => 'account_name',
                 'unified_search' => true,
                 'full_text_search' => 1,
-                'comment' => 'Description of lead account'
+                'comment' => 'Description of lead account',
+                'exportable' => false,
+                'importable' => false,
             ),
         'contact_id' =>
             array(
@@ -278,7 +829,9 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'type' => 'id',
                 'reportable' => false,
                 'vname' => 'LBL_CONTACT_ID',
-                'comment' => 'If converted, Contact ID resulting from the conversion'
+                'comment' => 'If converted, Contact ID resulting from the conversion',
+                'exportable' => false,
+                'importable' => false,
             ),
         'contact' => array(
             'name' => 'contact',
@@ -288,6 +841,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
             'source' => 'non-db',
             'vname' => 'LBL_LEADS',
             'reportable' => false,
+            'exportable' => false,
+            'importable' => false,
         ),
         'account_id' =>
             array(
@@ -295,7 +850,9 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'type' => 'id',
                 'reportable' => false,
                 'vname' => 'LBL_ACCOUNT_ID',
-                'comment' => 'If converted, Account ID resulting from the conversion'
+                'comment' => 'If converted, Account ID resulting from the conversion',
+                'exportable' => false,
+                'importable' => false,
             ),
         'opportunity_id' =>
             array(
@@ -303,7 +860,9 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'type' => 'id',
                 'reportable' => false,
                 'vname' => 'LBL_OPPORTUNITY_ID',
-                'comment' => 'If converted, Opportunity ID resulting from the conversion'
+                'comment' => 'If converted, Opportunity ID resulting from the conversion',
+                'exportable' => false,
+                'importable' => false,
             ),
         'opportunity' => array(
             'name' => 'opportunity',
@@ -312,6 +871,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
             'relationship' => 'opportunity_leads',
             'source' => 'non-db',
             'vname' => 'LBL_OPPORTUNITIES',
+            'exportable' => false,
+            'importable' => false,
         ),
         'opportunity_name' =>
             array(
@@ -319,7 +880,9 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'vname' => 'LBL_OPPORTUNITY_NAME',
                 'type' => 'varchar',
                 'len' => '255',
-                'comment' => 'Opportunity name associated with lead'
+                'comment' => 'Opportunity name associated with lead',
+                'exportable' => false,
+                'importable' => false,
             ),
         'opportunity_amount' =>
             array(
@@ -328,7 +891,9 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'type' => 'varchar',
                 'group' => 'opportunity_name',
                 'len' => '50',
-                'comment' => 'Amount of the opportunity'
+                'comment' => 'Amount of the opportunity',
+                'exportable' => false,
+                'importable' => false,
             ),
         'campaign_id' =>
             array(
@@ -336,7 +901,7 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'type' => 'id',
                 'reportable' => false,
                 'vname' => 'LBL_CAMPAIGN_ID',
-                'comment' => 'Campaign that generated lead'
+                'comment' => 'Campaign that generated lead',
             ),
 
         'campaign_name' =>
@@ -351,6 +916,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'isnull' => 'true',
                 'module' => 'Campaigns',
                 'source' => 'non-db',
+                'exportable' => false,
+                'importable' => false,
                 'additionalFields' => array('id' => 'campaign_id')
             ),
         'campaign_leads' =>
@@ -360,6 +927,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'vname' => 'LBL_CAMPAIGN_LEAD',
                 'relationship' => 'campaign_leads',
                 'source' => 'non-db',
+                'exportable' => false,
+                'importable' => false,
             ),
         'c_accept_status_fields' =>
             array(
@@ -374,6 +943,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'importable' => 'false',
                 'duplicate_merge' => 'disabled',
                 'studio' => false,
+                'exportable' => false,
+                'importable' => false,
             ),
         'm_accept_status_fields' =>
             array(
@@ -389,6 +960,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'hideacl' => true,
                 'duplicate_merge' => 'disabled',
                 'studio' => false,
+                'exportable' => false,
+                'importable' => false,
             ),
         'accept_status_id' =>
             array(
@@ -397,6 +970,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'source' => 'non-db',
                 'vname' => 'LBL_LIST_ACCEPT_STATUS',
                 'studio' => array('listview' => false),
+                'exportable' => false,
+                'importable' => false,
             ),
         'accept_status_name' =>
             array(
@@ -407,6 +982,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'vname' => 'LBL_LIST_ACCEPT_STATUS',
                 'options' => 'dom_meeting_accept_status',
                 'importable' => 'false',
+                'exportable' => false,
+                'importable' => false,
             ),
         'webtolead_email1' =>
             array(
@@ -418,6 +995,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'comment' => 'Main email address of lead',
                 'importable' => 'false',
                 'studio' => 'false',
+                'exportable' => false,
+                'importable' => false,
             ),
         'webtolead_email2' =>
             array(
@@ -429,6 +1008,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'comment' => 'Secondary email address of lead',
                 'importable' => 'false',
                 'studio' => 'false',
+                'exportable' => false,
+                'importable' => false,
             ),
         'webtolead_email_opt_out' =>
             array(
@@ -437,9 +1018,10 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'type' => 'bool',
                 'source' => 'non-db',
                 'comment' => 'Indicator signaling if lead elects to opt out of email campaigns',
-                'importable' => 'false',
                 'massupdate' => false,
                 'studio' => 'false',
+                'exportable' => false,
+                'importable' => false,
             ),
         'webtolead_invalid_email' =>
             array(
@@ -448,9 +1030,10 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'type' => 'bool',
                 'source' => 'non-db',
                 'comment' => 'Indicator that email address for lead is invalid',
-                'importable' => 'false',
                 'massupdate' => false,
                 'studio' => 'false',
+                'exportable' => false,
+                'importable' => false,
             ),
         'birthdate' =>
             array(
@@ -470,6 +1053,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'group' => 'portal',
                 'comment' => 'Portal user name when lead created via lead portal',
                 'studio' => 'false',
+                'exportable' => false,
+                'importable' => false,
             ),
         'portal_app' =>
             array(
@@ -480,6 +1065,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'len' => '255',
                 'comment' => 'Portal application that resulted in created of lead',
                 'studio' => 'false',
+                'exportable' => false,
+                'importable' => false,
             ),
 
         'tasks' =>
@@ -489,6 +1076,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'relationship' => 'lead_tasks',
                 'source' => 'non-db',
                 'vname' => 'LBL_TASKS',
+                'exportable' => false,
+                'importable' => false,
             ),
         'notes' =>
             array(
@@ -505,6 +1094,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'relationship' => 'meetings_leads',
                 'source' => 'non-db',
                 'vname' => 'LBL_MEETINGS',
+                'exportable' => false,
+                'importable' => false,
             ),
         'calls' =>
             array(
@@ -513,6 +1104,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'relationship' => 'calls_leads',
                 'source' => 'non-db',
                 'vname' => 'LBL_CALLS',
+                'exportable' => false,
+                'importable' => false,
             ),
         'oldmeetings' =>
             array(
@@ -521,6 +1114,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'relationship' => 'lead_meetings',
                 'source' => 'non-db',
                 'vname' => 'LBL_MEETINGS',
+                'exportable' => false,
+                'importable' => false,
             ),
         'oldcalls' =>
             array(
@@ -529,6 +1124,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'relationship' => 'lead_calls',
                 'source' => 'non-db',
                 'vname' => 'LBL_CALLS',
+                'exportable' => false,
+                'importable' => false,
             ),
         'emails' =>
             array(
@@ -538,6 +1135,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'source' => 'non-db',
                 'unified_search' => true,
                 'vname' => 'LBL_EMAILS',
+                'exportable' => false,
+                'importable' => false,
             ),
         'email_addresses' =>
             array(
@@ -547,6 +1146,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'source' => 'non-db',
                 'vname' => 'LBL_EMAIL_ADDRESSES',
                 'reportable' => false,
+                'exportable' => false,
+                'importable' => false,
                 'rel_fields' => array('primary_address' => array('type' => 'bool')),
             ),
         'email_addresses_primary' =>
@@ -557,6 +1158,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'source' => 'non-db',
                 'vname' => 'LBL_EMAIL_ADDRESS_PRIMARY',
                 'duplicate_merge' => 'disabled',
+                'exportable' => false,
+                'importable' => false,
             ),
         'campaigns' =>
             array(
@@ -567,6 +1170,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'bean_name' => 'CampaignLog',
                 'source' => 'non-db',
                 'vname' => 'LBL_CAMPAIGNLOG',
+                'exportable' => false,
+                'importable' => false,
             ),
         'prospect_lists' =>
             array(
@@ -576,6 +1181,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'module' => 'ProspectLists',
                 'source' => 'non-db',
                 'vname' => 'LBL_PROSPECT_LIST',
+                'exportable' => false,
+                'importable' => false,
             ),
         'fp_events_leads_1' =>
             array(
@@ -584,6 +1191,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'relationship' => 'fp_events_leads_1',
                 'source' => 'non-db',
                 'vname' => 'LBL_FP_EVENTS_LEADS_1_FROM_FP_EVENTS_TITLE',
+                'exportable' => false,
+                'importable' => false,
             ),
         'e_invite_status_fields' =>
             array(
@@ -603,6 +1212,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'importable' => 'false',
                 'duplicate_merge' => 'disabled',
                 'studio' => false,
+                'exportable' => false,
+                'importable' => false,
             ),
         'event_status_name' =>
             array(
@@ -614,6 +1225,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'vname' => 'LBL_LIST_INVITE_STATUS_EVENT',
                 'options' => 'fp_event_invite_status_dom',
                 'importable' => 'false',
+                'exportable' => false,
+                'importable' => false,
             ),
         'event_invite_id' =>
             array(
@@ -621,6 +1234,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'type' => 'varchar',
                 'source' => 'non-db',
                 'vname' => 'LBL_LIST_INVITE_STATUS',
+                'exportable' => false,
+                'importable' => false,
                 'studio' =>
                     array(
                         'listview' => false,
@@ -644,6 +1259,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'importable' => 'false',
                 'duplicate_merge' => 'disabled',
                 'studio' => false,
+                'exportable' => false,
+                'importable' => false,
             ),
         'event_accept_status' =>
             array(
@@ -655,6 +1272,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'vname' => 'LBL_LIST_ACCEPT_STATUS_EVENT',
                 'options' => 'fp_event_status_dom',
                 'importable' => 'false',
+                'exportable' => false,
+                'importable' => false,
             ),
         'event_status_id' =>
             array(
@@ -662,6 +1281,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'type' => 'varchar',
                 'source' => 'non-db',
                 'vname' => 'LBL_LIST_ACCEPT_STATUS',
+                'exportable' => false,
+                'importable' => false,
                 'studio' =>
                     array(
                         'listview' => false,
