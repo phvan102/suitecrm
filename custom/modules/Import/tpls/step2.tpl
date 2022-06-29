@@ -45,12 +45,11 @@
 *}
 {literal}
 
-<style>
-
-.link {
-    text-decoration:underline
-}
-</style>
+    <style>
+        .link {
+            text-decoration: underline
+        }
+    </style>
 {/literal}
 
 
@@ -59,129 +58,193 @@
 <div class="hr"></div>
 
 <form enctype="multipart/form-data" name="importstep2" method="POST" action="index.php" id="importstep2">
-<input type="hidden" name="module" value="Import">
-<input type="hidden" name="custom_delimiter" value="{$CUSTOM_DELIMITER}">
-<input type="hidden" name="custom_enclosure" value="{$CUSTOM_ENCLOSURE}">
-<input type="hidden" name="source" value="{$SOURCE}">
-<input type="hidden" name="source_id" value="{$SOURCE_ID}">
-<input type="hidden" name="action" value="Confirm">
-<input type="hidden" name="current_step" value="{$CURRENT_STEP}">
-<input type="hidden" name="import_module" value="{$IMPORT_MODULE}">
-<input type="hidden" name="from_admin_wizard" value="{$smarty.request.from_admin_wizard}">
-<table width="100%" border="0" cellspacing="0" cellpadding="0">
-<tr>
-<td>
-	<table border="0" cellspacing="0" cellpadding="0" width="100%">
+    <input type="hidden" name="module" value="Import">
+    <input type="hidden" name="custom_delimiter" value="{$CUSTOM_DELIMITER}">
+    <input type="hidden" name="custom_enclosure" value="{$CUSTOM_ENCLOSURE}">
+    <input type="hidden" name="source" value="{$SOURCE}">
+    <input type="hidden" name="source_id" value="{$SOURCE_ID}">
+    <input type="hidden" name="action" value="Confirm">
+    <input type="hidden" name="current_step" value="{$CURRENT_STEP}">
+    <input type="hidden" name="import_module" value="{$IMPORT_MODULE}">
+    <input type="hidden" name="from_admin_wizard" value="{$smarty.request.from_admin_wizard}">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
         <tr>
-            <td align="left" scope="row" colspan="4" style="padding-left: 10px;">{$SAMPLE_URL} &nbsp;{sugar_help text=$MOD.LBL_SAMPLE_URL_HELP}</td>
-        </tr>
-        <tr>
-            <td scope="row" colspan="4">&nbsp;</td>
-        </tr>
-        <tr>
-            <td scope="row" colspan="4">&nbsp;</td>
-        </tr>
-        <tr>
-            <td align="left" scope="row" colspan="3"><label for="userfile">{$MOD.LBL_SELECT_FILE}</label> <input type="hidden" /><input size="20" id="userfile" name="userfile" type="file"/> &nbsp;{sugar_help text=$MOD.LBL_FILE_UPLOAD_WIDGET_HELP}</td>
-        </tr>
-        <tr>
-            <td scope="row" colspan="4"><div class="hr">&nbsp;</div></td>
-        </tr>
-        <tr>
-            <td scope="row" colspan="4">&nbsp;</td>
-        </tr>
-        <tr>
-            <td scope="row" colspan="3">
-                <h3>{$MOD.LBL_IMPORT_TYPE}&nbsp;</h3></td>
-          </tr>
-          <tr>
-            <td scope="row" colspan="3">
-                <input id="import_create" class="radio" type="radio" name="type" value="import" checked="checked" />
-                &nbsp;<label for="type">{$MOD.LBL_IMPORT_BUTTON}</label> &nbsp;{sugar_help text=$MOD.LBL_CREATE_BUTTON_HELP}
-            </td>
-          </tr>
-          <tr>
-            <td scope="row" colspan="3">
-                <input id="import_update" class="radio" type="radio" name="type" id="type" value="update" />
-                &nbsp;<label for="type">{$MOD.LBL_UPDATE_BUTTON}</label> &nbsp;{sugar_help text=$MOD.LBL_UPDATE_BUTTON_HELP}
-            </td>
-          </tr>
-	</table>
-    <br>
-    <table border="0" cellspacing="0" cellpadding="0" width="100%">
-          {foreach from=$custom_mappings item=item name=custommappings}
-          {capture assign=mapping_label}{$MOD.LBL_CUSTOM_MAPPING_}{$item|upper}{/capture}
-          <tr>
-            <td colspan="3" scope="row"><input class="radio" type="radio" id="source" name="source" value="{$item}" />
-              &nbsp;<label for="source">{$mapping_label}</label></td>
-          </tr>
-          {/foreach}
+            <td>
+                <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                    {if $IMPORT_MODULE != "Leads"}
+                        <tr>
+                            <td align="left" scope="row" colspan="4" style="padding-left: 10px;">{$SAMPLE_URL}
+                                &nbsp;{sugar_help text=$MOD.LBL_SAMPLE_URL_HELP}</td>
+                        </tr>
+                    {/if}
+                    <tr>
+                        <td scope="row" colspan="4">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td scope="row" colspan="4">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td align="left" scope="row">
+                            <span>
+                                <label for="userfile">
+                                    {$MOD.LBL_SELECT_FILE}
+                                    {if $IMPORT_MODULE == "Leads"} 
+                                    {$SAMPLE_URL} 
+                                    {/if}
+                                </label>
+                                <input type="hidden" /><input size="20" id="userfile" name="userfile" type="file" />
+                                &nbsp;{sugar_help text=$MOD.LBL_FILE_UPLOAD_WIDGET_HELP}
+                            </span>
+                        </td>
+                        {if $IMPORT_MODULE == "Leads"}
+                        <td align="left" scope="row">
+                            <span>
+                                <select tabindex='4' id='importlocale_charset' name='importlocale_charset'>
+                                    <option value="volvo" selected>{$CHOOSE_GROUP}</option>
+                                    <option value="saab">Saab</option>
+                                    <option value="vw">VW</option>
+                                    <option value="audi">Audi</option>
+                                </select>
+                            </span>
+                        </td>
+                        <td align="left" scope="row">
+                            <span>
+                                <select tabindex='4' id='importlocale_charset' name='importlocale_charset'>
+                                    <option value="volvo" selected>{$CHOOSE_COMPAIGN}</option>
+                                    <option value="saab">Saab</option>
+                                    <option value="vw">VW</option>
+                                    <option value="audi">Audi</option>
+                                </select>
+                            </span>
+                        </td>
+                        <td align="left" scope="row">
+                            <span>
+                                <select tabindex='4' id='importlocale_charset' name='importlocale_charset'>
+                                    <option value="volvo" selected>{$CHOOSE_IMPORT_NUMBER}</option>
+                                    <option value="saab">Saab</option>
+                                    <option value="vw">VW</option>
+                                    <option value="audi">Audi</option>
+                                </select>
+                            </span>
+                        </td>
+                        <td align="left" scope="row">
+                            <input title="{$MOD.LBL_MODULE_NAME}&nbsp;{$MODULENAME}"  class="button" type="submit" name="button"
+                            value="{$MOD.LBL_MODULE_NAME}&nbsp;{$MODULENAME}">
+                        </td>
+                        {/if}
+                    </tr>
+                    <tr>
+                        <td scope="row" colspan="4">
+                            <div class="hr">&nbsp;</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row" colspan="4">&nbsp;</td>
+                    </tr>
+                    {if $IMPORT_MODULE != "Leads"}
+                    <tr>
+                        <td scope="row" colspan="3">
+                            <h3>{$MOD.LBL_IMPORT_TYPE}&nbsp;</h3>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row" colspan="3">
+                            <input id="import_create" class="radio" type="radio" name="type" value="import"
+                                checked="checked" />
+                            &nbsp;<label for="type">{$MOD.LBL_IMPORT_BUTTON}</label>
+                            &nbsp;{sugar_help text=$MOD.LBL_CREATE_BUTTON_HELP}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="row" colspan="3">
+                            <input id="import_update" class="radio" type="radio" name="type" id="type" value="update" />
+                            &nbsp;<label for="type">{$MOD.LBL_UPDATE_BUTTON}</label>
+                            &nbsp;{sugar_help text=$MOD.LBL_UPDATE_BUTTON_HELP}
+                        </td>
+                    </tr>
+                    {/if}
+                </table>
+                <br>
+                <table border="0" cellspacing="0" cellpadding="0" width="100%">
+                    {foreach from=$custom_mappings item=item name=custommappings}
+                        {capture assign=mapping_label}{$MOD.LBL_CUSTOM_MAPPING_}{$item|upper}{/capture}
+                        <tr>
+                            <td colspan="3" scope="row"><input class="radio" type="radio" id="source" name="source"
+                                    value="{$item}" />
+                                &nbsp;<label for="source">{$mapping_label}</label></td>
+                        </tr>
+                    {/foreach}
 
-          {if !empty($custom_imports) || !empty($published_imports)}
-          <tr>
-            <td scope="row" colspan="3">
-                <h3>{$MOD.LBL_PUBLISHED_SOURCES}&nbsp;{sugar_help text=$savedMappingHelpText}</h3></td>
-          </tr>
-          
-          <tr id="custom_import_{$smarty.foreach.saved.index}">
-            <td scope="row" colspan="4">
-                <input class="radio" type="radio" name="source" value=""/>
-                &nbsp;{$MOD.LBL_NONE}
-            </td>
+                    {if !empty($custom_imports) || !empty($published_imports)}
+                        <tr>
+                            <td scope="row" colspan="3">
+                                <h3>{$MOD.LBL_PUBLISHED_SOURCES}&nbsp;{sugar_help text=$savedMappingHelpText}</h3>
+                            </td>
+                        </tr>
 
-          </tr>
-          {/if}
-          {foreach from=$custom_imports key=key item=item name=saved}
-          <tr id="custom_import_{$smarty.foreach.saved.index}">
-            <td scope="row" colspan="2" width="10%" style="padding-right: 10px;">
-                <input class="radio" type="radio" name="source" value="custom:{$item.IMPORT_ID}"/>
-                &nbsp;{$item.IMPORT_NAME}
-            </td>
-            <td scope="row">
-                {if $is_admin}
-                <input type="button" name="publish" value="{$MOD.LBL_PUBLISH}" class="button" publish="yes"
-                    onclick="publishMapping(this, 'yes','{$item.IMPORT_ID}', '{$IMPORT_MODULE}');">
-                {/if}
-                <input type="button" name="delete" value="{$MOD.LBL_DELETE}" class="button"
-					onclick="if(confirm('{$MOD.LBL_DELETE_MAP_CONFIRMATION}')){literal}{{/literal} deleteMapping('custom_import_{$smarty.foreach.saved.index}', '{$item.IMPORT_ID}' );{literal}}{/literal}">
-            </td>
-          </tr>
-          {/foreach}
+                        <tr id="custom_import_{$smarty.foreach.saved.index}">
+                            <td scope="row" colspan="4">
+                                <input class="radio" type="radio" name="source" value="" />
+                                &nbsp;{$MOD.LBL_NONE}
+                            </td>
 
-          {foreach from=$published_imports key=key item=item name=published}
-          <tr id="published_import_{$smarty.foreach.published.index}">
-            <td scope="row" colspan="2">
-                <input class="radio" type="radio" name="source" value="custom:{$item.IMPORT_ID}"/>
-                &nbsp;{$item.IMPORT_NAME}
+                        </tr>
+                    {/if}
+                    {foreach from=$custom_imports key=key item=item name=saved}
+                        <tr id="custom_import_{$smarty.foreach.saved.index}">
+                            <td scope="row" colspan="2" width="10%" style="padding-right: 10px;">
+                                <input class="radio" type="radio" name="source" value="custom:{$item.IMPORT_ID}" />
+                                &nbsp;{$item.IMPORT_NAME}
+                            </td>
+                            <td scope="row">
+                                {if $is_admin}
+                                    <input type="button" name="publish" value="{$MOD.LBL_PUBLISH}" class="button" publish="yes"
+                                        onclick="publishMapping(this, 'yes','{$item.IMPORT_ID}', '{$IMPORT_MODULE}');">
+                                {/if}
+                                <input type="button" name="delete" value="{$MOD.LBL_DELETE}" class="button"
+                                    onclick="if(confirm('{$MOD.LBL_DELETE_MAP_CONFIRMATION}')){literal}{{/literal} deleteMapping('custom_import_{$smarty.foreach.saved.index}', '{$item.IMPORT_ID}' );{literal}}{/literal}">
+                            </td>
+                        </tr>
+                    {/foreach}
+
+                    {foreach from=$published_imports key=key item=item name=published}
+                        <tr id="published_import_{$smarty.foreach.published.index}">
+                            <td scope="row" colspan="2">
+                                <input class="radio" type="radio" name="source" value="custom:{$item.IMPORT_ID}" />
+                                &nbsp;{$item.IMPORT_NAME}
+                            </td>
+                            <td scope="row">
+                                {if $is_admin}
+                                    <input type="button" name="publish" value="{$MOD.LBL_UNPUBLISH}" class="button" publish="no"
+                                        onclick="publishMapping(this, 'no','{$item.IMPORT_ID}', '{$IMPORT_MODULE}');">
+                                    <input type="button" name="delete" value="{$MOD.LBL_DELETE}" class="button"
+                                        onclick="if(confirm('{$MOD.LBL_DELETE_MAP_CONFIRMATION}')){literal}{{/literal}deleteMapping('published_import_{$smarty.foreach.published.index}','{$item.IMPORT_ID}' );{literal}}{/literal}">
+                                {/if}
+                            </td>
+                        </tr>
+                    {/foreach}
+                </table>
             </td>
-            <td scope="row">
-                {if $is_admin}
-                <input type="button" name="publish" value="{$MOD.LBL_UNPUBLISH}" class="button" publish="no"
-                    onclick="publishMapping(this, 'no','{$item.IMPORT_ID}', '{$IMPORT_MODULE}');">
-                <input type="button" name="delete" value="{$MOD.LBL_DELETE}" class="button"
-                    onclick="if(confirm('{$MOD.LBL_DELETE_MAP_CONFIRMATION}')){literal}{{/literal}deleteMapping('published_import_{$smarty.foreach.published.index}','{$item.IMPORT_ID}' );{literal}}{/literal}">
-                {/if}
-            </td>
-          </tr>
-          {/foreach}
+        </tr>
     </table>
-</td>
-</tr>
-</table>
 
-<br>
+    <br>
 
-<table width="100%" cellpadding="0" cellspacing="0" border="0">
-<tr>
-  <td align="left">
-        {if $displayBackBttn}
-            <input title="{$MOD.LBL_BACK}"  class="button" type="submit" name="button" value="  {$MOD.LBL_BACK}  " id="goback">&nbsp;
-        {/if}
-      <input title="{$MOD.LBL_NEXT}"  class="button" type="submit" name="button" value="  {$MOD.LBL_NEXT}  " id="gonext">
-    </td>
-</tr>
-</table>
-<script>
-{$JAVASCRIPT}
-</script>  
+    {if $IMPORT_MODULE != "Leads"}
+    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+        <tr>
+            <td align="left">
+                {if $displayBackBttn}
+                    <input title="{$MOD.LBL_BACK}" class="button" type="submit" name="button" value="  {$MOD.LBL_BACK}  "
+                        id="goback">&nbsp;
+                {/if}
+                <input title="{$MOD.LBL_NEXT}" class="button" type="submit" name="button" value="  {$MOD.LBL_NEXT}  "
+                    id="gonext">
+            </td>
+        </tr>
+    </table>
+    {/if}
+    <script>
+        {$JAVASCRIPT}
+    </script>
 </form>

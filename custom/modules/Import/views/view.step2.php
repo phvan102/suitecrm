@@ -69,7 +69,13 @@ class ImportViewStep2 extends ImportView
             $intruction_leads_2 = $mod_strings['LBL_INTRODUCTION_LEADS_2'];
             $intruction_leads_3 = $mod_strings['LBL_INTRODUCTION_LEADS_3'];
             $intruction_leads_4 = $mod_strings['LBL_INTRODUCTION_LEADS_4'];
+            $choose_group_security = $mod_strings['LBL_CHOOSE_GROUP_SECURITY'];
+            $choose_campaign = $mod_strings['LBL_CHOOSE_COMPAIGNS'];
+            $choose_import_number = $mod_strings['LBL_CHOOSE_IMPORT_NUMBER'];
             $this->ss->assign("MODULE_TITLE", "<h2 class='module-title-text'>$title_leads</h2>");
+            $this->ss->assign("CHOOSE_GROUP", $choose_group_security);
+            $this->ss->assign('CHOOSE_COMPAIGN', $choose_campaign);
+            $this->ss->assign('CHOOSE_IMPORT_NUMBER', $choose_import_number);
             $this->ss->assign(
                 'INSTRUCTION', 
                 '
@@ -86,9 +92,9 @@ class ImportViewStep2 extends ImportView
         }
         else {
             $this->ss->assign("MODULE_TITLE", $this->getModuleTitle(false));
+            $this->instruction = 'LBL_SELECT_UPLOAD_INSTRUCTION';
             $this->ss->assign('INSTRUCTION', $this->getInstruction());
         }
-        $this->instruction = 'LBL_SELECT_UPLOAD_INSTRUCTION';
         $this->ss->assign("IMP", $import_mod_strings);
         $this->ss->assign("CURRENT_STEP", $this->currentStep);
         $this->ss->assign("TYPE", (!empty($_REQUEST['type']) ? $_REQUEST['type'] : "import"));
