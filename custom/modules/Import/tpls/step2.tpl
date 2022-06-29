@@ -129,7 +129,7 @@
                         </td>
                         <td align="left" scope="row">
                             <input title="{$MOD.LBL_MODULE_NAME}&nbsp;{$MODULENAME}"  class="button" type="submit" name="button"
-                            value="{$MOD.LBL_MODULE_NAME}&nbsp;{$MODULENAME}">
+                            value="{$MOD.LBL_MODULE_NAME}&nbsp;{$MODULENAME}" id="importnow">
                         </td>
                         {/if}
                     </tr>
