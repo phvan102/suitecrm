@@ -188,26 +188,37 @@ if( document.getElementById('goback') )
     }
 }
 
-document.getElementById('gonext').onclick = function(){
-    // warning message that tells user that updates can not be undone
-    if(document.getElementById('import_update').checked)
-    {
-        ret = confirm(SUGAR.language.get("Import", 'LBL_CONFIRM_IMPORT'));
-        if (!ret) {
-            return false;
+if (document.getElementById('gonext')){
+
+    document.getElementById('gonext').onclick = function(){
+        // warning message that tells user that updates can not be undone
+        if(document.getElementById('import_update').checked)
+        {
+            ret = confirm(SUGAR.language.get("Import", 'LBL_CONFIRM_IMPORT'));
+            if (!ret) {
+                return false;
+            }
         }
-    }
-    clear_all_errors();
-    var isError = false;
-    // be sure we specify a file to upload
-    if (document.getElementById('importstep2').userfile.value == "") {
-        add_error_style(document.getElementById('importstep2').name,'userfile',"{$mod_strings['ERR_MISSING_REQUIRED_FIELDS']} {$mod_strings['ERR_SELECT_FILE']}");
-        isError = true;
-    }
+        clear_all_errors();
+        var isError = false;
+        // be sure we specify a file to upload
+        if (document.getElementById('importstep2').userfile.value == "") {
+            add_error_style(document.getElementById('importstep2').name,'userfile',"{$mod_strings['ERR_MISSING_REQUIRED_FIELDS']} {$mod_strings['ERR_SELECT_FILE']}");
+            isError = true;
+        }
 
-    return !isError;
+        return !isError;
 
+    }
 }
+
+if (document.getElementById('importnow')){
+    document.getElementById('importnow').onclick = function(){
+        alert("Import Now");
+        return false;
+    }
+}
+
 
 function publishMapping(elem, publish, mappingId, importModule)
 {
