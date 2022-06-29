@@ -172,9 +172,9 @@ function getControl(
             $fieldlist[$name]['options'] = $mod_strings[$fieldlist[$name]['options']];
         }
         // Bug 22730: make sure all enums have the ability to select blank as the default value.
-        if (!isset($fieldlist[$name]['options'][''])) {
-            $fieldlist[$name]['options'][''] = '';
-        }
+        //if (!isset($fieldlist[$name]['options'][''])) {
+        //    $fieldlist[$name]['options'][''] = '';
+        //}
     }
     // fill in function return values
     if (!in_array($fieldname, array('email1','email2'))) {
