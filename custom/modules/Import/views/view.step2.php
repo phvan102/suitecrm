@@ -62,7 +62,10 @@ class ImportViewStep2 extends ImportView
     public function display()
     {
         global $mod_strings, $app_list_strings, $app_strings, $current_user, $import_bean_map, $import_mod_strings;
-
+        $security_groupBean = BeanFactory::getBean('SecurityGroups');
+        $campaignsBean = BeanFactory::getBean('Campaigns');
+        $list_security_group = $security_groupBean->get_full_list();
+        $list_campaigns = $campaignsBean->get_full_list();
         if ($_REQUEST['import_module'] == "Leads") {
             $title_leads = $mod_strings['LBL_LEADS_TITLE'];
             $intruction_leads_1 = $mod_strings['LBL_INTRODUCTION_LEADS_1'];
@@ -72,6 +75,8 @@ class ImportViewStep2 extends ImportView
             $choose_group_security = $mod_strings['LBL_CHOOSE_GROUP_SECURITY'];
             $choose_campaign = $mod_strings['LBL_CHOOSE_COMPAIGNS'];
             $choose_import_number = $mod_strings['LBL_CHOOSE_IMPORT_NUMBER'];
+            $this->ss->assign('LIST_SECURITY_GROUP', $list_security_group);
+            $this->ss->assign('LIST_CAMPAIGNS', $list_campaigns);
             $this->ss->assign("MODULE_TITLE", "<h2 class='module-title-text'>$title_leads</h2>");
             $this->ss->assign("CHOOSE_GROUP", $choose_group_security);
             $this->ss->assign('CHOOSE_COMPAIGN', $choose_campaign);

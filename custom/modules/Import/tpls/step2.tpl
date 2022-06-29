@@ -100,20 +100,20 @@
                         <td align="left" scope="row">
                             <span>
                                 <select tabindex='4' id='importlocale_charset' name='importlocale_charset'>
-                                    <option value="volvo" selected>{$CHOOSE_GROUP}</option>
-                                    <option value="saab">Saab</option>
-                                    <option value="vw">VW</option>
-                                    <option value="audi">Audi</option>
+                                    <option value="" selected>{$CHOOSE_GROUP}</option>
+                                    {foreach from=$LIST_SECURITY_GROUP item=item name=securitygroupmappings}
+                                        <option value="{$item->id}">{$item->name}</option>
+                                    {/foreach}
                                 </select>
                             </span>
                         </td>
                         <td align="left" scope="row">
                             <span>
                                 <select tabindex='4' id='importlocale_charset' name='importlocale_charset'>
-                                    <option value="volvo" selected>{$CHOOSE_COMPAIGN}</option>
-                                    <option value="saab">Saab</option>
-                                    <option value="vw">VW</option>
-                                    <option value="audi">Audi</option>
+                                    <option value="" selected>{$CHOOSE_COMPAIGN}</option>
+                                    {foreach from=$LIST_CAMPAIGNS item=item name=campaignsmappings}
+                                        <option value="{$item->id}">{$item->name}</option>
+                                    {/foreach}
                                 </select>
                             </span>
                         </td>
