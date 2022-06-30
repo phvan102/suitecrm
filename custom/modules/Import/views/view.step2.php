@@ -49,11 +49,20 @@ if (!defined('sugarEntry') || !sugarEntry) {
  */
 
 require_once('modules/Import/views/ImportView.php');
+if ($_REQUEST['import_module'] == "Leads") {
+    require_once('modules/Import/sources/ImportFile.php');
+    require_once('modules/Import/ImportFileSplitter.php');
+    require_once('modules/Import/CsvAutoDetect.php'); 
+    require_once('include/upload_file.php');
+}
+
 
 
 class ImportViewStep2 extends ImportView
 {
     protected $pageTitleKey = 'LBL_STEP_2_TITLE';
+    protected $errorScript = "";
+    const SAMPLE_ROW_SIZE = 3;
 
 
     /**
@@ -62,6 +71,7 @@ class ImportViewStep2 extends ImportView
     public function display()
     {
         global $mod_strings, $app_list_strings, $app_strings, $current_user, $import_bean_map, $import_mod_strings;
+        global $sugar_config, $locale;
         $security_groupBean = BeanFactory::getBean('SecurityGroups');
         $campaignsBean = BeanFactory::getBean('Campaigns');
         $list_security_group = $security_groupBean->get_full_list();
@@ -163,11 +173,234 @@ class ImportViewStep2 extends ImportView
             );
         }
 
+        if ($_POST && isset($_POST['post_of_leads'])) {
+            $sugar_config['import_max_records_per_file'] = (empty($sugar_config['import_max_records_per_file']) ? 1000 : $sugar_config['import_max_records_per_file']);
+            $importSource = isset($_REQUEST['source']) ? $_REQUEST['source'] : 'csv';
+
+            // Clear out this user's last import
+            $seedUsersLastImport = new UsersLastImport();
+            $seedUsersLastImport->mark_deleted_by_user_id($current_user->id);
+            ImportCacheFiles::clearCacheFiles();
+
+            // handle uploaded file
+            $uploadFile = new UploadFile('userfile');
+            if (isset($_FILES['userfile']) && $uploadFile->confirm_upload()) {
+                $uploadFile->final_move('IMPORT_' . $this->bean->object_name . '_' . $current_user->id);
+                $uploadFileName = $uploadFile->get_upload_path('IMPORT_' . $this->bean->object_name . '_' . $current_user->id);
+            } elseif (!empty($_REQUEST['tmp_file'])) {
+                $uploadFileName = "upload://" . basename($_REQUEST['tmp_file']);
+            } else {
+                $this->_showImportError($mod_strings['LBL_IMPORT_MODULE_ERROR_NO_UPLOAD'], $_REQUEST['import_module'], 'Step2', true, null, true);
+                return;
+            }
+
+            //check the file size, we dont want to process an empty file
+            if (isset($_FILES['userfile']['size']) && $_FILES['userfile']['size'] == 0) {
+                //this file is empty, throw error message
+                $this->_showImportError($mod_strings['LBL_NO_LINES'], $_REQUEST['import_module'], 'Step2', false, null, true);
+                return;
+            }
+
+            $mimeTypeOk = true;
+
+            //check to see if the file mime type is not a form of text or application octed streramand fire error if not
+            if (isset($_FILES['userfile']['type']) && strpos($_FILES['userfile']['type'], 'octet-stream') === false && strpos($_FILES['userfile']['type'], 'text') === false
+                && strpos($_FILES['userfile']['type'], 'application/vnd.ms-excel') === false) {
+                //this file does not have a known text or application type of mime type, issue the warning
+                $error_msgs[] = $mod_strings['LBL_MIME_TYPE_ERROR_1'];
+                $error_msgs[] = $mod_strings['LBL_MIME_TYPE_ERROR_2'];
+                $this->_showImportError($error_msgs, $_REQUEST['import_module'], 'Step2', true, $mod_strings['LBL_OK']);
+                $mimeTypeOk = false;
+            }
+
+            $this->ss->assign("FILE_NAME", $uploadFileName);
+
+            // Now parse the file and look for errors
+            $importFile = new ImportFile($uploadFileName, $_REQUEST['custom_delimiter'], html_entity_decode($_REQUEST['custom_enclosure'], ENT_QUOTES), false);
+            if ($this->shouldAutoDetectProperties($importSource)) {
+                $GLOBALS['log']->debug("Auto detecing csv properties...");
+                $autoDetectOk = $importFile->autoDetectCSVProperties();
+                $importFileMap = array();
+                $this->ss->assign("SOURCE", 'csv');
+                if ($autoDetectOk === false) {
+                    //show error only if previous mime type check has passed
+                    if ($mimeTypeOk) {
+                        $this->ss->assign("AUTO_DETECT_ERROR", $mod_strings['LBL_AUTO_DETECT_ERROR']);
+                    }
+                } else {
+                    $dateFormat = $importFile->getDateFormat();
+                    $timeFormat = $importFile->getTimeFormat();
+                    if ($dateFormat) {
+                        $importFileMap['importlocale_dateformat'] = $dateFormat;
+                    }
+                    if ($timeFormat) {
+                        $importFileMap['importlocale_timeformat'] = $timeFormat;
+                    }
+                }
+            } else {
+                $impotMapSeed = $this->getImportMap($importSource);
+                $importFile->setImportFileMap($impotMapSeed);
+                $importFileMap = $impotMapSeed->getMapping($_REQUEST['import_module']);
+            }
+    
+            $delimeter = $importFile->getFieldDelimeter();
+            $enclosure = $importFile->getFieldEnclosure();
+            $hasHeader = $importFile->hasHeaderRow();
+    
+            $encodeOutput = true;
+            //Handle users navigating back through the wizard.
+            if (!empty($_REQUEST['previous_action']) && $_REQUEST['previous_action'] == 'Confirm') {
+                $encodeOutput = false;
+                $importFileMap = $this->overloadImportFileMapFromRequest($importFileMap);
+                $delimeter = !empty($_REQUEST['custom_delimiter']) ? $_REQUEST['custom_delimiter'] : $delimeter;
+                $enclosure = isset($_REQUEST['custom_enclosure']) ? $_REQUEST['custom_enclosure'] : $enclosure;
+                $enclosure = html_entity_decode($enclosure, ENT_QUOTES);
+                $hasHeader = !empty($_REQUEST['has_header']) ? $_REQUEST['has_header'] : $hasHeader;
+                if ($hasHeader == 'on') {
+                    $hasHeader = true;
+                } elseif ($hasHeader == 'off') {
+                    $hasHeader = false;
+                }
+            }
+
+            $this->ss->assign("IMPORT_ENCLOSURE_OPTIONS", $this->getEnclosureOptions($enclosure));
+            $this->ss->assign("IMPORT_DELIMETER_OPTIONS", $this->getDelimeterOptions($delimeter));
+            $this->ss->assign("CUSTOM_DELIMITER", $delimeter);
+            $this->ss->assign("CUSTOM_ENCLOSURE", htmlentities($enclosure, ENT_QUOTES));
+            $hasHeaderFlag = $hasHeader ? " CHECKED" : "";
+            $this->ss->assign("HAS_HEADER_CHECKED", $hasHeaderFlag);
+
+            if (!$importFile->fileExists()) {
+                $this->_showImportError($mod_strings['LBL_CANNOT_OPEN'], $_REQUEST['import_module'], 'Step2', false, null, true);
+                return;
+            }
+
+            //Check if we will exceed the maximum number of records allowed per import.
+            $maxRecordsExceeded = false;
+            $maxRecordsWarningMessg = "";
+            $lineCount = $importFile->getNumberOfLinesInfile();
+            $maxLineCount = isset($sugar_config['import_max_records_total_limit']) ? $sugar_config['import_max_records_total_limit'] : 5000;
+            if (!empty($maxLineCount) && ($lineCount > $maxLineCount)) {
+                $maxRecordsExceeded = true;
+                $maxRecordsWarningMessg = string_format($mod_strings['LBL_IMPORT_ERROR_MAX_REC_LIMIT_REACHED'], array($lineCount, $maxLineCount));
+            }
+
+            //Retrieve a sample set of data
+            $rows = $this->getSampleSet($importFile);
+
+            #Handle import element for module Leads
+            $removed_header = array_shift($rows);
+            foreach ($rows as $key => $value) {
+                $leadBean = BeanFactory::newBean('Leads');
+                $leadBean->first_name = $value[1];
+                if($_POST['import_campaign'] != ""){
+                    $leadBean->campaign_id = $_POST['import_campaign'];
+                }
+                $leadBean->save();
+            }
+
+            $count = count($rows);
+
+            echo '<script language="javascript">';
+            echo 'alert("' . $mod_strings['LBL_MODULE_SUCCESSFUL']. ' ' . $count . ' ' . $mod_strings['LBL_ROW']. '")';
+            echo '</script>';
+        }
+
         $this->ss->assign("instructions", $instructions);
 
         $content = $this->ss->fetch('modules/Import/tpls/step2.tpl');
         $this->ss->assign("CONTENT", $content);
         $this->ss->display('modules/Import/tpls/wizardWrapper.tpl');
+    }
+
+    protected function getImportMappingJS()
+    {
+        $results = array();
+        $importMappings = array('ImportMapSalesforce', 'ImportMapOutlook');
+        foreach ($importMappings as $importMap) {
+            $tmpFile = "modules/Import/maps/$importMap.php";
+            if (file_exists($tmpFile)) {
+                require_once($tmpFile);
+                $t = new $importMap();
+                $results[$t->name] = array('delim' => $t->delimiter, 'enclos' => $t->enclosure, 'has_header' => $t->has_header);
+            }
+        }
+        return $results;
+    }
+
+    private function getDelimeterOptions($selctedDelim)
+    {
+        $selctedDelim = $selctedDelim == "\t" ? '\t' : $selctedDelim;
+        return get_select_options_with_id($GLOBALS['app_list_strings']['import_delimeter_options'], $selctedDelim);
+    }
+
+    private function getEnclosureOptions($enclosure)
+    {
+        $results = array();
+        foreach ($GLOBALS['app_list_strings']['import_enclosure_options'] as $k => $v) {
+            $results[htmlentities($k, ENT_QUOTES)] = $v;
+        }
+
+        return get_select_options_with_id($results, htmlentities($enclosure, ENT_QUOTES));
+    }
+
+    public function getMaxColumnsInSampleSet($sampleSet)
+    {
+        $maxColumns = 0;
+        foreach ($sampleSet as $v) {
+            if (count($v) > $maxColumns) {
+                $maxColumns = count($v);
+            } else {
+                continue;
+            }
+        }
+
+        return $maxColumns;
+    }
+
+    public function getSampleSet($importFile)
+    {
+        $rows = array();
+        for ($i=0; $i < self::SAMPLE_ROW_SIZE; $i++) {
+            $rows[] = $importFile->getNextRow();
+        }
+
+        if (! $importFile->hasHeaderRow(false)) {
+            array_unshift($rows, array_fill(0, 1, ''));
+        }
+        
+        foreach ($rows as &$row) {
+            if (is_array($row)) {
+                foreach ($row as &$val) {
+                    $val = strip_tags($val);
+                }
+            }
+        }
+        return $rows;
+    }
+
+    private function overloadImportFileMapFromRequest($importFileMap)
+    {
+        $overideKeys = array(
+            'importlocale_dateformat','importlocale_timeformat','importlocale_timezone','importlocale_charset',
+            'importlocale_currency','importlocale_default_currency_significant_digits','importlocale_num_grp_sep',
+            'importlocale_dec_sep','importlocale_default_locale_name_format','custom_delimiter', 'custom_enclosure'
+        );
+
+        foreach ($overideKeys as $key) {
+            if (!empty($_REQUEST[$key])) {
+                $importFileMap[$key] = $_REQUEST[$key];
+            }
+        }
+        return $importFileMap;
+    }
+
+    private function shouldAutoDetectProperties($importSource)
+    {
+        if (empty($importSource) || $importSource == 'csv') {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -206,16 +439,22 @@ if (document.getElementById('gonext')){
             add_error_style(document.getElementById('importstep2').name,'userfile',"{$mod_strings['ERR_MISSING_REQUIRED_FIELDS']} {$mod_strings['ERR_SELECT_FILE']}");
             isError = true;
         }
-
         return !isError;
 
     }
 }
 
 if (document.getElementById('importnow')){
-    document.getElementById('importnow').onclick = function(){
-        alert("Import Now");
-        return false;
+    document.getElementById('importnow').onclick = function(event){
+        clear_all_errors();
+        var isError = false;
+        // be sure we specify a file to upload
+        if (document.getElementById('importstep2').userfile.value == "") {
+            add_error_style(document.getElementById('importstep2').name,'userfile',"{$mod_strings['ERR_MISSING_REQUIRED_FIELDS']} {$mod_strings['ERR_SELECT_FILE']}");
+            isError = true;
+        }
+        document.getElementById('importstep2').action.value = 'Step2';
+        return !isError;
     }
 }
 
@@ -283,5 +522,73 @@ if(deselectEl)
 }
 
 EOJAVASCRIPT;
+    }
+
+    /**
+     * Displays the Smarty template for an error
+     *
+     * @param string $message error message to show
+     * @param string $module what module we were importing into
+     * @param string $action what page we should go back to
+     */
+    protected function _showImportError($message, $module, $action = 'Step1', $showCancel = false, $cancelLabel = null, $display = false)
+    {
+        if (!is_array($message)) {
+            $message = array($message);
+        }
+        $ss = new Sugar_Smarty();
+        $display_msg = '';
+        foreach ($message as $m) {
+            $display_msg .= '<p>'.htmlentities($m, ENT_QUOTES).'</p><br>';
+        }
+        global $mod_strings;
+
+        $ss->assign("MESSAGE", $display_msg);
+        $ss->assign("ACTION", $action);
+        $ss->assign("IMPORT_MODULE", $module);
+        $ss->assign("MOD", $GLOBALS['mod_strings']);
+        $ss->assign("SOURCE", "");
+        $ss->assign("SHOWCANCEL", $showCancel);
+        if (isset($_REQUEST['source'])) {
+            $ss->assign("SOURCE", $_REQUEST['source']);
+        }
+
+        if ($cancelLabel) {
+            $ss->assign('CANCELLABEL', $cancelLabel);
+        }
+
+        $content = $ss->fetch('modules/Import/tpls/error.tpl');
+
+        echo $ss->fetch('modules/Import/tpls/error.tpl');
+    }
+
+    private function getImportMap($importSource)
+    {
+        if (strncasecmp("custom:", $importSource, 7) == 0) {
+            $id = substr($importSource, 7);
+            $import_map_seed = new ImportMap();
+            $import_map_seed->retrieve($id, false);
+
+            $this->ss->assign("SOURCE_ID", $import_map_seed->id);
+            $this->ss->assign("SOURCE_NAME", $import_map_seed->name);
+            $this->ss->assign("SOURCE", $import_map_seed->source);
+        } else {
+            $classname = 'ImportMap' . ucfirst($importSource);
+            if (file_exists("modules/Import/maps/{$classname}.php")) {
+                require_once("modules/Import/maps/{$classname}.php");
+            } elseif (file_exists("custom/modules/Import/maps/{$classname}.php")) {
+                require_once("custom/modules/Import/maps/{$classname}.php");
+            } else {
+                require_once("custom/modules/Import/maps/ImportMapOther.php");
+                $classname = 'ImportMapOther';
+                $importSource = 'other';
+            }
+            if (class_exists($classname)) {
+                $import_map_seed = new $classname;
+                $this->ss->assign("SOURCE", $importSource);
+            }
+        }
+
+        return $import_map_seed;
     }
 }
