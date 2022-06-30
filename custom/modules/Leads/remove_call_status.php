@@ -6,6 +6,9 @@ class HandleDB {
         $row_1 = $GLOBALS['db']->fetchByAssoc($result_1);
         $total_1 = $row_1['total'];
 
+        $query_login_date = "DELETE FROM date_login";
+        $GLOBALS['db']->query($query_login_date);
+
         if ($total_1 != 0) {
             $query_11 = "DELETE FROM call_status_lead";
             $GLOBALS['db']->query($query_11);

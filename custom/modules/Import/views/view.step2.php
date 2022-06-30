@@ -56,6 +56,7 @@ if ($_REQUEST['import_module'] == "Leads") {
     require_once('include/upload_file.php');
 }
 
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 
 
 class ImportViewStep2 extends ImportView
@@ -63,7 +64,6 @@ class ImportViewStep2 extends ImportView
     protected $pageTitleKey = 'LBL_STEP_2_TITLE';
     protected $errorScript = "";
     const SAMPLE_ROW_SIZE = 3;
-
 
     /**
      * @see SugarView::display()
@@ -288,8 +288,11 @@ class ImportViewStep2 extends ImportView
             //Retrieve a sample set of data
             $rows = $this->getSampleSet($importFile);
 
+            $count = count($rows);
+
             #Handle import element for module Leads
-            $removed_header = array_shift($rows);
+            array_shift($rows);
+            array_pop($rows);
             foreach ($rows as $key => $value) {
                 $leadBean = BeanFactory::newBean('Leads');
                 $leadBean->first_name = $value[1];
@@ -298,9 +301,43 @@ class ImportViewStep2 extends ImportView
                 }
                 $leadBean->save();
             }
+            $time_post = date('ymd');
+            $query = "SELECT date_now AS date_login  FROM date_login";
+            $result = $GLOBALS['db']->query($query);
+            $data_date = $GLOBALS['db']->fetchByAssoc($result);
+            $date_login = $data_date['date_login'];
+            global $current_user;
+            $name_user = $current_user->id;
+            if ($date_login != $time_post) {
+                echo '2 cái khác nhau';
+                $query_import_leads = "DELETE FROM import_leads";
+                $GLOBALS['db']->query($query_import_leads);
+                $query_insert_import_leads = "INSERT INTO import_leads (id, date_updated, user_updated, link_file, number_import_in_day) VALUES (1,{$time_post},{$name_user},'', 1);";
+                $GLOBALS['db']->query($query_insert_import_leads); 
+            }
+            else {
+                echo '2 cái bằng nhau';
+                $query_1 = "SELECT COUNT(*) AS total  FROM import_leads";
+                $result_1 = $GLOBALS['db']->query($query_1);
+                $row_1 = $GLOBALS['db']->fetchByAssoc($result_1);
+                $total_1 = $row_1['total'] +1;
+                echo $total_1;
+                $query_insert_import_leads = "INSERT INTO import_leads (id, date_updated, user_updated, link_file, number_import_in_day)  VALUES ('{$total_1}', '{$time_post}','{$name_user}', '','{$total_1}');";
+                $GLOBALS['db']->query($query_insert_import_leads); 
+            }
 
-            //$count = count($rows);
-            //
+            $query_import_lead = "SELECT *  FROM import_leads";
+            $result_import_lead = $GLOBALS['db']->query($query_import_lead);
+            while($row = $GLOBALS['db']->fetchByAssoc($result_import_lead))
+            {
+                //Use $row['id'] to grab the id fields value
+                $id = $row['id'];
+                $date_updated = $row['date_updated'];
+                echo $date_updated;
+            }
+
+
+            
             //echo '<script language="javascript">';
             //echo 'alert("' . $mod_strings['LBL_MODULE_SUCCESSFUL']. ' ' . $count . ' ' . $mod_strings['LBL_ROW']. '")';
             //echo '</script>';
