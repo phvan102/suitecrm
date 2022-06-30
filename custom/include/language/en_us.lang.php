@@ -1072,6 +1072,7 @@ $app_list_strings = array(
 $app_strings = array(
     'LBL_EMAIL_CODE' => 'Email Code:',
     'LBL_SEND' => 'Send',
+    'LBL_IMPORT_MODULE_ERROR_NO_UPLOAD' => 'File was not uploaded successfully. It may be that the \'upload_max_filesize\' setting in your php.ini file is set to a small number',
     'LBL_LOGOUT' => 'Logout',
     'LBL_TOUR_NEXT' => 'Next',
     'LBL_TOUR_SKIP' => 'Skip',

@@ -1128,6 +1128,7 @@ $app_list_strings = array(
 
 $app_strings = array(
     'LBL_SEARCH_REAULTS_TITLE' => 'Kết quả', // PR 6522
+    'LBL_IMPORT_MODULE_ERROR_NO_UPLOAD' => 'Tệp không được tải lên thành công. Có thể là cài đặt \'upload_max_filesize\' trong tệp php.ini của bạn được thiết lập là một số nhỏ',
     'ERR_SEARCH_INVALID_QUERY' => 'Có lỗi xảy ra khi thực hiện tìm kiếm. Cú pháp truy vấn của bạn không hợp lệ.', // PR 6522
     'ERR_SEARCH_NO_RESULTS' => 'Không có kết quả tìm kiếm theo tiêu chí của bạn. Thử mở rộng tìm kiếm.', // PR 6522
     'LBL_SEARCH_PERFORMED_IN' => 'Tìm kiếm thực hiện trong', // PR 6522
