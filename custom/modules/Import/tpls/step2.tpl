@@ -311,16 +311,6 @@
                             </span>
                         </td>
                         <td align="left" scope="row">
-                            <span>
-                                <select tabindex='4' id='import_number' name='import_number'>
-                                    <option value="volvo" selected>{$CHOOSE_IMPORT_NUMBER}</option>
-                                    <option value="saab">Saab</option>
-                                    <option value="vw">VW</option>
-                                    <option value="audi">Audi</option>
-                                </select>
-                            </span>
-                        </td>
-                        <td align="left" scope="row">
                             <input title="{$MOD.LBL_MODULE_NAME}&nbsp;{$MODULENAME}"  class="button" type="submit" name="button"
                             value="{$MOD.LBL_MODULE_NAME}&nbsp;{$MODULENAME}" id="importnow">
                         </td>

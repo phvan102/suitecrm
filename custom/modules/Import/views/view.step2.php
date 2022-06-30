@@ -299,11 +299,12 @@ class ImportViewStep2 extends ImportView
                 $leadBean->save();
             }
 
-            $count = count($rows);
+            //$count = count($rows);
+            //
+            //echo '<script language="javascript">';
+            //echo 'alert("' . $mod_strings['LBL_MODULE_SUCCESSFUL']. ' ' . $count . ' ' . $mod_strings['LBL_ROW']. '")';
+            //echo '</script>';
 
-            echo '<script language="javascript">';
-            echo 'alert("' . $mod_strings['LBL_MODULE_SUCCESSFUL']. ' ' . $count . ' ' . $mod_strings['LBL_ROW']. '")';
-            echo '</script>';
         }
 
         $this->ss->assign("instructions", $instructions);
