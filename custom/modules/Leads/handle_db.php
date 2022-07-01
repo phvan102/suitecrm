@@ -5,14 +5,26 @@ date_default_timezone_set('Asia/Ho_Chi_Minh');
 class HandleDB {
     function addRecordDbLogicHook (){
         global $app_list_strings;
-        $date_login = date('d/m/y');
-        list($day,$month,$year)=explode('/', $date_login);
-        $date=$year.$month.$day;
 
-        $query_insert_date_login = "INSERT INTO date_login (id, date_now) VALUES ('1',{$date});";
-    
+        $time_login = date('Y-m-d H:i:s');
+        $date_login =  explode(" ",$time_login)[0];
+        $query_insert_date_login = "INSERT INTO date_login (id, date_now) VALUES ('1','{$date_login}');"; 
         $GLOBALS['db']->query($query_insert_date_login);
         
+        $query_import_lead_date = "SELECT date_updated FROM import_leads";
+        $result_import_lead_date = $GLOBALS['db']->query($query_import_lead_date);
+        $date_import_lead_dates = $GLOBALS['db']->fetchByAssoc($result_import_lead_date); 
+        $date_import_lead_date = explode(" ", $date_import_lead_dates['date_updated'])[0];
+
+        $query_get_date_login = "SELECT date_now FROM date_login";
+        $result_get_date_login = $GLOBALS['db']->query($query_get_date_login);
+        $date_logins = $GLOBALS['db']->fetchByAssoc($result_get_date_login); 
+        $date_login_now = $date_logins['date_now'];
+
+        if ($date_import_lead_date != $date_login_now){
+            $query_import_leads = "DELETE FROM import_leads";
+            $GLOBALS['db']->query($query_import_leads);
+        }
 
         $query_1 = "SELECT COUNT(*) AS total  FROM call_status_lead";
         $result_1 = $GLOBALS['db']->query($query_1);
