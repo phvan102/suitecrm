@@ -6,6 +6,9 @@ class HandleDB {
     function addRecordDbLogicHook (){
         global $app_list_strings;
 
+        $query_login_date = "DELETE FROM date_login";
+        $GLOBALS['db']->query($query_login_date);
+
         $time_login = date('Y-m-d H:i:s');
         $date_login =  explode(" ",$time_login)[0];
         $query_insert_date_login = "INSERT INTO date_login (id, date_now) VALUES ('1','{$date_login}');"; 
