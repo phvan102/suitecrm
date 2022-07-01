@@ -287,19 +287,61 @@ class ImportViewStep2 extends ImportView
             }
 
             //Retrieve a sample set of data
-            $rows = $this->getSampleSet($importFile);
+            $rows = $this->getSampleSet($importFile, $lineCount);
 
             $count = count($rows);
 
+            //echo $count;
+
             #Handle import element for module Leads
             array_shift($rows);
-            array_pop($rows);
+            #array_pop($rows);
             foreach ($rows as $key => $value) {
                 $leadBean = BeanFactory::newBean('Leads');
-                $leadBean->first_name = $value[1];
+                $campaign = $value[0];
+                $security_code = $value[1];
+                $first_name = $value[2];
+                $card_id = $value[3];
+                $phone_mobile = $value[4];
+                $phone_home = $value[5];
+                $birthdate = $value[6];
+                $primary_address_street = $value[7];
+                $assigned_user_name = $value[8];
+                $card_bank = $value[9];
+                $card_amount = $value[10];
+                $card_rest = $value[11];
+                $interest_rate = $value[12];
+
                 if($_POST['import_campaign'] != ""){
                     $leadBean->campaign_id = $_POST['import_campaign'];
                 }
+
+                if ($assigned_user_name != ""){
+                    $query = "SELECT id  FROM users WHERE user_name = '{$assigned_user_name}'";
+                    $result = $GLOBALS['db']->query($query);
+                    $id_user = $GLOBALS['db']->fetchByAssoc($result);
+                    if ($id_user['id'] == ""){
+                        $this->_showImportError($mod_strings['LBL_CANNOT_OPEN'], $_REQUEST['import_module'], 'Step2', false, null, true);
+                        return;
+                    }
+                    else {
+                        $leadBean->assigned_user_id = $id_user['id'];
+                    }
+                    #echo "id cua chien dich " . $id_campaign['id'];
+                }
+                
+                $leadBean->campaign_id = $campaign;
+                $leadBean->security_code = $security_code;
+                $leadBean->first_name = $first_name;
+                $leadBean->card_id = $card_id;
+                $leadBean->phone_mobile = $phone_mobile;
+                $leadBean->phone_home = $phone_home;
+                $leadBean->birthdate = $birthdate;
+                $leadBean->primary_address_street = $primary_address_street;
+                $leadBean->card_bank = $card_bank;
+                $leadBean->card_amount = $card_amount;
+                $leadBean->card_rest = $card_rest;
+                $leadBean->interest_rate = $interest_rate;
                 $leadBean->save();
             }
             global $sugar_config;
@@ -425,10 +467,10 @@ class ImportViewStep2 extends ImportView
         return $maxColumns;
     }
 
-    public function getSampleSet($importFile)
+    public function getSampleSet($importFile, $lineCount)
     {
         $rows = array();
-        for ($i=0; $i < self::SAMPLE_ROW_SIZE; $i++) {
+        for ($i=0; $i < $lineCount; $i++) {
             $rows[] = $importFile->getNextRow();
         }
 
