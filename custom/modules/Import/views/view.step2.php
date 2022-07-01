@@ -176,7 +176,8 @@ class ImportViewStep2 extends ImportView
         if ($_POST && isset($_POST['post_of_leads'])) {
             $sugar_config['import_max_records_per_file'] = (empty($sugar_config['import_max_records_per_file']) ? 1000 : $sugar_config['import_max_records_per_file']);
             $importSource = isset($_REQUEST['source']) ? $_REQUEST['source'] : 'csv';
-
+            $time_import = date('Y-m-d H:i:s');
+            $time_file =  explode(" ",date('Y_m_d H_i_s'));
             // Clear out this user's last import
             $seedUsersLastImport = new UsersLastImport();
             $seedUsersLastImport->mark_deleted_by_user_id($current_user->id);
@@ -185,8 +186,8 @@ class ImportViewStep2 extends ImportView
             // handle uploaded file
             $uploadFile = new UploadFile('userfile');
             if (isset($_FILES['userfile']) && $uploadFile->confirm_upload()) {
-                $uploadFile->final_move('IMPORT_' . $this->bean->object_name . '_' . $current_user->id);
-                $uploadFileName = $uploadFile->get_upload_path('IMPORT_' . $this->bean->object_name . '_' . $current_user->id);
+                $uploadFile->final_move('IMPORT_' . $this->bean->object_name . '_' . $current_user->id . '_' . $time_file[0] . '_' . $time_file[1] . '.csv');
+                $uploadFileName = $uploadFile->get_upload_path('IMPORT_' . $this->bean->object_name . '_' . $current_user->id . '_' . $time_file[0] . '_' . $time_file[1] . '.csv');
             } elseif (!empty($_REQUEST['tmp_file'])) {
                 $uploadFileName = "upload://" . basename($_REQUEST['tmp_file']);
             } else {
@@ -301,40 +302,42 @@ class ImportViewStep2 extends ImportView
                 }
                 $leadBean->save();
             }
-            $time_post = date('ymd');
+            global $sugar_config;
+            $siteUrl = $sugar_config['url_web'];
+            $link_url_file = $siteUrl . '/upload/' . 'IMPORT_' . $this->bean->object_name . '_' . $current_user->id . '_' . $time_file[0] . '_' . $time_file[1]  . '.csv';
+            $time_post =  explode(" ",$time_import)[0];
             $query = "SELECT date_now AS date_login  FROM date_login";
             $result = $GLOBALS['db']->query($query);
             $data_date = $GLOBALS['db']->fetchByAssoc($result);
             $date_login = $data_date['date_login'];
             global $current_user;
-            $name_user = $current_user->id;
+            $name_user = $current_user->last_name;
             if ($date_login != $time_post) {
-                echo '2 cái khác nhau';
                 $query_import_leads = "DELETE FROM import_leads";
                 $GLOBALS['db']->query($query_import_leads);
-                $query_insert_import_leads = "INSERT INTO import_leads (id, date_updated, user_updated, link_file, number_import_in_day) VALUES (1,{$time_post},{$name_user},'', 1);";
+                $query_insert_import_leads = "INSERT INTO import_leads (id, date_updated, user_updated, link_file, number_import_in_day) VALUES (1,'{$time_import}','{$name_user}','{$link_url_file}', 1);";
                 $GLOBALS['db']->query($query_insert_import_leads); 
             }
             else {
-                echo '2 cái bằng nhau';
                 $query_1 = "SELECT COUNT(*) AS total  FROM import_leads";
                 $result_1 = $GLOBALS['db']->query($query_1);
                 $row_1 = $GLOBALS['db']->fetchByAssoc($result_1);
                 $total_1 = $row_1['total'] +1;
-                echo $total_1;
-                $query_insert_import_leads = "INSERT INTO import_leads (id, date_updated, user_updated, link_file, number_import_in_day)  VALUES ('{$total_1}', '{$time_post}','{$name_user}', '','{$total_1}');";
+                $query_insert_import_leads = "INSERT INTO import_leads (id, date_updated, user_updated, link_file, number_import_in_day)  VALUES ('{$total_1}', '{$time_import}','{$name_user}', '{$link_url_file}','{$total_1}');";
                 $GLOBALS['db']->query($query_insert_import_leads); 
             }
 
-            $query_import_lead = "SELECT *  FROM import_leads";
-            $result_import_lead = $GLOBALS['db']->query($query_import_lead);
-            while($row = $GLOBALS['db']->fetchByAssoc($result_import_lead))
-            {
-                //Use $row['id'] to grab the id fields value
-                $id = $row['id'];
-                $date_updated = $row['date_updated'];
-                echo $date_updated;
-            }
+            //$query_import_lead_date = "SELECT date_updated FROM import_leads";
+            //$result_import_lead_date = $GLOBALS['db']->query($query_import_lead_date);
+            //$date_import_lead_dates = $GLOBALS['db']->fetchByAssoc($result_import_lead_date); 
+            //$date_import_lead_date = $date_import_lead_dates['date_updated'];
+            //echo "checking " .$date_import_lead_date;
+
+            //$query_import_lead_date = "SELECT TOP 1 * FROM import_leads";
+            //$result_import_lead_date = $GLOBALS['db']->query($query_import_lead_date);
+            //$date_import_lead_dates = $GLOBALS['db']->fetchByAssoc($result_import_lead_date); 
+            //$date_import_lead_date = $date_import_lead_dates['date_updated'];
+            //echo "Time " . $date_import_lead_date;
 
 
             
@@ -343,6 +346,32 @@ class ImportViewStep2 extends ImportView
             //echo '</script>';
 
         }
+
+        $query_import_lead = "SELECT *  FROM import_leads";
+        $result_import_lead = $GLOBALS['db']->query($query_import_lead);
+        $html_row_table = "";
+        while($row = $GLOBALS['db']->fetchByAssoc($result_import_lead))
+        {
+            //Use $row['id'] to grab the id fields value
+            $id = $row['id'];
+            $date_updated = $row['date_updated'];
+            $user_updated = $row['user_updated'];
+            $link_file = $row['link_file'];
+            $html_row_table .= "
+                <tr>
+                    <th scope='row'>{$user_updated}</th>
+                    <th scope='row'>{$date_updated}</th>
+                    <th scope='row'><a href=\"javascript: void(0);\" onclick=\"window.location.href='{$link_file}'\" target=\"_blank\" rel=\"noopener noreferrer\">{$link_file}</a></th>
+                    <th scope='row'>{$id}</th>
+                </tr>
+            ";
+        }
+
+        $this->ss->assign('THREAD_1', $mod_strings['LBL_USER_UPDATED_LEAD']);
+        $this->ss->assign('THREAD_2', $mod_strings['LBL_DATE_UPDATE_LEAD']);
+        $this->ss->assign('THREAD_3', $mod_strings['LBL_LINK_FILE']);
+        $this->ss->assign('THREAD_4', $mod_strings['LBL_NUMBER_IMPORT_LEAD']);
+        $this->ss->assign('ROW_TABLE', $html_row_table);
 
         $this->ss->assign("instructions", $instructions);
 
