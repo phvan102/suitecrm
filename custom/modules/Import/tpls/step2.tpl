@@ -49,6 +49,11 @@
         .link {
             text-decoration: underline
         }
+        #thead-show-history-import {
+            background-color: rgb(64, 51, 189);
+            color: #ffffff;
+        }
+
     </style>
 {/literal}
 
@@ -277,7 +282,7 @@
                         <td scope="row" colspan="4">&nbsp;</td>
                     </tr>
                     <tr>
-                        <td align="left" scope="row">
+                        <td align="left" scope="row" class="col-4">
                             <span>
                                 <label for="userfile">
                                     {$MOD.LBL_SELECT_FILE}
@@ -290,7 +295,7 @@
                             </span>
                         </td>
                         {if $IMPORT_MODULE == "Leads"}
-                        <td align="left" scope="row">
+                        <td align="left" scope="row" class="col-4">
                             <span>
                                 <select tabindex='4' id='import_group_security' name='import_group_security'>
                                     <option value="" selected>{$CHOOSE_GROUP}</option>
@@ -300,7 +305,7 @@
                                 </select>
                             </span>
                         </td>
-                        <td align="left" scope="row">
+                        <td align="left" scope="row" class="col-4">
                             <span>
                                 <select tabindex='4' id='import_campaign' name='import_campaign'>
                                     <option value="" selected>{$CHOOSE_COMPAIGN}</option>
@@ -431,4 +436,17 @@
         {$JAVASCRIPT}
     </script>
 </form>
+<table class="table" id="show-history-import">
+    <thead id="thead-show-history-import">
+        <tr>
+            <th scope="col">{$THREAD_1}</th>
+            <th scope="col">{$THREAD_2}</th>
+            <th scope="col">{$THREAD_3}</th>
+            <th scope="col">{$THREAD_4}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {$ROW_TABLE}
+    </tbody>
+</table>
 {/if}
