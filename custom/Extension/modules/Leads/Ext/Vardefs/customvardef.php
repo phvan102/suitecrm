@@ -55,6 +55,7 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
             'importable' => false,
             'comment' => 'Has Lead been converted to a Contact (and other Sugar objects)'
         ),
+
         'description' => array(
             'name' => 'description',
             'vname' => 'LBL_DESCRIPTION',
@@ -189,6 +190,39 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
             'exportable' => false,
             'importable' => false,
             'importable' => 'required',
+        ),
+        'security_code' => array(
+            'name' => 'security_code',
+            'vname' => 'LBL_SECURITY_CODE',
+            'type' => 'varchar',
+            'len' => '100',
+            'comment' => 'Last name of the contact',
+        ),
+        'card_bank' => array(
+            'name' => 'card_bank',
+            'vname' => 'LBL_CARD_BANK',
+            'type' => 'varchar',
+            'len' => '100',
+            'comment' => 'Last name of the contact',
+        ),
+        'card_amount' => array(
+            'name' => 'card_amount',
+            'vname' => 'LBL_CARD_AMOUNT',
+            'type' => 'float',
+            'comment' => 'Last name of the contact',
+        ),
+        'card_rest' => array(
+            'name' => 'card_rest',
+            'vname' => 'LBL_CARD_REST',
+            'type' => 'float',
+            'comment' => 'Last name of the contact',
+        ),
+        'interest_rate' => array(
+            'name' => 'interest_rate',
+            'vname' => 'LBL_INTEREST_RATE',
+            'type' => 'varchar',
+            'len' => '100',
+            'comment' => 'Last name of the contact',
         ),
         'title' => array(
             'name' => 'title',

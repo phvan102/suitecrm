@@ -36,4 +36,5 @@ $sugar_config['addAjaxBannedModules'][31] = 'AM_ProjectTemplates';
 $sugar_config['addAjaxBannedModules'][32] = 'AOBH_BusinessHours';
 $sugar_config['addAjaxBannedModules'][33] = 'ResourceCalendar';
 $sugar_config['addAjaxBannedModules'][34] = 'Bugs';
+$sugar_config['url_web'] = 'https://localhost/suitecrm';
 /***CONFIGURATOR***/

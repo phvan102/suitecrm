@@ -295,7 +295,7 @@
                             </span>
                         </td>
                         {if $IMPORT_MODULE == "Leads"}
-                        <td align="left" scope="row" class="col-4">
+                        {* <td align="left" scope="row" class="col-4">
                             <span>
                                 <select tabindex='4' id='import_group_security' name='import_group_security'>
                                     <option value="" selected>{$CHOOSE_GROUP}</option>
@@ -304,8 +304,8 @@
                                     {/foreach}
                                 </select>
                             </span>
-                        </td>
-                        <td align="left" scope="row" class="col-4">
+                        </td> *}
+                        <td align="left" scope="row" class="col-6">
                             <span>
                                 <select tabindex='4' id='import_campaign' name='import_campaign'>
                                     <option value="" selected>{$CHOOSE_COMPAIGN}</option>

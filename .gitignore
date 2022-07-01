@@ -1,6 +1,6 @@
 ## First part from https://github.com/github/gitignore/blob/master/SugarCRM.gitignore
 # Ignore custom .htaccess stuff.
-/.htaccess
+#/.htaccess
 # Ignore large parts of the annoying cache directory without breaking things.
 cache/*
 upload/*
