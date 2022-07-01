@@ -55,6 +55,45 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
             'importable' => false,
             'comment' => 'Has Lead been converted to a Contact (and other Sugar objects)'
         ),
+        'assigned_user_id' =>
+        array(
+            'name' => 'assigned_user_id',
+            'rname' => 'user_name',
+            'id_name' => 'assigned_user_id',
+            'vname' => 'LBL_ASSIGNED_TO_ID',
+            'group'=>'assigned_user_name',
+            'type' => 'relate',
+            'table' => 'users',
+            'module' => 'Users',
+            'reportable'=>true,
+            'exportable' => true,
+            'importable' => true,
+            'isnull' => 'false',
+            'dbType' => 'id',
+            'audited'=>true,
+            'comment' => 'User ID assigned to record',
+            'duplicate_merge'=>'disabled'
+        ),
+
+        'id' => array(
+            'name' => 'id',
+            'vname' => 'LBL_ID',
+            'type' => 'id',
+            'required' => true,
+            'exportable' => false,
+            'importable' => false,
+        ),
+
+        'deleted' => array(
+        'name' => 'deleted',
+        'vname' => 'LBL_DELETED',
+        'type' => 'bool',
+        'required'=>false,
+        'reportable'=>false,
+        'exportable' => false,
+        'importable' => false,
+        'comment' => 'Record deletion indicator',
+        ),
 
         'description' => array(
             'name' => 'description',
@@ -429,6 +468,7 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
             'exportable' => false,
             'importable' => false,
         ),
+        
         'primary_address_street_3' => array(
             'name' => 'primary_address_street_3',
             'vname' => 'LBL_PRIMARY_ADDRESS_STREET_3',
@@ -616,6 +656,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
             'name' => 'processing_date',
             'vname' => 'LBL_PROCESSING_DATE',
             'massupdate' => false,
+            'exportable' => false,
+            'importable' => false,
             'type' => 'date',
             'comment' => 'The processing date of the leads'
         ),
@@ -626,6 +668,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
             'vname' => 'LBL_STATEMENT_DATE',
             'massupdate' => false,
             'type' => 'date',
+            'exportable' => false,
+            'importable' => false,
             'comment' => 'The statement date of the leads'
         ),
 
