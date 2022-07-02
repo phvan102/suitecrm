@@ -160,20 +160,26 @@ function export($type, $records = null, $members = false, $sample = false)
     $result = '';
     $populate = false;
     if ($sample) {
-        $result = $db->limitQuery($query, 0, $sampleRecordNum, true, $app_strings['ERR_EXPORT_TYPE'] . $type . ": <BR>." . $query);
-        if ($focus->_get_num_rows_in_query($query) < 1) {
-            $populate = true;
+        if ($focus->table_name == 'leads'){
+            $sql = "SELECT * FROM leads";
+            $offset = 0;
+            $limit = 5;
+            $result = $GLOBALS['db']->limitQuery($sql, $offset, $limit);
+        }
+        else {
+            $result = $db->limitQuery($query, 0, $sampleRecordNum, true, $app_strings['ERR_EXPORT_TYPE'] . $type . ": <BR>." . $query);
+            if ($focus->_get_num_rows_in_query($query) < 1) {
+                $populate = true;
+            }
         }
     } else {
-        $result = $db->query($query, true, $app_strings['ERR_EXPORT_TYPE'] . $type . ": <BR>." . $query);
-    }
-
-    
-    if ($focus->table_name == 'leads'){
-        $sql = "SELECT * FROM leads";
-        $offset = 0;
-        $limit = 5;
-        $result = $GLOBALS['db']->limitQuery($sql, $offset, $limit);
+        if ($focus->table_name == 'leads'){
+            $sql = "SELECT * FROM leads WHERE leads.id IN ({$records});";
+            $result = $GLOBALS['db']->query($sql);
+        }
+        else {
+            $result = $db->query($query, true, $app_strings['ERR_EXPORT_TYPE'] . $type . ": <BR>." . $query);
+        }
     }
 
     $fields_array = $db->getFieldsArray($result, true);
