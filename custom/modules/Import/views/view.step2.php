@@ -311,9 +311,19 @@ class ImportViewStep2 extends ImportView
                 $card_amount = $value[10];
                 $card_rest = $value[11];
                 $interest_rate = $value[12];
+                $index = $key + 1;
 
-                if($_POST['import_campaign'] != ""){
-                    $leadBean->campaign_id = $_POST['import_campaign'];
+                if($_POST['import_campaign'] == ""){
+                    if ($campaign != ""){
+                        $query = "SELECT name  FROM campaigns WHERE id = '{$campaign}'";
+                        $result = $GLOBALS['db']->query($query);
+                        $name_campaign = $GLOBALS['db']->fetchByAssoc($result);
+                        if ($name_campaign['name'] ==  ""){
+                            $message = $mod_strings['LBL_CANNOT_FIND_CAMPAIGN'] . $index;
+                            $this->_showImportError($message, $_REQUEST['import_module'], 'Step2', false, null, true);
+                            return;
+                        }
+                    }
                 }
 
                 if ($assigned_user_name != ""){
@@ -321,12 +331,44 @@ class ImportViewStep2 extends ImportView
                     $result = $GLOBALS['db']->query($query);
                     $id_user = $GLOBALS['db']->fetchByAssoc($result);
                     if ($id_user['id'] == ""){
-                        $this->_showImportError($mod_strings['LBL_CANNOT_OPEN'], $_REQUEST['import_module'], 'Step2', false, null, true);
+                        $message = $mod_strings['LBL_CANNOT_FIND_USER_ASSIGN'] . $index;
+                        $this->_showImportError($message, $_REQUEST['import_module'], 'Step2', false, null, true);
                         return;
                     }
-                    else {
-                        $leadBean->assigned_user_id = $id_user['id'];
+                    #echo "id cua chien dich " . $id_campaign['id'];
+                }
+            }
+
+            foreach ($rows as $key => $value) {
+                $leadBean = BeanFactory::newBean('Leads');
+                $campaign = $value[0];
+                $security_code = $value[1];
+                $first_name = $value[2];
+                $card_id = $value[3];
+                $phone_mobile = $value[4];
+                $phone_home = $value[5];
+                $birthdate = $value[6];
+                $primary_address_street = $value[7];
+                $assigned_user_name = $value[8];
+                $card_bank = $value[9];
+                $card_amount = $value[10];
+                $card_rest = $value[11];
+                $interest_rate = $value[12];
+
+                if($_POST['import_campaign'] != ""){
+                    $leadBean->campaign_id = $_POST['import_campaign'];
+                }
+                else {
+                    if ($campaign != ""){
+                        $leadBean->campaign_id = $campaign;
                     }
+                }
+
+                if ($assigned_user_name != ""){
+                    $query = "SELECT id  FROM users WHERE user_name = '{$assigned_user_name}'";
+                    $result = $GLOBALS['db']->query($query);
+                    $id_user = $GLOBALS['db']->fetchByAssoc($result);
+                    $leadBean->assigned_user_id = $id_user['id'];
                     #echo "id cua chien dich " . $id_campaign['id'];
                 }
                 
@@ -344,6 +386,8 @@ class ImportViewStep2 extends ImportView
                 $leadBean->interest_rate = $interest_rate;
                 $leadBean->save();
             }
+
+
             global $sugar_config;
             $siteUrl = $sugar_config['url_web'];
             $link_url_file = $siteUrl . '/upload/' . 'IMPORT_' . $this->bean->object_name . '_' . $current_user->id . '_' . $time_file[0] . '_' . $time_file[1]  . '.csv';
