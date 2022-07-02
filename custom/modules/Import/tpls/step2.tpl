@@ -54,6 +54,14 @@
             color: #ffffff;
         }
 
+        #result {
+            color: red;
+            margin-bottom: 50px;
+            margin-top: -50px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+
     </style>
 {/literal}
 
@@ -436,6 +444,9 @@
         {$JAVASCRIPT}
     </script>
 </form>
+{if $CHECK_RESULT == true}
+<p id="result">{$RESULT}</p>
+{/if}
 <table class="table" id="show-history-import">
     <thead id="thead-show-history-import">
         <tr>

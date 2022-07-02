@@ -72,6 +72,7 @@ class ImportViewStep2 extends ImportView
     {
         global $mod_strings, $app_list_strings, $app_strings, $current_user, $import_bean_map, $import_mod_strings;
         global $sugar_config, $locale;
+        $check_imprort = false;
         $security_groupBean = BeanFactory::getBean('SecurityGroups');
         $campaignsBean = BeanFactory::getBean('Campaigns');
         $list_security_group = $security_groupBean->get_full_list();
@@ -387,6 +388,10 @@ class ImportViewStep2 extends ImportView
                 $leadBean->save();
             }
 
+            $check_imprort = true;
+
+            $this->ss->assign('RESULT', $mod_strings['LBL_IMPORT_COMPLETED']);
+
 
             global $sugar_config;
             $siteUrl = $sugar_config['url_web'];
@@ -411,25 +416,7 @@ class ImportViewStep2 extends ImportView
                 $total_1 = $row_1['total'] +1;
                 $query_insert_import_leads = "INSERT INTO import_leads (id, date_updated, user_updated, link_file, number_import_in_day)  VALUES ('{$total_1}', '{$time_import}','{$name_user}', '{$link_url_file}','{$total_1}');";
                 $GLOBALS['db']->query($query_insert_import_leads); 
-            }
-
-            //$query_import_lead_date = "SELECT date_updated FROM import_leads";
-            //$result_import_lead_date = $GLOBALS['db']->query($query_import_lead_date);
-            //$date_import_lead_dates = $GLOBALS['db']->fetchByAssoc($result_import_lead_date); 
-            //$date_import_lead_date = $date_import_lead_dates['date_updated'];
-            //echo "checking " .$date_import_lead_date;
-
-            //$query_import_lead_date = "SELECT TOP 1 * FROM import_leads";
-            //$result_import_lead_date = $GLOBALS['db']->query($query_import_lead_date);
-            //$date_import_lead_dates = $GLOBALS['db']->fetchByAssoc($result_import_lead_date); 
-            //$date_import_lead_date = $date_import_lead_dates['date_updated'];
-            //echo "Time " . $date_import_lead_date;
-
-
-            
-            //echo '<script language="javascript">';
-            //echo 'alert("' . $mod_strings['LBL_MODULE_SUCCESSFUL']. ' ' . $count . ' ' . $mod_strings['LBL_ROW']. '")';
-            //echo '</script>';
+            }  
 
         }
 
@@ -452,7 +439,8 @@ class ImportViewStep2 extends ImportView
                 </tr>
             ";
         }
-
+        
+        $this->ss->assign('CHECK_RESULT', $check_imprort);
         $this->ss->assign('THREAD_1', $mod_strings['LBL_USER_UPDATED_LEAD']);
         $this->ss->assign('THREAD_2', $mod_strings['LBL_DATE_UPDATE_LEAD']);
         $this->ss->assign('THREAD_3', $mod_strings['LBL_LINK_FILE']);
