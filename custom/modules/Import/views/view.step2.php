@@ -77,6 +77,8 @@ class ImportViewStep2 extends ImportView
         $campaignsBean = BeanFactory::getBean('Campaigns');
         $list_security_group = $security_groupBean->get_full_list();
         $list_campaigns = $campaignsBean->get_full_list();
+        $time_login = date('Y-m-d H:i:s');
+        $date_login =  explode(" ",$time_login)[0];
         if ($_REQUEST['import_module'] == "Leads") {
             $title_leads = $mod_strings['LBL_LEADS_TITLE'];
             $intruction_leads_1 = $mod_strings['LBL_INTRODUCTION_LEADS_1'];
@@ -173,11 +175,6 @@ class ImportViewStep2 extends ImportView
                 "INSTRUCTION_STEP" => $mod_strings["LBL_{$lang_key}_NUM_$i"],
             );
         }
-
-        $query = "SELECT date_now AS date_login  FROM date_login";
-        $result = $GLOBALS['db']->query($query);
-        $data_date = $GLOBALS['db']->fetchByAssoc($result);
-        $date_login = $data_date['date_login'];
 
         if ($_POST && isset($_POST['post_of_leads'])) {
             $sugar_config['import_max_records_per_file'] = (empty($sugar_config['import_max_records_per_file']) ? 1000 : $sugar_config['import_max_records_per_file']);
