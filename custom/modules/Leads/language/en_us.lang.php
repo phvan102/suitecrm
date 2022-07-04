@@ -17,6 +17,7 @@ $mod_strings = array(
   'LBL_CALL_STATUS' => 'Call Status',
   'LBL_DETAIL_CALL_STATUS' => 'Detail Call Status',
   'LBL_PHONE_MOBILE' => 'Phone Mobile',
+  'LBL_DIVIDE' => 'Divide leads to employee',
   
 
   'LNK_ALLOTTED_CUSTOMERS_LIST' => 'View Allotted Customers', 
