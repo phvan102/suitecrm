@@ -174,6 +174,11 @@ class ImportViewStep2 extends ImportView
             );
         }
 
+        $query = "SELECT date_now AS date_login  FROM date_login";
+        $result = $GLOBALS['db']->query($query);
+        $data_date = $GLOBALS['db']->fetchByAssoc($result);
+        $date_login = $data_date['date_login'];
+
         if ($_POST && isset($_POST['post_of_leads'])) {
             $sugar_config['import_max_records_per_file'] = (empty($sugar_config['import_max_records_per_file']) ? 1000 : $sugar_config['import_max_records_per_file']);
             $importSource = isset($_REQUEST['source']) ? $_REQUEST['source'] : 'csv';
@@ -397,30 +402,25 @@ class ImportViewStep2 extends ImportView
             $siteUrl = $sugar_config['url_web'];
             $link_url_file = $siteUrl . '/upload/' . 'IMPORT_' . $this->bean->object_name . '_' . $current_user->id . '_' . $time_file[0] . '_' . $time_file[1]  . '.csv';
             $time_post =  explode(" ",$time_import)[0];
-            $query = "SELECT date_now AS date_login  FROM date_login";
-            $result = $GLOBALS['db']->query($query);
-            $data_date = $GLOBALS['db']->fetchByAssoc($result);
-            $date_login = $data_date['date_login'];
             global $current_user;
             $name_user = $current_user->last_name;
             if ($date_login != $time_post) {
-                $query_import_leads = "DELETE FROM import_leads";
-                $GLOBALS['db']->query($query_import_leads);
-                $query_insert_import_leads = "INSERT INTO import_leads (id, date_updated, user_updated, link_file, number_import_in_day) VALUES (1,'{$time_import}','{$name_user}','{$link_url_file}', 1);";
+                $query_insert_import_leads = "INSERT INTO import_leads (date_updated,  date_post, user_updated, link_file, number_import_in_day) VALUES ('{$time_import}', '{$time_post}', {$name_user}','{$link_url_file}', 1);";
                 $GLOBALS['db']->query($query_insert_import_leads); 
             }
             else {
-                $query_1 = "SELECT COUNT(*) AS total  FROM import_leads";
+                $query_1 = "SELECT COUNT(*) AS total  FROM import_leads WHERE date_post = '{$time_post}'";
                 $result_1 = $GLOBALS['db']->query($query_1);
                 $row_1 = $GLOBALS['db']->fetchByAssoc($result_1);
                 $total_1 = $row_1['total'] +1;
-                $query_insert_import_leads = "INSERT INTO import_leads (id, date_updated, user_updated, link_file, number_import_in_day)  VALUES ('{$total_1}', '{$time_import}','{$name_user}', '{$link_url_file}','{$total_1}');";
+                $query_insert_import_leads = "INSERT INTO import_leads (date_updated, date_post, user_updated, link_file, number_import_in_day)  VALUES ('{$time_import}', '{$time_post}', '{$name_user}', '{$link_url_file}','{$total_1}');";
                 $GLOBALS['db']->query($query_insert_import_leads); 
             }  
 
         }
-
-        $query_import_lead = "SELECT *  FROM import_leads";
+        $time_now = date('Y-m-d H:i:s');
+        $date_now =  explode(" ",$time_now)[0];
+        $query_import_lead = "SELECT *  FROM import_leads WHERE date_post = '{$date_now}'";
         $result_import_lead = $GLOBALS['db']->query($query_import_lead);
         $html_row_table = "";
         while($row = $GLOBALS['db']->fetchByAssoc($result_import_lead))
