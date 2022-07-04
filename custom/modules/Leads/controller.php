@@ -53,4 +53,9 @@ class CustomLeadsController extends SugarController {
         $GLOBALS['log']->fatal('Am in Controller');
         $this->view = "interested";
     }
+
+    function action_divide_leads(){
+        $GLOBALS['log']->fatal('Am in Controller');
+        $this->view = "divide_leads";
+    }
 }
