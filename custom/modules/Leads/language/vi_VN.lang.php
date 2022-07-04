@@ -17,7 +17,7 @@ $mod_strings = array(
   'LBL_CALL_STATUS' => 'Trạng thái cuộc gọi',
   'LBL_PHONE_MOBILE' => 'Di động',
   'LBL_DETAIL_CALL_STATUS' => 'Chi tiết cuộc gọi',
-  'LBL_DIVIDE' => 'Chia khách hàng tiềm năng cho nhân viên',
+  'LNK_DIVIDE' => 'Chia khách hàng tiềm năng cho nhân viên',
   
 
   'LNK_ALLOTTED_CUSTOMERS_LIST' => 'Khách hàng được phân bổ', 
