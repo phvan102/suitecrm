@@ -59,30 +59,32 @@ class CustomLeadsViewdetail_divide extends SugarView
         )";
         $result_employee = $GLOBALS['db']->query($query_employee);
         while($rows = $GLOBALS['db']->fetchByAssoc($result_employee)){
-            $idx += 1;
-            $username = $rows['user_name'];
-            $full_name = $rows['first_name'] . " " . $rows['last_name'];
-            $html_row_table .= "
-                <tr>
-                    <th scope='row'>{$idx}</th>
-                    <th scope='row'>{$username}</th>
-                    <th scope='row'>{$full_name}</th>
-                    <th scope='row'>
-                    <input type='text' class='form-control' placeholder=''>
-                    </th>
-                </tr>";
-            $html_row_table_assigned .= "
-                <tr>
-                    <th scope='row'>{$idx}</th>
-                    <th scope='row'>{$username}</th>
-                    <th scope='row'>{$full_name}</th>
-                    <th scope='row'></th>
-                    <th scope='row'></th>
-                    <th scope='row'>
-                    <input type='text' class='form-control' placeholder=''>
-                    </th>
-                </tr>
-            ";
+            if ($rows['is_admin'] == 0){
+                $idx += 1;
+                $username = $rows['user_name'];
+                $full_name = $rows['first_name'] . " " . $rows['last_name'];
+                $html_row_table .= "
+                    <tr>
+                        <th scope='row'>{$idx}</th>
+                        <th scope='row'>{$username}</th>
+                        <th scope='row'>{$full_name}</th>
+                        <th scope='row'>
+                        <input type='text' class='form-control' placeholder=''>
+                        </th>
+                    </tr>";
+                $html_row_table_assigned .= "
+                    <tr>
+                        <th scope='row'>{$idx}</th>
+                        <th scope='row'>{$username}</th>
+                        <th scope='row'>{$full_name}</th>
+                        <th scope='row'></th>
+                        <th scope='row'></th>
+                        <th scope='row'>
+                        <input type='text' class='form-control' placeholder=''>
+                        </th>
+                    </tr>
+                ";
+            }
         }
 
         $count_not_assign_lead = $count_not_assign_leads['count_not_assign_leads'];
