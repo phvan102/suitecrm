@@ -45,14 +45,14 @@
     <thead id="thead-show-teamlead">
         <tr>
             <th scope="col">{$STT}</th>
-            <th scope="col">{$AGENT_NAME}</th>
             <th scope="col">{$USERNAME}</th>
-            <th scope="col">{$EXTENSION}</th>
+            <th scope="col">{$FULL_NAME}</th>
             <th scope="col">{$QUANTITY}</th>
         </tr>
     </thead>
+
     <tbody>
-        
+    {$DATA_NOT_ASSIGN}
     </tbody>
 </table>
 </div>
@@ -62,15 +62,15 @@
     <thead id="thead-show-teamlead">
         <tr>
             <th scope="col">{$STT}</th>
-            <th scope="col">{$AGENT_NAME}</th>
-            <th scope="col">{$AGENT_NAME}</th>
+            <th scope="col">{$USERNAME}</th>
+            <th scope="col">{$FULL_NAME}</th>
             <th scope="col">{$QUANTITY}</th>
-            <th scope="col">{$MODIFIED_DATE}</th>
+            <th scope="col">{$QUANTITY_TO_CANCEL}</th>
             <th scope="col">{$QUANTITY_TO_CANCELED}</th>
         </tr>
     </thead>
     <tbody>
-        
+        {$DATA_ASSIGNED}
     </tbody>
 </table>
 </div>
