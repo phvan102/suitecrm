@@ -7,7 +7,13 @@ if (!defined('sugarEntry') || !sugarEntry) {
 }
 
 
-global $module_menu, $mod_strings, $sugar_config;
+global $module_menu, $mod_strings, $sugar_config, $current_user;
+
+$user = BeanFactory::getBean('Users', $current_user->id);
+$id_employee = $user->id;
+$query = "SELECT COUNT(*) AS count FROM securitygroups_users WHERE securitygroup_id = '2a36ad96-1c5b-c6c2-8d5d-62c29d9e1607' AND deleted = 0 AND user_id = '{$id_employee}'";
+$result = $GLOBALS['db']->query($query);
+$count = $GLOBALS['db']->fetchByAssoc($result);
 
 $module_menu = array();
 
@@ -37,7 +43,7 @@ if (ACLController::checkAccess('Leads', 'list', true)) {
     $module_menu[]=array("index.php?module=Leads&action=interested&return_module=Leads&return_action=DetailView", $mod_strings['LNK_INTERESTED_CUSTOMERS_LIST'],"List", 'Leads');
 }
 
-if (ACLController::checkAccess('Leads', 'list', true)) {
+if (ACLController::checkAccess('Leads', 'list', true) && ($user->is_admin || $count['count'] == 1)) {
     $module_menu[]=array("index.php?module=Leads&action=divide_leads&return_module=Leads&return_action=DetailView", $mod_strings['LNK_DIVIDE'],"List", 'Leads');
 }
 ?>

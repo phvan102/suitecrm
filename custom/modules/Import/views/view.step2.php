@@ -405,7 +405,7 @@ class ImportViewStep2 extends ImportView
                 $GLOBALS['db']->query($query_insert_import_leads); 
             }
             else {
-                $query_1 = "SELECT COUNT(*) AS total  FROM import_leads WHERE date_post = '{$time_post}'";
+                $query_1 = "SELECT COUNT(*) AS total  FROM import_leads WHERE date_post = '{$date_login}'";
                 $result_1 = $GLOBALS['db']->query($query_1);
                 $row_1 = $GLOBALS['db']->fetchByAssoc($result_1);
                 $total_1 = $row_1['total'] +1;
@@ -423,6 +423,7 @@ class ImportViewStep2 extends ImportView
         {
             //Use $row['id'] to grab the id fields value
             $id = $row['id'];
+            $number_import_in_day = $row['number_import_in_day'];
             $date_updated = $row['date_updated'];
             $user_updated = $row['user_updated'];
             $link_file = $row['link_file'];
@@ -431,7 +432,7 @@ class ImportViewStep2 extends ImportView
                     <th scope='row'>{$user_updated}</th>
                     <th scope='row'>{$date_updated}</th>
                     <th scope='row'><a href=\"javascript: void(0);\" onclick=\"window.location.href='{$link_file}'\" target=\"_blank\" rel=\"noopener noreferrer\">{$link_file}</a></th>
-                    <th scope='row'>{$id}</th>
+                    <th scope='row'>{$number_import_in_day}</th>
                 </tr>
             ";
         }
