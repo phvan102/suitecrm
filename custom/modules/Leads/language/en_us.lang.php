@@ -18,6 +18,14 @@ $mod_strings = array(
   'LBL_DETAIL_CALL_STATUS' => 'Detail Call Status',
   'LBL_PHONE_MOBILE' => 'Phone Mobile',
   'LNK_DIVIDE' => 'Divide leads to employee',
+  'LBL_STT' => 'STT',
+  'LBL_CAMPAIGNS' => 'Campaign',
+  'LBL_STATUS_CAMPAIGN' => 'Status',
+  'LBL_START_DAY' => 'Start Day',
+  'LBL_END_DAY' => 'End Day',
+  'LBL_STATUS_DATA' => 'Status Data',
+  'LBL_ACT' => 'Act',
+  'LBL_BUTTON_ACT' => 'Manage',
   
 
   'LNK_ALLOTTED_CUSTOMERS_LIST' => 'View Allotted Customers', 

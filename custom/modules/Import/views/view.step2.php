@@ -375,7 +375,6 @@ class ImportViewStep2 extends ImportView
                     #echo "id cua chien dich " . $id_campaign['id'];
                 }
                 
-                $leadBean->campaign_id = $campaign;
                 $leadBean->security_code = $security_code;
                 $leadBean->first_name = $first_name;
                 $leadBean->card_id = $card_id;

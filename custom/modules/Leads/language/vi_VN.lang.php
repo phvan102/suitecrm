@@ -18,6 +18,14 @@ $mod_strings = array(
   'LBL_PHONE_MOBILE' => 'Di động',
   'LBL_DETAIL_CALL_STATUS' => 'Chi tiết cuộc gọi',
   'LNK_DIVIDE' => 'Chia khách hàng tiềm năng cho nhân viên',
+  'LBL_STT' => 'STT',
+  'LBL_CAMPAIGNS' => 'Chiến dịch',
+  'LBL_STATUS_CAMPAIGN' => 'Trạng thái',
+  'LBL_START_DAY' => 'Ngày bắt đầu',
+  'LBL_END_DAY' => 'Ngày kết thúc',
+  'LBL_STATUS_DATA' => 'Tình trạng data',
+  'LBL_ACT' => 'Hành động',
+  'LBL_BUTTON_ACT' => 'Quản lý',
   
 
   'LNK_ALLOTTED_CUSTOMERS_LIST' => 'Khách hàng được phân bổ', 
