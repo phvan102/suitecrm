@@ -32,6 +32,9 @@ $mod_strings = array(
   'LBL_USERNAME' => 'Username',
   'LBL_EXTENSION' => 'Extension',
   'LBL_QUANTITY' => 'Quantity',
+  'LBL_QUANTITY_TO_CANCEL' => 'Quantity to cancel',
+  'LBL_QUANTITY_TO_CANCELED' => 'Quantity to canceled',
+  'LBL_MODIFIED_DATE' => 'Date modified',
   
 
   'LNK_ALLOTTED_CUSTOMERS_LIST' => 'View Allotted Customers', 

@@ -68,6 +68,9 @@ class CustomLeadsViewdetail_divide extends SugarView
         $smarty->assign('USERNAME', $mod_strings['LBL_USERNAME']);
         $smarty->assign('EXTENSION', $mod_strings['LBL_EXTENSION']);
         $smarty->assign('QUANTITY', $mod_strings['LBL_QUANTITY']);
+        $smarty->assign('QUANTITY_TO_CANCEL', $mod_strings['LBL_QUANTITY_TO_CANCEL']);
+        $smarty->assign('QUANTITY_TO_CANCELED', $mod_strings['LBL_QUANTITY_TO_CANCELED']);
+        $smarty->assign('MODIFIED_DATE', $mod_strings['LBL_MODIFIED_DATE']);
 
         parent::display();
         $smarty->display('custom/modules/Leads/tpls/detail_divide.tpl');

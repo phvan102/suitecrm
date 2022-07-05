@@ -40,6 +40,7 @@
 
 <h2>{$TITLE}</h2>
 <div class="row"> 
+<div class="col-lg-6 col-xs-6">
 <table class="table table-bordered" id="show-history-import">
     <thead id="thead-show-teamlead">
         <tr>
@@ -54,4 +55,23 @@
         
     </tbody>
 </table>
+</div>
+
+<div class="col-lg-6 col-xs-6">
+<table class="table table-bordered" id="show-history-import">
+    <thead id="thead-show-teamlead">
+        <tr>
+            <th scope="col">{$STT}</th>
+            <th scope="col">{$AGENT_NAME}</th>
+            <th scope="col">{$AGENT_NAME}</th>
+            <th scope="col">{$QUANTITY}</th>
+            <th scope="col">{$MODIFIED_DATE}</th>
+            <th scope="col">{$QUANTITY_TO_CANCELED}</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+    </tbody>
+</table>
+</div>
 </div>

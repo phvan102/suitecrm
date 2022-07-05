@@ -32,6 +32,9 @@ $mod_strings = array(
   'LBL_USERNAME' => 'Username',
   'LBL_EXTENSION' => 'Extension',
   'LBL_QUANTITY' => 'Số lượng',
+  'LBL_QUANTITY_TO_CANCEL' => 'Số lượng hủy',
+  'LBL_QUANTITY_TO_CANCELED' => 'Số lượng đã hủy',
+  'LBL_MODIFIED_DATE' => 'Ngày chỉnh sửa',
   
 
   'LNK_ALLOTTED_CUSTOMERS_LIST' => 'Khách hàng được phân bổ', 
