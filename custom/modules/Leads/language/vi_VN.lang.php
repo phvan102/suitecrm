@@ -40,6 +40,8 @@ $mod_strings = array(
   'LBL_CALLED' => 'Đã gọi',
   'LBL_NOT_CALL' => 'Chưa gọi',
   'LBL_NOT_ASSIGN' => 'Chưa gán',
+  'LBL_UPDATE' => 'Cập nhật',
+  'LBL_CANCEL' => 'Hủy',
   
 
   'LNK_ALLOTTED_CUSTOMERS_LIST' => 'Khách hàng được phân bổ', 
