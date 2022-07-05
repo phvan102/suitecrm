@@ -137,16 +137,16 @@ class CustomLeadsViewdivide_leads extends SugarView
                             <th scope='row'>{$end_day}</th>
                             <th scope='row'>
                                 <div class='col-lg-6' id='count'>
-                                    <p>Tổng: {$count_lead}</p>
+                                    <p>{$mod_strings['LBL_TOTAL']}: {$count_lead}</p>
                                 </div>
                                 <div class='col-lg-6' id='count_called_lead'>
-                                    <p>Đã gọi: {$count_called_lead}</p>
+                                    <p>{$mod_strings['LBL_CALLED']}: {$count_called_lead}</p>
                                 </div>
                                 <div class='col-lg-6' id='count_not_call_lead'>
-                                    <p>Chưa gọi: {$count_not_call_lead}</p>
+                                    <p>{$mod_strings['LBL_NOT_CALL']}: {$count_not_call_lead}</p>
                                 </div>
                                 <div class='col-lg-6' id='count_not_assign_lead'>
-                                    <p>Chưa gán: {$count_not_assign_lead}</p>
+                                    <p>{$mod_strings['LBL_NOT_ASSIGN']}: {$count_not_assign_lead}</p>
                                 </div>
                             </th>
                             <th scope='row'>

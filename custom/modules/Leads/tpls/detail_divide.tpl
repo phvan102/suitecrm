@@ -9,6 +9,24 @@
             background-color: #4169E1;
             color: #ffffff;
         }
+
+        #btn-update {
+            background-color: #1E90FF;
+            color: #ffffff;
+        }
+
+        #btn-update:hover{
+            background-color: #0000CD;
+        }
+
+        #btn-cancel {
+            background-color: #FF0000;
+            color: #ffffff;
+        }
+
+        #btn-cancel:hover{
+            background-color: #FF6347;
+        }
     </style>
 {/literal}
 
@@ -33,6 +51,22 @@
                     <th scope="row">{$END_DAY}</th>
                     <td>{$END_NAME_VALUE}</td>
                 </tr>
+                <tr>
+                    <th scope="row">{$TOTAL_LEAD}</th>
+                    <td>{$COUNT_LEAD}</td>
+                </tr>
+                <tr>
+                    <th scope="row">{$CALLED}</th>
+                    <td>{$COUNT_CALLED_LEAD}</td>
+                </tr>
+                <tr>
+                    <th scope="row">{$NOT_CALL}</th>
+                    <td>{$COUNT_NOT_CALL_LEAD}</td>
+                </tr>
+                <tr>
+                    <th scope="row">{$NOT_ASSIGN}</th>
+                    <td>{$COUNT_NOT_ASSIGN_LEAD}</td>
+                </tr>
             </tbody>
         </table>
     </div>
@@ -55,6 +89,8 @@
     {$DATA_NOT_ASSIGN}
     </tbody>
 </table>
+<button type='button' class='btn' id="btn-update">{$BTN_UPDATE}</button>
+<button type='button' class='btn' id="btn-cancel">{$BTN_CANCEL}</button>
 </div>
 
 <div class="col-lg-6 col-xs-6">
@@ -73,5 +109,7 @@
         {$DATA_ASSIGNED}
     </tbody>
 </table>
+<button type='button' class='btn' id="btn-update">{$BTN_UPDATE}</button>
+<button type='button' class='btn' id="btn-cancel">{$BTN_CANCEL}</button>
 </div>
 </div>

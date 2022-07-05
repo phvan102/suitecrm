@@ -35,23 +35,30 @@ class CustomLeadsViewdetail_divide extends SugarView
         $result_leads = $GLOBALS['db']->query($query_leads);
         $count_leads = $GLOBALS['db']->fetchByAssoc($result_leads);
         $count_lead = $count_leads['count_leads'];
+        $smarty->assign('COUNT_LEAD', $count_lead);
 
         # Query for count lead called of campaigns
         $query_called_leads = "SELECT COUNT(*) AS count_called_leads FROM leads WHERE campaign_id = '{$id_campaign}' AND call_status_lead = '2'";
         $result_called_leads = $GLOBALS['db']->query($query_called_leads);
         $count_called_leads = $GLOBALS['db']->fetchByAssoc($result_called_leads);
         $count_called_lead = $count_called_leads['count_called_leads'];
+        $smarty->assign('COUNT_CALLED_LEAD', $count_called_lead);
 
         # Query for count lead called of campaigns
         $query_not_call_leads = "SELECT COUNT(*) AS count_not_call_leads FROM leads WHERE campaign_id = '{$id_campaign}' AND call_status_lead = '1'";
         $result_not_call_leads = $GLOBALS['db']->query($query_not_call_leads);
         $count_not_call_leads = $GLOBALS['db']->fetchByAssoc($result_not_call_leads);
         $count_not_call_lead = $count_not_call_leads['count_not_call_leads'];
+        $smarty->assign('COUNT_NOT_CALL_LEAD', $count_not_call_lead);
 
         # Query for count lead not assign
         $query_not_assign_leads = "SELECT COUNT(*) AS count_not_assign_leads FROM leads WHERE campaign_id = '{$id_campaign}' AND assigned_user_id IS NULL";
         $result_not_assign_leads = $GLOBALS['db']->query($query_not_assign_leads);
         $count_not_assign_leads = $GLOBALS['db']->fetchByAssoc($result_not_assign_leads);
+        $count_not_assign_lead = $count_not_assign_leads['count_not_assign_leads'];
+        $smarty->assign('COUNT_NOT_ASSIGN_LEAD', $count_not_assign_lead);
+
+
         
         # Query employee
         $query_employee = "SELECT *  FROM users WHERE id NOT IN (
@@ -86,13 +93,15 @@ class CustomLeadsViewdetail_divide extends SugarView
                 ";
             }
         }
-
-        $count_not_assign_lead = $count_not_assign_leads['count_not_assign_leads'];
         $smarty->assign('INFORMATION', $mod_strings['LBL_INFORMATION_CAMPAIGN']);
         $smarty->assign('CAMPAIGN', $mod_strings['LBL_CAMPAIGNS']);
         $smarty->assign('STATUS', $mod_strings['LBL_STATUS_CAMPAIGN']);
         $smarty->assign('START_DAY', $mod_strings['LBL_START_DAY']);
         $smarty->assign('END_DAY', $mod_strings['LBL_END_DAY']);
+        $smarty->assign('TOTAL_LEAD', $mod_strings['LBL_TOTAL']);
+        $smarty->assign('CALLED', $mod_strings['LBL_CALLED']);
+        $smarty->assign('NOT_CALL', $mod_strings['LBL_NOT_CALL']);
+        $smarty->assign('NOT_ASSIGN', $mod_strings['LBL_NOT_ASSIGN']);
         $smarty->assign('TITLE', $mod_strings['LBL_MANAGE_DIVIDE_DATA']);
         $smarty->assign('STT', $mod_strings['LBL_STT']);
         $smarty->assign('FULL_NAME', $mod_strings['LBL_FULL_NAME']);
@@ -104,6 +113,9 @@ class CustomLeadsViewdetail_divide extends SugarView
         $smarty->assign('MODIFIED_DATE', $mod_strings['LBL_MODIFIED_DATE']);
         $smarty->assign('DATA_NOT_ASSIGN', $html_row_table);
         $smarty->assign('DATA_ASSIGNED', $html_row_table_assigned);
+        $smarty->assign('BTN_UPDATE', $mod_strings['LBL_UPDATE']);
+        $smarty->assign('BTN_CANCEL', $mod_strings['LBL_CANCEL']);
+
 
         parent::display();
         $smarty->display('custom/modules/Leads/tpls/detail_divide.tpl');
