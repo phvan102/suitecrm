@@ -36,6 +36,10 @@ $mod_strings = array(
   'LBL_QUANTITY_TO_CANCELED' => 'Số lượng đã hủy',
   'LBL_MODIFIED_DATE' => 'Ngày chỉnh sửa',
   'LBL_FULL_NAME' => 'Họ và tên',
+  'LBL_TOTAL' => 'Tổng',
+  'LBL_CALLED' => 'Đã gọi',
+  'LBL_NOT_CALL' => 'Chưa gọi',
+  'LBL_NOT_ASSIGN' => 'Chưa gán',
   
 
   'LNK_ALLOTTED_CUSTOMERS_LIST' => 'Khách hàng được phân bổ', 
