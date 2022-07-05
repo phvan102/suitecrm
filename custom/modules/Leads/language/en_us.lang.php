@@ -26,6 +26,12 @@ $mod_strings = array(
   'LBL_STATUS_DATA' => 'Status Data',
   'LBL_ACT' => 'Act',
   'LBL_BUTTON_ACT' => 'Manage',
+  'LBL_INFORMATION_CAMPAIGN' => 'Information of campaign',
+  'LBL_MANAGE_DIVIDE_DATA' => 'Manage divide lead by campaign',
+  'LBL_AGENT_NAME' => 'Agent Name',
+  'LBL_USERNAME' => 'Username',
+  'LBL_EXTENSION' => 'Extension',
+  'LBL_QUANTITY' => 'Quantity',
   
 
   'LNK_ALLOTTED_CUSTOMERS_LIST' => 'View Allotted Customers', 

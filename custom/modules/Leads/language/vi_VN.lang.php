@@ -26,6 +26,12 @@ $mod_strings = array(
   'LBL_STATUS_DATA' => 'Tình trạng data',
   'LBL_ACT' => 'Hành động',
   'LBL_BUTTON_ACT' => 'Quản lý',
+  'LBL_INFORMATION_CAMPAIGN' => 'Thông tin của chiến dịch',
+  'LBL_MANAGE_DIVIDE_DATA' => 'Quản lý chia khách hàng tiềm năng theo chiến dịch',
+  'LBL_AGENT_NAME' => 'Tên đại lý',
+  'LBL_USERNAME' => 'Username',
+  'LBL_EXTENSION' => 'Extension',
+  'LBL_QUANTITY' => 'Số lượng',
   
 
   'LNK_ALLOTTED_CUSTOMERS_LIST' => 'Khách hàng được phân bổ', 
