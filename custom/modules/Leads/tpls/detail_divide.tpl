@@ -10,21 +10,21 @@
             color: #ffffff;
         }
 
-        #btn-update {
+        .btn-update {
             background-color: #1E90FF;
             color: #ffffff;
         }
 
-        #btn-update:hover{
+        .btn-update:hover {
             background-color: #0000CD;
         }
 
-        #btn-cancel {
+        .btn-cancel {
             background-color: #FF0000;
             color: #ffffff;
         }
 
-        #btn-cancel:hover{
+        .btn-cancel:hover {
             background-color: #FF6347;
         }
     </style>
@@ -73,43 +73,61 @@
 </div>
 
 <h2>{$TITLE}</h2>
-<div class="row"> 
-<div class="col-lg-6 col-xs-6">
-<table class="table table-bordered" id="show-history-import">
-    <thead id="thead-show-teamlead">
-        <tr>
-            <th scope="col">{$STT}</th>
-            <th scope="col">{$USERNAME}</th>
-            <th scope="col">{$FULL_NAME}</th>
-            <th scope="col">{$QUANTITY}</th>
-        </tr>
-    </thead>
+<div class="row">
+    <div class="col-lg-6 col-xs-6">
+        <table class="table table-bordered" id="table_assign">
+            <thead id="thead-show-teamlead">
+                <tr>
+                    <th scope="col">{$STT}</th>
+                    <th scope="col">{$USERNAME}</th>
+                    <th scope="col">{$FULL_NAME}</th>
+                    <th scope="col">{$QUANTITY}</th>
+                </tr>
+            </thead>
 
-    <tbody>
-    {$DATA_NOT_ASSIGN}
-    </tbody>
-</table>
-<button type='button' class='btn' id="btn-update">{$BTN_UPDATE}</button>
-<button type='button' class='btn' id="btn-cancel">{$BTN_CANCEL}</button>
+            <tbody>
+                {$DATA_NOT_ASSIGN}
+            </tbody>
+        </table>
+        <button type='button' class='btn btn-update' id="btn-update-assign">{$BTN_UPDATE}</button>
+        <button type='button' class='btn btn-cancel' id="btn-cancel-assign">{$BTN_CANCEL}</button>
+    </div>
+
+    <div class="col-lg-6 col-xs-6">
+        <table class="table table-bordered" id="table_assigned">
+            <thead id="thead-show-teamlead">
+                <tr>
+                    <th scope="col">{$STT}</th>
+                    <th scope="col">{$USERNAME}</th>
+                    <th scope="col">{$FULL_NAME}</th>
+                    <th scope="col">{$QUANTITY}</th>
+                    <th scope="col">{$QUANTITY_TO_CANCEL}</th>
+                    <th scope="col">{$QUANTITY_TO_CANCELED}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {$DATA_ASSIGNED}
+            </tbody>
+        </table>
+        <button type='button' class='btn btn-update' id="btn-update-assigned">{$BTN_UPDATE}</button>
+        <button type='button' class='btn btn-cancel' id="btn-cancel-assigned">{$BTN_CANCEL}</button>
+    </div>
 </div>
 
-<div class="col-lg-6 col-xs-6">
-<table class="table table-bordered" id="show-history-import">
-    <thead id="thead-show-teamlead">
-        <tr>
-            <th scope="col">{$STT}</th>
-            <th scope="col">{$USERNAME}</th>
-            <th scope="col">{$FULL_NAME}</th>
-            <th scope="col">{$QUANTITY}</th>
-            <th scope="col">{$QUANTITY_TO_CANCEL}</th>
-            <th scope="col">{$QUANTITY_TO_CANCELED}</th>
-        </tr>
-    </thead>
-    <tbody>
-        {$DATA_ASSIGNED}
-    </tbody>
-</table>
-<button type='button' class='btn' id="btn-update">{$BTN_UPDATE}</button>
-<button type='button' class='btn' id="btn-cancel">{$BTN_CANCEL}</button>
-</div>
-</div>
+{literal}
+    <script type="text/javascript">
+        $('#btn-update-assign').click(function() {
+            const quantity = document.getElementsByClassName('quantity');
+            const arr = [...quantity].map(input => input.value);
+
+            console.log(arr);
+        });
+
+        $('#btn-update-assigned').click(function() {
+            const quantity_cancel = document.getElementsByClassName('quantity_cancel');
+            const arr = [...quantity_cancel].map(input => input.value);
+
+            console.log(arr);
+        });
+    </script>
+{/literal}

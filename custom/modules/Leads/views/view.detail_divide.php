@@ -76,7 +76,7 @@ class CustomLeadsViewdetail_divide extends SugarView
                         <th scope='row'>{$username}</th>
                         <th scope='row'>{$full_name}</th>
                         <th scope='row'>
-                        <input type='text' class='form-control' placeholder=''>
+                        <input type='number' class='form-control quantity' placeholder='' id='quantity'>
                         </th>
                     </tr>";
                 $html_row_table_assigned .= "
@@ -87,7 +87,7 @@ class CustomLeadsViewdetail_divide extends SugarView
                         <th scope='row'></th>
                         <th scope='row'></th>
                         <th scope='row'>
-                        <input type='text' class='form-control' placeholder=''>
+                        <input type='number' class='form-control quantity_cancel' placeholder=''>
                         </th>
                     </tr>
                 ";
