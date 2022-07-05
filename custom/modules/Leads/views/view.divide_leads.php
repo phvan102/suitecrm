@@ -73,7 +73,7 @@ class CustomLeadsViewdivide_leads extends SugarView
                         </div>
                     </th>
                     <th scope='row'>
-                        <button type='button' class='btn' id='btn-manage'>{$btn}</button>
+                        <button type='button' class='btn btn-manage' id='btn-manage' onclick=\"window.location='index.php?module=Leads&action=detail_divide&return_module=Leads&return_action=DetailView&id={$id}'\">{$btn}</button>
                     </th>
                 </tr>
             ";
