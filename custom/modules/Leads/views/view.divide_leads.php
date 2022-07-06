@@ -15,7 +15,9 @@ class CustomLeadsViewdivide_leads extends SugarView
         $user = BeanFactory::getBean('Users', $current_user->id);
         $html_row_table = "";
         if ($user->is_admin) {
-            $query_campaigns = "SELECT id, name, status, start_date, end_date FROM campaigns";
+            $query_campaigns = "SELECT id, name, status, start_date, end_date 
+                                FROM campaigns 
+                                ORDER BY date_entered DESC";
             $result_campaigns = $GLOBALS['db']->query($query_campaigns); 
             $idx = 0;
             while($row = $GLOBALS['db']->fetchByAssoc($result_campaigns)){
@@ -93,7 +95,10 @@ class CustomLeadsViewdivide_leads extends SugarView
                 while($rows = $GLOBALS['db']->fetchByAssoc($result_user)){
                     $id_user = $rows['user_id'];
                     //echo $id_user;
-                    $query_campaigns = "SELECT id, name, status, start_date, end_date FROM campaigns WHERE assigned_user_id = '{$id_user}'";
+                    $query_campaigns = "SELECT id, name, status, start_date, end_date, date_entered
+                                        FROM campaigns 
+                                        WHERE assigned_user_id = '{$id_user}' 
+                                        ORDER BY date_entered DESC";
                     $result_campaigns = $GLOBALS['db']->query($query_campaigns);
                     while($row = $GLOBALS['db']->fetchByAssoc($result_campaigns)){
                         $idx += 1;
