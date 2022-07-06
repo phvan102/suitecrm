@@ -38,6 +38,7 @@ $mod_strings = array(
   'LBL_FULL_NAME' => 'Họ và tên',
   'LBL_TOTAL' => 'Tổng',
   'LBL_CALLED' => 'Đã gọi',
+  'LBL_MODIFIED_DATE' => 'Ngày chỉnh sửa',
   'LBL_NOT_CALL' => 'Chưa gọi',
   'LBL_NOT_ASSIGN' => 'Chưa gán',
   'LBL_UPDATE' => 'Cập nhật',

@@ -40,6 +40,7 @@ $mod_strings = array(
   'LBL_CALLED' => 'Called',
   'LBL_NOT_CALL' => 'Not Call',
   'LBL_NOT_ASSIGN' => 'Not Assign',
+  'LBL_MODIFIED_DATE' => 'Modified Date',
   'LBL_UPDATE' => 'Update',
   'LBL_CANCEL' => 'Cancel',
 

@@ -11,4 +11,15 @@
     'file' => 'custom/custom_export.php',
     'auth' => false,
 );
+
+$entry_point_registry['divide_leads'] = array(
+    'file' => 'custom/modules/Leads/divide_leads.php',
+    'auth' => false,
+);
+
+
+$entry_point_registry['divide_leads_cancel'] = array(
+    'file' => 'custom/modules/Leads/divide_leads_cancel.php',
+    'auth' => false,
+);
 ?>
