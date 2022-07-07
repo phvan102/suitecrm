@@ -15,6 +15,21 @@ class HandleDB {
             $current_language = ($_REQUEST['login_language'] == $current_language) ? $current_language : $_REQUEST['login_language'];
         }
 
+        $query_count_divide_lead_action = "SELECT COUNT(*) AS total  FROM acl_actions WHERE name = 'divide'";
+        $result_count_divide_lead_action = $GLOBALS['db']->query($query_count_divide_lead_action);
+        $rows_count_divide_lead_action = $GLOBALS['db']->fetchByAssoc($result_count_divide_lead_action);
+        $total_divide_lead_action = $rows_count_divide_lead_action['total'];
+
+        if ($total_divide_lead_action == 0){
+            $ACLActionBean = BeanFactory::newBean('ACLActions');
+            $ACLActionBean->name = 'divide';
+            $ACLActionBean->category = 'Leads';
+            $ACLActionBean->acltype = 'module';
+            $ACLActionBean->aclaccess = 90;
+            $ACLActionBean->deleted = 0;
+            $ACLActionBean->save();
+        }
+
         if ($current_language == "vi_VN"){
             if ($total_1 == 0){
                 $query_insert_call_status_lead = "INSERT INTO call_status_lead (id, name, description) VALUES ('1','NCT','Chưa liên hệ'), ('2','COT','Đã liên hệ'), ('3','INT','Khách hàng quan tâm'), ('4','AGD','Khách hàng đồng ý'),('5','RFS','Khách hàng từ chối');";
