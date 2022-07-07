@@ -7,7 +7,7 @@ function getStates($lead_call_status_Id) {
 
     $result = $db->query($query, false);
     
-    $list = array();
+    $list = array('' => 'Select');
 
 
 

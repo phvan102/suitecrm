@@ -35,10 +35,10 @@ class CustomLeadsViewunaeffect extends ViewList
         //global $current_user;
         $this->processSearchForm();
         if ($this->where != "") {
-            $this->where .= "AND (leads.assigned_user_id = {$user_id_current}) AND (leads.call_status_lead IN ('1')) ";
+            $this->where .= "AND (leads.assigned_user_id = {$user_id_current}) AND (leads.call_status_lead IS NULL) ";
         }
         else {
-            $this->where .= "(leads.assigned_user_id = {$user_id_current}) AND (leads.call_status_lead IN ('1'))";
+            $this->where .= "(leads.assigned_user_id = {$user_id_current}) AND (leads.call_status_lead IS NULL)";
         }
 
         $this->lv->searchColumns = $this->searchForm->searchColumns;

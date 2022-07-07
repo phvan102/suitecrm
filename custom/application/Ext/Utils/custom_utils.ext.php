@@ -9,7 +9,7 @@ function getCallStatusLeadFromDb() {
 
     $result = $db->query($query, false);
     
-    $list = array();
+    $list = array(''=>'Select');
 
 
     while (($row = $db->fetchByAssoc($result)) != null) {
