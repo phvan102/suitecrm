@@ -135,6 +135,12 @@ $GLOBALS['ACLActions'] = array(
                                     'label'=>'LBL_ACTION_MASSUPDATE',
                                     'default'=>ACL_ALLOW_ALL,
                                 ),
+                        'divide'=>
+                            array(
+                                    'aclaccess'=>array(ACL_ALLOW_ALL,ACL_ALLOW_GROUP,ACL_ALLOW_DEFAULT, ACL_ALLOW_NONE),
+                                    'label'=>'LBL_DIVIDE_ACTION',
+                                    'default'=>ACL_ALLOW_ALL,
+                                ),
                         
                     
                 ),),
