@@ -303,32 +303,24 @@ class ImportViewStep2 extends ImportView
             #array_pop($rows);
             foreach ($rows as $key => $value) {
                 $leadBean = BeanFactory::newBean('Leads');
-                $campaign = $value[0];
-                $security_code = $value[1];
-                $first_name = $value[2];
-                $card_id = $value[3];
-                $phone_mobile = $value[4];
-                $phone_home = $value[5];
-                $birthdate = $value[6];
-                $primary_address_street = $value[7];
-                $assigned_user_name = $value[8];
-                $card_bank = $value[9];
-                $card_amount = $value[10];
-                $card_rest = $value[11];
-                $interest_rate = $value[12];
+                $security_code = $value[0];
+                $first_name = $value[1];
+                $card_id = $value[2];
+                $phone_mobile = $value[3];
+                $phone_home = $value[4];
+                $birthdate = $value[5];
+                $primary_address_street = $value[6];
+                $assigned_user_name = $value[7];
+                $card_bank = $value[8];
+                $card_amount = $value[9];
+                $card_rest = $value[10];
+                $interest_rate = $value[11];
                 $index = $key + 1;
 
                 if($_POST['import_campaign'] == ""){
-                    if ($campaign != ""){
-                        $query = "SELECT name  FROM campaigns WHERE id = '{$campaign}'";
-                        $result = $GLOBALS['db']->query($query);
-                        $name_campaign = $GLOBALS['db']->fetchByAssoc($result);
-                        if ($name_campaign['name'] ==  ""){
-                            $message = $mod_strings['LBL_CANNOT_FIND_CAMPAIGN'] . $index;
-                            $this->_showImportError($message, $_REQUEST['import_module'], 'Step2', false, null, true);
-                            return;
-                        }
-                    }
+                    $message = $mod_strings['LBL_CANNOT_FIND_CAMPAIGN'];
+                    $this->_showImportError($message, $_REQUEST['import_module'], 'Step2', false, null, true);
+                    return;
                 }
 
                 if ($assigned_user_name != ""){
@@ -346,28 +338,20 @@ class ImportViewStep2 extends ImportView
 
             foreach ($rows as $key => $value) {
                 $leadBean = BeanFactory::newBean('Leads');
-                $campaign = $value[0];
-                $security_code = $value[1];
-                $first_name = $value[2];
-                $card_id = $value[3];
-                $phone_mobile = $value[4];
-                $phone_home = $value[5];
-                $birthdate = $value[6];
-                $primary_address_street = $value[7];
-                $assigned_user_name = $value[8];
-                $card_bank = $value[9];
-                $card_amount = $value[10];
-                $card_rest = $value[11];
-                $interest_rate = $value[12];
-
-                if($_POST['import_campaign'] != ""){
-                    $leadBean->campaign_id = $_POST['import_campaign'];
-                }
-                else {
-                    if ($campaign != ""){
-                        $leadBean->campaign_id = $campaign;
-                    }
-                }
+                $security_code = $value[0];
+                $first_name = $value[1];
+                $card_id = $value[2];
+                $phone_mobile = $value[3];
+                $phone_home = $value[4];
+                $birthdate = $value[5];
+                $primary_address_street = $value[6];
+                $assigned_user_name = $value[7];
+                $card_bank = $value[8];
+                $card_amount = $value[9];
+                $card_rest = $value[10];
+                $interest_rate = $value[11];
+                
+                $leadBean->campaign_id = $_POST['import_campaign'];
 
                 if ($assigned_user_name != ""){
                     $query = "SELECT id  FROM users WHERE user_name = '{$assigned_user_name}'";

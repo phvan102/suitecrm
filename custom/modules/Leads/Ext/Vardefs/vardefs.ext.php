@@ -978,6 +978,8 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
                 'name' => 'campaign_id',
                 'type' => 'id',
                 'reportable' => false,
+                'exportable' => false,
+                'importable' => false,
                 'vname' => 'LBL_CAMPAIGN_ID',
                 'comment' => 'Campaign that generated lead',
             ),

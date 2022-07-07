@@ -14,34 +14,36 @@ $user = BeanFactory::getBean('Users', $current_user->id);
 $id_employee = $user->id;
 $query_get_security = "SELECT securitygroup_id FROM securitygroups_users WHERE deleted = 0 AND user_id = '{$id_employee}'";
 $result_get_security = $GLOBALS['db']->query($query_get_security);
-while($rows_get_security = $GLOBALS['db']->fetchByAssoc($result_get_security)){
-    if ($asset == false){
-        $security_id = $rows_get_security['securitygroup_id'];
-        $query_get_role = "SELECT role_id FROM securitygroups_acl_roles WHERE deleted = 0 AND securitygroup_id = '{$security_id}'";
-        $result_get_role = $GLOBALS['db']->query($query_get_role);
-        if ($asset == false && $user->is_admin == 0) {
-            while ($rows_get_role = $GLOBALS['db']->fetchByAssoc($result_get_role)) {
-                if ($asset == false) {
-                    $role_id = $rows_get_role['role_id'];
-                    $query_get_action = "SELECT action_id, access_override  FROM acl_roles_actions WHERE deleted = 0 AND role_id = '{$role_id}'";
-                    $result_get_action = $GLOBALS['db']->query($query_get_action);
-                    while ($rows_get_action = $GLOBALS['db']->fetchByAssoc($result_get_action)) {
-                        if ($rows_get_action['access_override'] != 0 && $rows_get_action['access_override'] != -99) {
-                            $action_id = $rows_get_action['action_id'];
-                            $query_get_name_action = "SELECT name, category FROM acl_actions WHERE deleted = 0 AND id = '{$action_id}'";
-                            $result_get_name_action = $GLOBALS['db']->query($query_get_name_action);
-                            while ($rows_get_name_action = $GLOBALS['db']->fetchByAssoc($result_get_name_action)) {
-                                if ($rows_get_name_action['name'] == 'divide' && $rows_get_name_action['category'] == 'Leads') {
-                                    //echo $action_id;
-                                    $result_access_override = $rows_get_action['access_override'];
-                                    $asset = true;
-                                    break;
+if ($user->is_admin == 0){
+    while($rows_get_security = $GLOBALS['db']->fetchByAssoc($result_get_security)){
+        if ($asset == false){
+            $security_id = $rows_get_security['securitygroup_id'];
+            $query_get_role = "SELECT role_id FROM securitygroups_acl_roles WHERE deleted = 0 AND securitygroup_id = '{$security_id}'";
+            $result_get_role = $GLOBALS['db']->query($query_get_role);
+            if ($asset == false) {
+                while ($rows_get_role = $GLOBALS['db']->fetchByAssoc($result_get_role)) {
+                    if ($asset == false) {
+                        $role_id = $rows_get_role['role_id'];
+                        $query_get_action = "SELECT action_id, access_override  FROM acl_roles_actions WHERE deleted = 0 AND role_id = '{$role_id}'";
+                        $result_get_action = $GLOBALS['db']->query($query_get_action);
+                        while ($rows_get_action = $GLOBALS['db']->fetchByAssoc($result_get_action)) {
+                            if ($rows_get_action['access_override'] != 0 && $rows_get_action['access_override'] != -99) {
+                                $action_id = $rows_get_action['action_id'];
+                                $query_get_name_action = "SELECT name, category FROM acl_actions WHERE deleted = 0 AND id = '{$action_id}'";
+                                $result_get_name_action = $GLOBALS['db']->query($query_get_name_action);
+                                while ($rows_get_name_action = $GLOBALS['db']->fetchByAssoc($result_get_name_action)) {
+                                    if ($rows_get_name_action['name'] == 'divide' && $rows_get_name_action['category'] == 'Leads') {
+                                        //echo $action_id;
+                                        $result_access_override = $rows_get_action['access_override'];
+                                        $asset = true;
+                                        break;
+                                    }
                                 }
                             }
                         }
+                    } else {
+                        break;
                     }
-                } else {
-                    break;
                 }
             }
         }
