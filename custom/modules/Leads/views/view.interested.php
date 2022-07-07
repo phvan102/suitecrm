@@ -35,10 +35,10 @@ class CustomLeadsViewinterested extends ViewList
         //global $current_user;
         $this->processSearchForm();
         if ($this->where != "") {
-            $this->where .= "  AND (leads.assigned_user_id = {$user_id_current}) AND (leads.call_status_lead = '3' OR leads.call_status_lead = '4') ";
+            $this->where .= "  AND (leads.assigned_user_id = {$user_id_current}) AND (leads.call_status_lead = '3' OR leads.call_status_lead = '4') AND (leads.campaign_id IS NOT NULL) AND (leads.campaign_id != '')";
         }
         else {
-            $this->where .= "(leads.assigned_user_id = '{$user_id_current}') AND (leads.call_status_lead = '3' OR leads.call_status_lead = '4')";
+            $this->where .= "(leads.assigned_user_id = '{$user_id_current}') AND (leads.call_status_lead = '3' OR leads.call_status_lead = '4') AND (leads.campaign_id IS NOT NULL) AND (leads.campaign_id != '')";
         }
 
         $this->lv->searchColumns = $this->searchForm->searchColumns;
