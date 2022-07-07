@@ -79,6 +79,8 @@ class ImportViewStep2 extends ImportView
         $list_campaigns = $campaignsBean->get_full_list();
         $time_login = date('Y-m-d H:i:s');
         $date_login =  explode(" ",$time_login)[0];
+
+
         if ($_REQUEST['import_module'] == "Leads") {
             $title_leads = $mod_strings['LBL_LEADS_TITLE'];
             $intruction_leads_1 = $mod_strings['LBL_INTRODUCTION_LEADS_1'];

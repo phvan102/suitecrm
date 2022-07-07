@@ -143,16 +143,6 @@ $dictionary['User'] = array(
             'type' => 'name',
             'len' => '30',
         ),
-        'securitygroup_id' => array(
-            'name' => 'securitygroup_id',
-            'vname' => 'LBL_SECURITY_GROUP',
-            'type' => 'enum',
-            'options' => 'call_status_lead_dom',
-            'len' => '255',
-            'exportable' => false,
-            'importable' => false,
-            'comment' => 'How did the lead call come about',
-        ),
         'last_name' => array(
             'name' => 'last_name',
             'vname' => 'LBL_LAST_NAME',
@@ -811,6 +801,3 @@ $dictionary['User'] = array(
 
 
 );
-
-unset($dictionary['User']['fields']['securitygroup_id']['options']);
-$dictionary['User']['fields']['securitygroup_id']['function'] = 'getGroupSecurity';
