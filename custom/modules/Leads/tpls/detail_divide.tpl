@@ -103,6 +103,7 @@
     </div>
 </div>
 
+<h2>{$RECALL_LEADS}</h2>
 <div class="row"> 
 <div class="col-lg-12 col-xs-12">
 <table class="table table-bordered" id="table_assigned">

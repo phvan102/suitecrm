@@ -153,6 +153,7 @@ class CustomLeadsViewdetail_divide extends SugarView
         $smarty->assign('BTN_UPDATE', $mod_strings['LBL_UPDATE']);
         $smarty->assign('BTN_CANCEL', $mod_strings['LBL_CANCEL']);
         $smarty->assign('MODIFIED_DATE', $mod_strings['LBL_MODIFIED_DATE']);
+        $smarty->assign('RECALL_LEADS', $mod_strings['LBL_RECALL_LEADS']);
 
 
         parent::display();

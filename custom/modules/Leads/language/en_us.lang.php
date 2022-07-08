@@ -43,6 +43,7 @@ $mod_strings = array(
   'LBL_MODIFIED_DATE' => 'Modified Date',
   'LBL_UPDATE' => 'Update',
   'LBL_CANCEL' => 'Cancel',
+  'LBL_RECALL_LEADS' => 'Lead recall by campaign',
 
   
 

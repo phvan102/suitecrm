@@ -43,6 +43,7 @@ $mod_strings = array(
   'LBL_NOT_ASSIGN' => 'Chưa gán',
   'LBL_UPDATE' => 'Cập nhật',
   'LBL_CANCEL' => 'Hủy',
+  'LBL_RECALL_LEADS' => 'Thu hồi khách hàng tiềm năng theo chiến dịch',
   
 
   'LNK_ALLOTTED_CUSTOMERS_LIST' => 'Danh sách khách hàng của bạn', 
