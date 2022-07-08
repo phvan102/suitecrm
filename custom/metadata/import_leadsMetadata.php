@@ -12,6 +12,7 @@ $dictionary['import_leads'] = array(
         array('name' => 'date_updated', 'type' => 'varchar', 'len' => '255'),
         array('name' => 'date_post', 'type' => 'varchar', 'len' => '255'),
         array('name' => 'user_updated', 'type' => 'varchar', 'len' => '255' ),
+        array('name' => 'id_user_updated', 'type' => 'varchar', 'len' => '255' ),
         array('name' => 'link_file', 'type' => 'varchar', 'len' => '255' ),
         array('name' => 'number_import_in_day', 'type' => 'int'),
     ), 'indices' => array(

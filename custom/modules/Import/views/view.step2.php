@@ -386,23 +386,26 @@ class ImportViewStep2 extends ImportView
             $time_post =  explode(" ",$time_import)[0];
             global $current_user;
             $name_user = $current_user->last_name;
+            $id_user_updated = $current_user->id;
             if ($date_login != $time_post) {
-                $query_insert_import_leads = "INSERT INTO import_leads (date_updated,  date_post, user_updated, link_file, number_import_in_day) VALUES ('{$time_import}', '{$time_post}', {$name_user}','{$link_url_file}', 1);";
+                $query_insert_import_leads = "INSERT INTO import_leads (date_updated,  date_post, user_updated, id_user_updated,  link_file, number_import_in_day) VALUES ('{$time_import}', '{$time_post}', {$name_user}', '{$id_user_updated}','{$link_url_file}', 1);";
                 $GLOBALS['db']->query($query_insert_import_leads); 
             }
             else {
-                $query_1 = "SELECT COUNT(*) AS total  FROM import_leads WHERE date_post = '{$date_login}'";
+                $query_1 = "SELECT COUNT(*) AS total  FROM import_leads WHERE date_post = '{$date_login}' AND id_user_updated = '{$id_user_updated}'";
                 $result_1 = $GLOBALS['db']->query($query_1);
                 $row_1 = $GLOBALS['db']->fetchByAssoc($result_1);
                 $total_1 = $row_1['total'] +1;
-                $query_insert_import_leads = "INSERT INTO import_leads (date_updated, date_post, user_updated, link_file, number_import_in_day)  VALUES ('{$time_import}', '{$time_post}', '{$name_user}', '{$link_url_file}','{$total_1}');";
+                $query_insert_import_leads = "INSERT INTO import_leads (date_updated, date_post, user_updated, id_user_updated, link_file, number_import_in_day)  VALUES ('{$time_import}', '{$time_post}', '{$name_user}', '{$id_user_updated}', '{$link_url_file}','{$total_1}');";
                 $GLOBALS['db']->query($query_insert_import_leads); 
             }  
 
         }
         $time_now = date('Y-m-d H:i:s');
         $date_now =  explode(" ",$time_now)[0];
-        $query_import_lead = "SELECT *  FROM import_leads WHERE date_post = '{$date_now}'";
+        global $current_user;
+        $id_user_x = $current_user->id;
+        $query_import_lead = "SELECT *  FROM import_leads WHERE date_post = '{$date_now}' AND id_user_updated = '{$id_user_x}'";
         $result_import_lead = $GLOBALS['db']->query($query_import_lead);
         $html_row_table = "";
         while($row = $GLOBALS['db']->fetchByAssoc($result_import_lead))
