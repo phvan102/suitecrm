@@ -45,8 +45,8 @@ $mod_strings = array(
   'LBL_CANCEL' => 'Hủy',
   
 
-  'LNK_ALLOTTED_CUSTOMERS_LIST' => 'Khách hàng được phân bổ', 
-  'LNK_UNAFFECTED_CUSTOMERS_LIST' => 'Khác hàng chưa tác động', 
-  'LNK_INTERESTED_CUSTOMERS_LIST' => 'Khác hàng quan tâm',
+  'LNK_ALLOTTED_CUSTOMERS_LIST' => 'Danh sách khách hàng của bạn', 
+  'LNK_UNAFFECTED_CUSTOMERS_LIST' => 'Danh sách khách hàng chưa tác động', 
+  'LNK_INTERESTED_CUSTOMERS_LIST' => 'Danh sách khách hàng quan tầm, đồng ý',
 
 );

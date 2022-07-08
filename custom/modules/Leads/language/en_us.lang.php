@@ -46,8 +46,8 @@ $mod_strings = array(
 
   
 
-  'LNK_ALLOTTED_CUSTOMERS_LIST' => 'View Allotted Customers', 
-  'LNK_UNAFFECTED_CUSTOMERS_LIST' => 'View Unaffected Customers', 
-  'LNK_INTERESTED_CUSTOMERS_LIST' => 'View Interested Customers',
+  'LNK_ALLOTTED_CUSTOMERS_LIST' => 'Your customer list', 
+  'LNK_UNAFFECTED_CUSTOMERS_LIST' => 'List of unaffected customers', 
+  'LNK_INTERESTED_CUSTOMERS_LIST' => 'List of interested and agreed customers',
 
 );
