@@ -14,11 +14,28 @@ $viewdefs['Leads'] =
             2 => '<input type="hidden" name="contact_id" value="{if isset($smarty.request.contact_id)}{$smarty.request.contact_id}{else}{$bean->contact_id}{/if}">',
             3 => '<input type="hidden" name="opportunity_id" value="{if isset($smarty.request.opportunity_id)}{$smarty.request.opportunity_id}{else}{$bean->opportunity_id}{/if}">',
             4 => '<input type="hidden" name="call_status_description_id" id = "call_status_description_id" value="{$bean->call_status_description_lead}">',
+            5 => '<input type="hidden" name="lead_id" id = "lead_id" value="{$bean->id}">',
+            5 => '<input type="hidden" name="user_id" id = "user_id" value="{$bean->assigned_user_id}">',
           ),
           'buttons' =>
           array(
             0 => array(
-              'customCode' => '<input title="Save" accesskey="a" class="button primary" onclick="var call_status_lead = $(\'#call_status_lead option:selected\').val();var call_status_description_lead = $(\'#call_status_description_lead option:selected\').val();console.log(call_status_lead, call_status_description_lead);var _form = document.getElementById(\'EditView\'); _form.action.value=\'Save\'; if(check_form(\'EditView\'))SUGAR.ajaxUI.submitForm(_form);return false;" type="submit" name="button" value="Save" id="SAVE">'
+              'customCode' => '
+              <input 
+                title="Save" 
+                accesskey="a" 
+                class="button primary" 
+                onclick="
+                  var _form = document.getElementById(\'EditView\'); 
+                  _form.action.value=\'Save\'; 
+                  if(check_form(\'EditView\'))
+                    SUGAR.ajaxUI.submitForm(_form);
+                    return false;" 
+                type="submit" 
+                name="button" 
+                value="Save" 
+                id="SAVE"
+              >'
             ),
             1 => 'CANCEL',
           ),
@@ -42,7 +59,7 @@ $viewdefs['Leads'] =
           0 =>
           array(
             'file' => 'custom/modules/Leads/ajax_dropdown.js',
-          ),
+          )
         ),
         'javascript' => '<script type="text/javascript" language="Javascript">function copyAddressRight(form)  {ldelim} form.alt_address_street.value = form.primary_address_street.value;form.alt_address_city.value = form.primary_address_city.value;form.alt_address_state.value = form.primary_address_state.value;form.alt_address_postalcode.value = form.primary_address_postalcode.value;form.alt_address_country.value = form.primary_address_country.value;return true; {rdelim} function copyAddressLeft(form)  {ldelim} form.primary_address_street.value =form.alt_address_street.value;form.primary_address_city.value = form.alt_address_city.value;form.primary_address_state.value = form.alt_address_state.value;form.primary_address_postalcode.value =form.alt_address_postalcode.value;form.primary_address_country.value = form.alt_address_country.value;return true; {rdelim} </script>',
         'useTabs' => true,
