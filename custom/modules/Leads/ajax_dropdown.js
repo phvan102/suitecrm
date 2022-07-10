@@ -36,17 +36,27 @@ $(document).ready(function() {
         });
     });
 
-    //$('#SAVE').click(function(){
-    //    var call_status_lead = $('#call_status_lead option:selected').val();
-    //    var call_status_description_lead = $('#call_status_description_lead option:selected').val();
-    //    var user_id = $('#user_id').val();
-    //    var lead_id = $('#lead_id').val();
-    //    $.ajax({
-    //        url: "index.php?module=Leads&entryPoint=call_log_leads",
-    //        data: {user_id: user_id, lead_id: lead_id, call_status_id: call_status_lead, description_call_status_id: call_status_description_lead},
-    //        success: function(data) {
-    //            console.log("hello");
-    //        },
-    //    });
-    //})
+    // $('form').on('submit', function(e){
+    //     // validation code here
+    //     e.preventDefault();
+    // });
+
+    // $('#SAVE').click(function(e){
+    //     var call_status_lead = $('#call_status_lead option:selected').val();
+    //     var call_status_description_lead = $('#call_status_description_lead option:selected').val();
+    //     var user_id = $('#user_id').val();
+    //     var lead_id = $('#lead_id').val();
+    //     console.log(user_id);
+    //     $.ajax({
+    //         url: "index.php?module=Leads&entryPoint=call_log_leads",
+    //         data: {user_id: user_id, lead_id: lead_id, call_status_id: call_status_lead, description_call_status_id: call_status_description_lead},
+    //         success: function(data) {
+    //             var _form = document.getElementById('EditView'); 
+    //             _form.action.value='Save'; 
+    //             if(check_form('EditView'))
+    //                 SUGAR.ajaxUI.submitForm(_form);
+    //             return false;
+    //         },
+    //     }); 
+    // })
 });
