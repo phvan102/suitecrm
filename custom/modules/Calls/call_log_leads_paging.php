@@ -39,7 +39,7 @@
                 $query_call_status_description = "SELECT description FROM call_status_description_lead WHERE id = '{$description_call_status_id}'";
                 $result_call_status_description = $GLOBALS['db']->query($query_call_status_description);
                 $call_status_description = $GLOBALS['db']->fetchByAssoc($result_call_status_description);
-                if ($call_log_leads[$i]['call_status_id'] == ""){
+                if ($call_log_leads[$i]['call_status_id'] == "" || $call_log_leads[$i]['call_status_id'] == NULL || ($call_log_leads[$i]['call_status_id'] == '1' && $call_log_leads[$i]['description_call_status_id'] == "") || ($call_log_leads[$i]['call_status_id'] == '1' && $call_log_leads[$i]['description_call_status_id'] == NULL)){
                     $html_row_table .= sprintf("
                     <tr>
                         <th scope='row'>{$count}</th>
@@ -93,7 +93,7 @@
                 $query_call_status_description = "SELECT description FROM call_status_description_lead WHERE id = '{$description_call_status_id}'";
                 $result_call_status_description = $GLOBALS['db']->query($query_call_status_description);
                 $call_status_description = $GLOBALS['db']->fetchByAssoc($result_call_status_description);
-                if ($call_log_leads[$i]['call_status_id'] == ""){
+                if ($call_log_leads[$i]['call_status_id'] == "" || $call_log_leads[$i]['call_status_id'] == NULL || ($call_log_leads[$i]['call_status_id'] == '1' && $call_log_leads[$i]['description_call_status_id'] == "") || ($call_log_leads[$i]['call_status_id'] == '1' && $call_log_leads[$i]['description_call_status_id'] == NULL)){
                     $html_row_table .= sprintf("
                     <tr>
                         <th scope='row'>{$count}</th>
@@ -148,7 +148,7 @@
             $query_call_status_description = "SELECT description FROM call_status_description_lead WHERE id = '{$description_call_status_id}'";
             $result_call_status_description = $GLOBALS['db']->query($query_call_status_description);
             $call_status_description = $GLOBALS['db']->fetchByAssoc($result_call_status_description);
-            if ($call_log_leads[$i]['call_status_id'] == ""){
+            if ($call_log_leads[$i]['call_status_id'] == "" || $call_log_leads[$i]['call_status_id'] == NULL || ($call_log_leads[$i]['call_status_id'] == '1' && $call_log_leads[$i]['description_call_status_id'] == "") || ($call_log_leads[$i]['call_status_id'] == '1' && $call_log_leads[$i]['description_call_status_id'] == NULL)){
                 $html_row_table .= sprintf("
                 <tr>
                     <th scope='row'>{$count}</th>

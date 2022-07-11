@@ -41,7 +41,7 @@ class CustomCallsViewcall_log_leads extends SugarView
             $result_call_status_description = $GLOBALS['db']->query($query_call_status_description);
             $call_status_description = $GLOBALS['db']->fetchByAssoc($result_call_status_description);
 
-            if ($call_status == ""){
+            if ($call_status_id == NULL || ($call_status_id == '1' && $description_call_status_id == NULL)){
                 $html_row_table .= "
                 <tr>
                     <th scope='row'>{$count}</th>
