@@ -1,7 +1,7 @@
 <?php
     global $mod_strings, $current_user;
     $user_id = $_GET['user_id'];
-    $query_get_call_log_leads = "SELECT * FROM call_log_leads WHERE user_call_id = '{$user_id}'";
+    $query_get_call_log_leads = "SELECT * FROM call_log_leads WHERE user_call_id = '{$user_id}' ORDER BY call_date DESC";
     $result_get_call_log_leads = $GLOBALS['db']->query($query_get_call_log_leads);
     $html_row_table = "";
     $call_log_leads = array();
