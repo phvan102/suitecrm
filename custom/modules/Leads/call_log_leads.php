@@ -73,7 +73,7 @@ class call_log_leads
             }
             else if ($call_log_lead['call_status_id'] != $bean->call_status_lead || $call_log_lead['description_call_status_id'] != $bean->call_status_description_lead){
                 $call_date = date('Y-m-d H:i:s');
-                $query = "UPDATE call_log_leads  SET user_call_id = '{$current_user->id}', call_date = '{$call_date}', call_status_id = '{$bean->call_status_lead}', description_call_status_id = '{$bean->call_status_description_lead}' WHERE lead_id = '{$bean->id}'";
+                $query = "INSERT INTO call_log_leads (user_call_id, lead_id, call_date, call_status_id, description_call_status_id) VALUES ('{$current_user->id}', '{$bean->id}', '{$call_date}', '{$bean->call_status_lead}', '{$bean->call_status_description_lead}')";
                 $GLOBALS['db']->query($query);
             }
         }
