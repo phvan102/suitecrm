@@ -50,7 +50,9 @@ if (!defined('sugarEntry') || !sugarEntry) {
  ********************************************************************************/
 
 
-global $mod_strings,$app_strings;
+global $module_menu, $mod_strings, $app_strings;
+
+$module_menu = array();
 
 if (ACLController::checkAccess('Calls', 'list', true)) {
     $module_menu[]=array("index.php?module=Calls&action=call_log_leads&return_module=Calls&return_action=DetailView", $mod_strings['LNK_CALL_LOG_LEADS'],"List");

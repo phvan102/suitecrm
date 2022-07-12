@@ -55,7 +55,12 @@
                         {foreach from=$modules.modules item=module key=modulekey}
                             <li role="presentation" data-test="1">
                                 {capture name=moduleTabId assign=moduleTabId}moduleTab_{$smarty.foreach.moduleList.index}_{$module}{/capture}
-                                <a href="javascript:void(0)" onclick="window.location.href = '{sugar_link id=$moduleTabId module=$modulekey link_only=1 data=$module extraparams=$extraparams}'">
+                                {if $modulekey =='Calls'}
+                                    <a href="javascript:void(0)" onclick="window.location.href = 'index.php?module=Calls&action=call_log_leads&return_module=Calls&return_action=DetailView'">
+                                {else}
+                                    <a href="javascript:void(0)" onclick="window.location.href = '{sugar_link id=$moduleTabId module=$modulekey link_only=1 data=$module extraparams=$extraparams}'">
+                                {/if}
+
                                     {$module}
                                     {if $modulekey !='Home' && $modulekey !='Calendar'}
                                         <span class="glyphicon glyphicon-plus"  onclick="window.location.href = 'index.php?action=EditView&module={$modulekey}'"></span>
@@ -278,17 +283,30 @@
                             <a href="#" id="grouptab_{$smarty.foreach.groupList.index}" class="dropdown-toggle grouptab"
                                data-toggle="dropdown">{$group}</a>
                             <span class="notCurrentTabRight">&nbsp;</span>
-                            <ul class="dropdown-menu" role="menu" {if $smarty.foreach.groupList.last} class="All"{/if}>
+                            <ul class="dropdown-menu" id="x" role="menu" {if $smarty.foreach.groupList.last} class="All"{/if}>
                                 {foreach from=$modules.modules item=module key=modulekey}
+                                    {if $modulekey =='Calls'}
                                     <li>
+                                        
+                                        <a href="index.php?module=Calls&action=call_log_leads&return_module=Calls&return_action=DetailView">Calls</a>
+                                    </li>
+                                    {else}
+                                        <li>
                                         {capture name=moduleTabId assign=moduleTabId}moduleTab_{$smarty.foreach.moduleList.index}_{$module}{/capture}
                                         {sugar_link id=$moduleTabId module=$modulekey data=$module extraparams=$extraparams}
                                     </li>
+                                    {/if}
                                 {/foreach}
                                 {foreach from=$modules.extra item=submodulename key=submodule}
-                                    <li>
-                                        <a href="{sugar_link module=$submodule link_only=1 extraparams=$extraparams}">{$submodulename}</a>
-                                    </li>
+                                    {if $modulekey =='Calls'}
+                                        <li>
+                                            <a href="index.php?module=Calls&action=call_log_leads&return_module=Calls&return_action=DetailView">{$submodulename}</a>
+                                        </li>
+                                    {else}
+                                        <li>
+                                            <a href="{sugar_link module=$submodule link_only=1 extraparams=$extraparams}">{$submodulename}</a>
+                                        </li>
+                                    {/if}
                                 {/foreach}
                             </ul>
                         </li>
@@ -406,6 +424,8 @@
                                     </li>
                                 </ul>
                             </li>
+                            
+                            
                         {/if}
                     {/foreach}
                     <li class="topnav overflow-toggle-menu">
