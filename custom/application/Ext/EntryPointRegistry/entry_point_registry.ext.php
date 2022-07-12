@@ -2,8 +2,18 @@
  //WARNING: The contents of this file are auto-generated
 
 
+$entry_point_registry['call_log_leads_filter_user_paging'] = array(
+    'file' => 'custom/modules/Calls/call_log_leads_filter_user_paging.php',
+    'auth' => false,
+);
+
 $entry_point_registry['call_log_leads_paging'] = array(
     'file' => 'custom/modules/Calls/call_log_leads_paging.php',
+    'auth' => false,
+);
+
+$entry_point_registry['call_log_leads_filter_paging'] = array(
+    'file' => 'custom/modules/Calls/call_log_leads_filter_paging.php',
     'auth' => false,
 );
 

@@ -124,6 +124,8 @@
     </div>
 {/if}
 
+<p id="test"></p>
+
 {literal}
     <script type="text/javascript">
         $(document).ready(function() {
@@ -136,7 +138,7 @@
                     var res = $.parseJSON(data);
                     source_user_call = res;
                 },
-                async: false 
+                async: false
             });
 
             $.ajax({
@@ -145,16 +147,7 @@
                     var res = $.parseJSON(data);
                     source_leads = res;
                 },
-                async: false 
-            });
-
-            $("#user_call_name").autocomplete({
-                source: source_user_call,
-                select: function(e, ui) {
-                    $("#user_call_name").val(ui.item.label);
-                    $("#user_call_id").val(ui.item.value);
-                    return false;
-    }
+                async: false
             });
 
             $("#lead_name").autocomplete({
@@ -163,14 +156,54 @@
                     $("#lead_name").val(ui.item.label);
                     $("#lead_filter_id").val(ui.item.value);
                     return false;
-    }
+                }
             });
 
-            $("#btn-filter").click(function(event){
-                var user_id = $('#user_call_id').val();
+            if($('#user_call_id').length){
+                $("#user_call_name").autocomplete({
+                    source: source_user_call,
+                    select: function(e, ui) {
+                        $("#user_call_name").val(ui.item.label);
+                        $("#user_call_id").val(ui.item.value);
+                        return false;
+                    }
+                });
+
+                $("#btn-filter").click(function(event) {
+                var user_call_id = $('#user_call_id').val();
                 var lead_id = $('#lead_filter_id').val();
-                console.log(lead_id)
+                var start_date = $('#start_date').val();
+                var end_date = $('#end_date').val();
+                console.log(start_date);
+                $.ajax({
+                    url: "index.php?module=Calls&entryPoint=call_log_leads_filter_paging",
+                    data: {page_number: 1, user_id: user_call_id, lead_id: lead_id, start_date: start_date, end_date: end_date},
+                    success: function(data) {
+                        //console.log(data);
+                        $('#data').html(data)
+                        console.log(data)
+                    }
+                });
             })
+            }
+
+            else {
+                $("#btn-filter").click(function(event) {
+                    var lead_id = $('#lead_filter_id').val();
+                    var start_date = $('#start_date').val();
+                    var end_date = $('#end_date').val();
+                    console.log(start_date);
+                    $.ajax({
+                        url: "index.php?module=Calls&entryPoint=call_log_leads_filter_user_paging",
+                        data: {page_number: 1, user_id: user_id, lead_id: lead_id, start_date: start_date, end_date: end_date},
+                        success: function(data) {
+                            //console.log(data);
+                            $('#data').html(data)
+                            console.log(data)
+                        }
+                    });
+                })
+            }
 
 
             $.ajax({

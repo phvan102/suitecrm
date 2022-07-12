@@ -42,7 +42,27 @@ class CustomCallsViewcall_log_leads extends SugarView
             ');
         }
         else {
-            $smarty->assign('ADMIN', "");
+            $smarty->assign('ADMIN', '
+                <div class="row" id="filter"> 
+                    <div class="col-lg-3 col-xs-3">
+                        <label >Khách hàng:</label>
+                        <input type="text" name="lead_name" id = "lead_name">
+                        <input type="hidden" name="lead_filter_id" id = "lead_filter_id">
+                    </div>
+                    <div class="col-lg-2 col-xs-2">
+                        <label >Từ:</label>
+                        <input type="date" name="start_date" id = "start_date">
+                    </div>
+                    <div class="col-lg-2 col-xs-2">
+                        <label >Đến:</label>
+                        <input type="date" name="end_date" id = "end_date">
+                    </div>
+                    <div class="col-lg-2 col-xs-2">
+                        <button type="button" class="btn btn-filter" id="btn-filter">Lọc</button>
+                    </div>
+                </div>
+                
+            ');
         }
         $smarty->assign('CALL_LOG_LEADS', $mod_strings['LNK_CALL_LOG_LEADS']);
         $smarty->assign('STT', $mod_strings['LBL_STT']);
