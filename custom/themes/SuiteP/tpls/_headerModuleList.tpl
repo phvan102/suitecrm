@@ -298,11 +298,7 @@
                                     {/if}
                                 {/foreach}
                                 {foreach from=$modules.extra item=submodulename key=submodule}
-                                    {if $modulekey =='Calls'}
-                                        <li>
-                                            <a href="index.php?module=Calls&action=call_log_leads&return_module=Calls&return_action=DetailView">{$submodulename}</a>
-                                        </li>
-                                    {else}
+                                    {if $modulekey !='Calls'}
                                         <li>
                                             <a href="{sugar_link module=$submodule link_only=1 extraparams=$extraparams}">{$submodulename}</a>
                                         </li>
