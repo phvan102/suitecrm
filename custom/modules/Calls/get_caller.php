@@ -1,7 +1,7 @@
 <?php
 $query_get_call_log_leads = "SELECT * FROM call_log_leads ORDER BY call_date DESC";
 $result_get_call_log_leads = $GLOBALS['db']->query($query_get_call_log_leads);
-$callers_id = array();
+$callers = array();
 while($rows = $GLOBALS['db']->fetchByAssoc($result_get_call_log_leads)){
     if ($rows['call_status_id'] == "" || $rows['call_status_id'] == NULL || ($rows['call_status_id'] == '1' && $rows['description_call_status_id'] == "") || ($rows['call_status_id'] == '1' && $rows['description_call_status_id'] == NULL)){
     }
@@ -13,10 +13,10 @@ while($rows = $GLOBALS['db']->fetchByAssoc($result_get_call_log_leads)){
         $user = $GLOBALS['db']->fetchByAssoc($result_user);
         $myObj->label = $user['first_name'];
         $myObj->value = $rows['user_call_id'];
-        if (!in_array($myObj, $callers_id)){
-            $callers_id[] = $myObj;
+        if (!in_array($myObj, $callers)){
+            $callers[] = $myObj;
         }
     }
 }
 
-echo json_encode($callers_id);
+echo json_encode($callers);
