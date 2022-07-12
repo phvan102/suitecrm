@@ -36,7 +36,7 @@ class CustomLeadsViewallotted extends ViewList
         //global $current_user;
         $this->processSearchForm();
         if ($this->where != "") {
-            $this->where .= " AND (leads.assigned_user_id = {$user_id_current}) ";
+            $this->where .= " AND (leads.assigned_user_id = '{$user_id_current}') ";
         }
         else {
             $this->where .= "(leads.assigned_user_id = '". $user_id_current ."')";
