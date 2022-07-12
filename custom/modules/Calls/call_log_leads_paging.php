@@ -1,7 +1,7 @@
 <?php
     global $mod_strings, $current_user;
     $user_id = $_GET['user_id'];
-    $query_get_call_log_leads = "SELECT * FROM call_log_leads WHERE user_call_id = '{$user_id}' ORDER BY call_date DESC";
+    $query_get_call_log_leads = "SELECT * FROM call_log_leads WHERE user_call_id = '{$user_id}' ORDER BY call_date";
     $result_get_call_log_leads = $GLOBALS['db']->query($query_get_call_log_leads);
     $html_row_table = "";
     $call_log_leads = array();
@@ -40,16 +40,6 @@
                 $result_call_status_description = $GLOBALS['db']->query($query_call_status_description);
                 $call_status_description = $GLOBALS['db']->fetchByAssoc($result_call_status_description);
                 if ($call_log_leads[$i]['call_status_id'] == "" || $call_log_leads[$i]['call_status_id'] == NULL || ($call_log_leads[$i]['call_status_id'] == '1' && $call_log_leads[$i]['description_call_status_id'] == "") || ($call_log_leads[$i]['call_status_id'] == '1' && $call_log_leads[$i]['description_call_status_id'] == NULL)){
-                    $html_row_table .= sprintf("
-                    <tr>
-                        <th scope='row'>{$count}</th>
-                        <th scope='row'>{$user['first_name']}</th>
-                        <th scope='row'>{$lead['first_name']}</th>
-                        <th scope='row'>{$call_date}</th>
-                        <th scope='row'>{$mod_strings['LBL_NOT_CALL']}</th>
-                        <th scope='row'>{$call_status_description['description']}</th>
-                    </tr>
-                ");
                 }
                 else {
                     $html_row_table .= sprintf("
@@ -94,16 +84,6 @@
                 $result_call_status_description = $GLOBALS['db']->query($query_call_status_description);
                 $call_status_description = $GLOBALS['db']->fetchByAssoc($result_call_status_description);
                 if ($call_log_leads[$i]['call_status_id'] == "" || $call_log_leads[$i]['call_status_id'] == NULL || ($call_log_leads[$i]['call_status_id'] == '1' && $call_log_leads[$i]['description_call_status_id'] == "") || ($call_log_leads[$i]['call_status_id'] == '1' && $call_log_leads[$i]['description_call_status_id'] == NULL)){
-                    $html_row_table .= sprintf("
-                    <tr>
-                        <th scope='row'>{$count}</th>
-                        <th scope='row'>{$user['first_name']}</th>
-                        <th scope='row'>{$lead['first_name']}</th>
-                        <th scope='row'>{$call_date}</th>
-                        <th scope='row'>{$mod_strings['LBL_NOT_CALL']}</th>
-                        <th scope='row'>{$call_status_description['description']}</th>
-                    </tr>
-                ");
                 }
                 else {
                     $html_row_table .= sprintf("
@@ -149,16 +129,6 @@
             $result_call_status_description = $GLOBALS['db']->query($query_call_status_description);
             $call_status_description = $GLOBALS['db']->fetchByAssoc($result_call_status_description);
             if ($call_log_leads[$i]['call_status_id'] == "" || $call_log_leads[$i]['call_status_id'] == NULL || ($call_log_leads[$i]['call_status_id'] == '1' && $call_log_leads[$i]['description_call_status_id'] == "") || ($call_log_leads[$i]['call_status_id'] == '1' && $call_log_leads[$i]['description_call_status_id'] == NULL)){
-                $html_row_table .= sprintf("
-                <tr>
-                    <th scope='row'>{$count}</th>
-                    <th scope='row'>{$user['first_name']}</th>
-                    <th scope='row'>{$lead['first_name']}</th>
-                    <th scope='row'>{$call_date}</th>
-                    <th scope='row'>{$mod_strings['LBL_NOT_CALL']}</th>
-                    <th scope='row'>{$call_status_description['description']}</th>
-                </tr>
-            ");
             }
             else {
                 $html_row_table .= sprintf("
