@@ -23,7 +23,8 @@ class CustomCallsViewcall_log_leads extends SugarView
                     </div>
                     <div class="col-lg-3 col-xs-3">
                         <label >Khách hàng:</label>
-                        <input type="text" name="lead_filter_id" id = "lead_filter_id">
+                        <input type="text" name="lead_name" id = "lead_name">
+                        <input type="hidden" name="lead_filter_id" id = "lead_filter_id">
                     </div>
                     <div class="col-lg-2 col-xs-2">
                         <label >Từ:</label>

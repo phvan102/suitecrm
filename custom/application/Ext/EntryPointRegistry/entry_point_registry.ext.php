@@ -32,4 +32,9 @@ $entry_point_registry['get_caller'] = array(
     'file' => 'custom/modules/Calls/get_caller.php',
     'auth' => false,
 );
+
+$entry_point_registry['get_leads'] = array(
+    'file' => 'custom/modules/Calls/get_leads.php',
+    'auth' => false,
+);
 ?>

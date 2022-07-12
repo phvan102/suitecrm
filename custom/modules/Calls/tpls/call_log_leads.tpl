@@ -129,11 +129,21 @@
         $(document).ready(function() {
             var user_id = $('#user_id').val();
             var source_user_call = [];
+            var source_leads = [];
             $.ajax({
                 url: "index.php?module=Calls&entryPoint=get_caller",
                 success: function(data) {
                     var res = $.parseJSON(data);
                     source_user_call = res;
+                },
+                async: false 
+            });
+
+            $.ajax({
+                url: "index.php?module=Calls&entryPoint=get_leads",
+                success: function(data) {
+                    var res = $.parseJSON(data);
+                    source_leads = res;
                 },
                 async: false 
             });
@@ -147,9 +157,19 @@
     }
             });
 
+            $("#lead_name").autocomplete({
+                source: source_leads,
+                select: function(e, ui) {
+                    $("#lead_name").val(ui.item.label);
+                    $("#lead_filter_id").val(ui.item.value);
+                    return false;
+    }
+            });
+
             $("#btn-filter").click(function(event){
                 var user_id = $('#user_call_id').val();
-                console.log(user_id)
+                var lead_id = $('#lead_filter_id').val();
+                console.log(lead_id)
             })
 
 
