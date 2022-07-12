@@ -27,4 +27,9 @@ $entry_point_registry['divide_leads_cancel'] = array(
     'file' => 'custom/modules/Leads/divide_leads_cancel.php',
     'auth' => false,
 );
+
+$entry_point_registry['get_caller'] = array(
+    'file' => 'custom/modules/Calls/get_caller.php',
+    'auth' => false,
+);
 ?>

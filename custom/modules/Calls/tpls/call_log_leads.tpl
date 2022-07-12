@@ -71,15 +71,27 @@
             color: white;
         }
 
+        #filter {
+            margin-bottom: 20px;
+        }
+
+        #btn-filter {
+            background-color: #1E90FF;
+            color: #ffffff;
+        }
+
+        #btn-filter:hover {
+            background-color: #0000CD;
+        }
+        }
+
         .pagination a:hover:not(.active) {background-color: #ddd;}
     </style>
 {/literal}
 
-<div class="row">
-    <h1>{$CALL_LOG_LEADS}</h1>
-</div>
+{$ADMIN}
 
-<table class="table table-bordered" id="show-history-import">
+<table class="table table-bordered" id="show-call-log-leads">
     <thead id="thead-show-campaigns">
         <tr>
             <th scope="col">{$STT}</th>
@@ -94,7 +106,7 @@
     </tbody>
 </table>
 
-<input type="hidden" name="user_id" id = "user_id" value="{$USER_ID}">
+<input type="hidden" name="user_id" id="user_id" value="{$USER_ID}">
 
 {if $TOTAL_PAGE > 1}
     <div class="row text-center">
@@ -114,31 +126,56 @@
 
 {literal}
     <script type="text/javascript">
-    $(document).ready(function() {
-        var user_id = $('#user_id').val();
-        $.ajax({
-                url: "index.php?module=Calls&entryPoint=call_log_leads_paging",
-                data: {page_number: 1, user_id: user_id},
-                success: function(data){
-                    console.log(data); 
-                    $('#data').html(data)     
-                }
+        $(document).ready(function() {
+            var user_id = $('#user_id').val();
+            var source_user_call = [];
+            $.ajax({
+                url: "index.php?module=Calls&entryPoint=get_caller",
+                success: function(data) {
+                    var res = $.parseJSON(data);
+                    source_user_call = res;
+                },
+                async: false 
             });
-        $("*[id^='number-page-']").click(function(event) {
-            let page_number = this.id.split(' ')[0].split('-');
-            page_number = page_number[page_number.length - 1];
-            //alert(user_id);
+
+            $("#user_call_name").autocomplete({
+                source: source_user_call,
+                select: function(e, ui) {
+                    $("#user_call_name").val(ui.item.label);
+                    $("#user_call_id").val(ui.item.value);
+                    return false;
+    }
+            });
+
+            $("#btn-filter").click(function(event){
+                var user_id = $('#user_call_id').val();
+                console.log(user_id)
+            })
+
+
             $.ajax({
                 url: "index.php?module=Calls&entryPoint=call_log_leads_paging",
-                data: {page_number: page_number, user_id: user_id},
-                success: function(data){
-                    console.log(data); 
-                    $('#data').html(data) 
-                    $('.active').removeClass('active');
-                    $("#number-page-" + page_number).addClass("active");           
+                data: {page_number: 1, user_id: user_id},
+                success: function(data) {
+                    //console.log(data);
+                    $('#data').html(data)
                 }
             });
+            $("*[id^='number-page-']").click(function(event) {
+                let page_number = this.id.split(' ')[0].split('-');
+                page_number = page_number[page_number.length - 1];
+                //alert(user_id);
+                $.ajax({
+                    url: "index.php?module=Calls&entryPoint=call_log_leads_paging",
+                    data: {page_number: page_number, user_id: user_id},
+                    success: function(data) {
+                        console.log(data);
+                        $('#data').html(data)
+                        $('.active').removeClass('active');
+                        $("#number-page-" + page_number).addClass("active");
+                    }
+                });
+            })
         })
-    })
     </script>
 {/literal}
