@@ -83,6 +83,19 @@
         #btn-filter:hover {
             background-color: #0000CD;
         }
+        
+        #start_date {
+            background: #d8f5ee;
+            padding: 5px;
+            border: 1px solid #a5e8d6;
+            border-radius: 4px;
+        }
+
+        #end_date {
+            background: #d8f5ee;
+            padding: 5px;
+            border: 1px solid #a5e8d6;
+            border-radius: 4px;
         }
 
         .pagination a:hover:not(.active) {background-color: #ddd;}
