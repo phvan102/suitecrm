@@ -8,12 +8,12 @@
     while($rows = $GLOBALS['db']->fetchByAssoc($result_get_call_log_leads)){
         $call_log_leads[] = $rows;
     }
-    $total_page = ceil(count($call_log_leads) /6);
+    $total_page = ceil(count($call_log_leads) /20);
     //echo $total_page;
     if ($total_page == $_GET['page_number']){
-        $total_element =  6 * $total_page - count($call_log_leads);
+        $total_element =  20 * $total_page - count($call_log_leads);
         if ($total_element == 0){
-            for ($i=($_GET['page_number']-1)*6; $i < count($call_log_leads); $i++) { 
+            for ($i=($_GET['page_number']-1)*20; $i < count($call_log_leads); $i++) { 
                 # code...
                 $count = $i + 1;
                 $lead_id = $call_log_leads[$i]['lead_id'];
@@ -66,7 +66,7 @@
             }
         }
         else {
-            for ($i=($_GET['page_number']-1)*6; $i < count($call_log_leads); $i++) { 
+            for ($i=($_GET['page_number']-1)*20; $i < count($call_log_leads); $i++) { 
                 # code...
                 $count = $i + 1;
                 $lead_id = $call_log_leads[$i]['lead_id'];
@@ -121,7 +121,7 @@
         }
     }
     else {
-        for ($i=($_GET['page_number']-1)*6; $i < $_GET['page_number'] * 6; $i++) { 
+        for ($i=($_GET['page_number']-1)*20; $i < $_GET['page_number'] * 20; $i++) { 
             # code...
             $count = $i + 1;
             $lead_id = $call_log_leads[$i]['lead_id'];
