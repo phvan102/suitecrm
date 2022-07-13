@@ -323,6 +323,12 @@ class ImportViewStep2 extends ImportView
                     return;
                 }
 
+                if ($phone_mobile == ""){
+                    $message = $mod_strings['LBL_CANNOT_FIND_PHONE_MOBILE'] . $index ;
+                    $this->_showImportError($message, $_REQUEST['import_module'], 'Step2', false, null, true);
+                    return;
+                }
+
                 if ($assigned_user_name != ""){
                     $query = "SELECT id  FROM users WHERE user_name = '{$assigned_user_name}'";
                     $result = $GLOBALS['db']->query($query);

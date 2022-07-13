@@ -60,6 +60,7 @@ $mod_strings = array(
     'LBL_ERROR_INVALID_BOOL' => 'Giá trị boolean không hợp lệ',
     'LBL_IMPORT_ERROR' => 'Lỗi nhập:',
     'LBL_ERROR' => 'Lỗi',
+    'LBL_CANNOT_FIND_PHONE_MOBILE' => 'Không tìm được số điện thoại di động tại hàng ',
     'LBL_FIELD_NAME' => 'Tên vùng',
     'LBL_VALUE' => 'Giá trị',
     'LBL_NONE' => 'Không có',
