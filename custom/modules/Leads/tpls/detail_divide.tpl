@@ -27,13 +27,6 @@
         .btn-cancel:hover {
             background-color: #FF6347;
         }
-        #success {
-            color:chartreuse;
-        }
-
-        #success-cancel {
-            color:chartreuse;
-        }
     </style>
 {/literal}
 <input type='hidden' id='id_campaign' value={$ID_CAMPAIGN}>
@@ -131,6 +124,9 @@
 {literal}
     <script type="text/javascript">
         $('#btn-update-assign').click(function() {
+            $('#success').html('Vui lòng đợi trong giây lát!')
+            $('#btn-update-assign').prop('disabled', true);
+            $('#success').css('color', '#B8860B')
             let quantity = document.getElementsByClassName('quantity');
             let arr_quantity = [...quantity].map(input => input.value);
             let id_employees = document.getElementsByClassName('id_employees');
@@ -139,6 +135,10 @@
             var res = []
             var total = 0;
             for (let i = 0; i < arr_employee.length; i++) {
+                if (arr_quantity[i] < 0){
+                    alert('Vui lòng nhập số dương!');
+                    return;
+                }
                 res.push({
                     id: arr_employee[i],
                     quantity: arr_quantity[i]
@@ -171,6 +171,8 @@
                             $(id_assigned).html(res[i+1]['quantity_assigned']);
                         }
                         $('#success').html('Cập nhật thành công!')
+                        $('#success').css('color', '#008000')
+                        $('#btn-update-assign').prop('disabled', false);
                     },
                 });
             }
@@ -182,6 +184,10 @@
         })
 
         $('#btn-update-assigned').click(function() {
+            $( "#btn-update-assigned" ).off( "mouseenter mouseleave" );
+            $('#success-cancel').html('Vui lòng đợi trong giây lát!')
+            $('#success-cancel').css('color', '#B8860B')
+            $('#btn-update-assigned').prop('disabled', true);
             let quantity_cancel = document.getElementsByClassName('quantity_cancel');
             let arr_quantity_cancel = [...quantity_cancel].map(input => input.value);
             let id_employees = document.getElementsByClassName('id_employees_cancel');
@@ -190,6 +196,10 @@
             let check = 1;
             let total = 0;
             for (let i = 0; i < arr_employee.length; i++) {
+                if (arr_quantity_cancel[i] < 0){
+                    alert('Vui lòng nhập số dương!');
+                    return;
+                }
                 total += arr_quantity_cancel[i];
                 let id_assigned = '#' + arr_employee[i] + 'assigned';
                 let val_assigned = $(id_assigned).html();
@@ -232,6 +242,8 @@
                                 $(modified_date).html(res[i+1]['date_modified']);
                             }
                             $('#success-cancel').html('Cập nhật thành công!')
+                            $('#success-cancel').css('color', '#008000')
+                            $('#btn-update-assigned').prop('disabled', false);
                         }
                     });
                 }
