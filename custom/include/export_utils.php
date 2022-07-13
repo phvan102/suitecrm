@@ -173,8 +173,13 @@ function export($type, $records = null, $members = false, $sample = false)
             }
         }
     } else {
-        if ($focus->table_name == 'leads'){
-            $sql = "SELECT * FROM leads WHERE leads.id IN ({$records});";
+
+        if ($focus->table_name == 'leads' && $record == null && $members == false){
+            $sql = "SELECT * FROM leads WHERE $where";
+            $result = $GLOBALS['db']->query($sql);
+        }
+        else if ($focus->table_name == 'leads' && $record && $members){
+            $sql = "SELECT * FROM leads WHERE IN ($record)";
             $result = $GLOBALS['db']->query($sql);
         }
         else {
