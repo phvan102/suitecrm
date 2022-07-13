@@ -134,8 +134,13 @@
         {{/if}}
         {if $config.enable_action_menu and $config.enable_action_menu != false}
         <li id="tab-actions" class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{$APP.LBL_LINK_ACTIONS}}<span class="suitepicon suitepicon-action-caret"></span></a>
-            {{include file="themes/SuiteP/include/DetailView/actions_menu.tpl"}}
+            {if $module == 'Leads'}
+                <li>{{sugar_button module="$module" id="EDIT" view="$view" form_id="formDetailView"}}</li>
+            {else}
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{$APP.LBL_LINK_ACTIONS}}<span class="suitepicon suitepicon-action-caret"></span></a>
+                {{include file="themes/SuiteP/include/DetailView/actions_menu.tpl"}}
+            {/if}
+            
         </li>
         <li class="tab-inline-pagination">
             {{if $panelCount == 0}}
