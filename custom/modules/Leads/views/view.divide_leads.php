@@ -82,13 +82,14 @@ class CustomLeadsViewdivide_leads extends SugarView
             }
         } else if ($_REQUEST['access_override'] == '80') {
             $id_employee = $user->id;
-            $query = "SELECT COUNT(*) AS count FROM securitygroups_users WHERE securitygroup_id = '2a36ad96-1c5b-c6c2-8d5d-62c29d9e1607' AND deleted = 0 AND user_id = '{$id_employee}'";
+            $security_id = $_REQUEST['security_id'];
+            $query = "SELECT COUNT(*) AS count FROM securitygroups_users WHERE securitygroup_id = '{$security_id}' AND deleted = 0 AND user_id = '{$id_employee}'";
             $result = $GLOBALS['db']->query($query);
             $count = $GLOBALS['db']->fetchByAssoc($result);
             $idx = 0;
             //echo $count['count'];
             if ($count['count'] == 1) {
-                $query_user = "SELECT user_id FROM securitygroups_users WHERE securitygroup_id = '2a36ad96-1c5b-c6c2-8d5d-62c29d9e1607'";
+                $query_user = "SELECT user_id FROM securitygroups_users WHERE securitygroup_id = '{$security_id}'";
                 $result_user = $GLOBALS['db']->query($query_user);
                 while ($rows = $GLOBALS['db']->fetchByAssoc($result_user)) {
                     $id_user = $rows['user_id'];
@@ -153,7 +154,7 @@ class CustomLeadsViewdivide_leads extends SugarView
                                     </div>
                                 </th>
                                 <th scope='row'>
-                                    <button type='button' class='btn btn-manage' id='btn-manage' onclick=\"window.location='index.php?module=Leads&action=detail_divide&return_module=Leads&return_action=DetailView&id={$id}'\">{$btn}</button>
+                                    <button type='button' class='btn btn-manage' id='btn-manage' onclick=\"window.location='index.php?module=Leads&action=detail_divide&return_module=Leads&return_action=DetailView&id={$id}&security_id={$security_id}'\">{$btn}</button>
                                 </th>
                             </tr>
                         ";

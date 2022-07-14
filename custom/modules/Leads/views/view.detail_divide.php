@@ -62,11 +62,11 @@ class CustomLeadsViewdetail_divide extends SugarView
         $count_not_assign_lead = $count_not_assign_leads['count_not_assign_leads'];
         $smarty->assign('COUNT_NOT_ASSIGN_LEAD', $count_not_assign_lead);
 
-
+        $security_id = $_REQUEST['security_id'];
         
         # Query employee
         $query_employee = "SELECT *  FROM users WHERE id NOT IN (
-            SELECT user_id  FROM securitygroups_users WHERE securitygroup_id = '2a36ad96-1c5b-c6c2-8d5d-62c29d9e1607' AND deleted = 0
+            SELECT user_id  FROM securitygroups_users WHERE securitygroup_id = '{$security_id}' AND deleted = 0
         ) ORDER BY date_entered DESC";
         $result_employee = $GLOBALS['db']->query($query_employee);
         while($rows = $GLOBALS['db']->fetchByAssoc($result_employee)){
