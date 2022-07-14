@@ -9,8 +9,20 @@ class CustomLeadsViewreport_campaign extends SugarView
 {
     public function display()
     {
-        global $mod_strings;
+        global $mod_strings, $current_user;
+        $user = BeanFactory::getBean('Users', $current_user->id);
         $smarty = new Sugar_Smarty();
+        if ($_REQUEST['access_override'] == '90'){
+            $smarty->assign('ACCESS_OVERRIDE', '90');
+            $smarty->assign('EMPLOYEE_ID', "");
+            $smarty->assign('SECURITYGROUP_ID', "");
+        }
+        else if ($_REQUEST['access_override'] == '80'){
+            $id_employee = $user->id;
+            $security_id = $_REQUEST['security_id'];
+            $smarty->assign('EMPLOYEE_ID', $id_employee);
+            $smarty->assign('SECURITYGROUP_ID', $security_id);
+        }
         $smarty->assign('STT', $mod_strings['LBL_STT']);
         $smarty->assign('USER', $mod_strings['LBL_USER']);
         $smarty->assign('CAMPAIGN', $mod_strings['LBL_CAMPAIGN']);

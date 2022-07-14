@@ -47,17 +47,49 @@
 </div>
 
 <br />
-<div id='result'></div>
+<input type="hidden" value={$ACCESS_OVERRIDE} name="access_override" id="access_override">
+<input type="hidden" value={$SECURITYGROUP_ID} name="security_group_id" id="security_group_id">
+<input type="hidden" value={$EMPLOYEE_ID} name="employee_id" id="employee_id">
 
 {literal}
     <script type="text/javascript">
         $(document).ready(function() {
-            $.ajax({
-                url: "index.php?module=Leads&entryPoint=get_campaign",
-                success: function(data) {
-                    $('#selectCampaign').html(data)
-                },
-            });
+            var access_override = $('#access_override').val();
+            var security_group_id = $('#security_group_id').val();
+            var employee_id = $('#employee_id').val();
+            if (access_override == '90'){
+                $.ajax({
+                    url: "index.php?module=Leads&entryPoint=get_quantity_leads",
+                    success: function(data) {
+                        console.log(data)
+                        $('#data').html(data);
+                    },
+                });
+                $.ajax({
+                    url: "index.php?module=Leads&entryPoint=get_campaign",
+                    success: function(data) {
+                        $('#selectCampaign').html(data)
+                    },
+                });
+            }
+            else {
+                $.ajax({
+                    url: "index.php?module=Leads&entryPoint=get_quantity_leads",
+                    data: {security_group_id: security_group_id, employee_id: employee_id},
+                    success: function(data) {
+                        console.log(data)
+                        $('#data').html(data);
+                    },
+                });
+                $.ajax({
+                    url: "index.php?module=Leads&entryPoint=get_campaign",
+                    data: {security_group_id: security_group_id, employee_id: employee_id},
+                    success: function(data) {
+                        //console.log(data)
+                        $('#selectCampaign').html(data)
+                    },
+                });
+            }
 
             // Initialize select2
             $("#selectCampaign").select2();
@@ -69,8 +101,8 @@
                 url: "index.php?module=Leads&entryPoint=get_quantity_leads",
                 data: {id_campaign: campaign_id},
                 success: function(data) {
-                    var res = $.parseJSON(data);
-                    console.log(res)
+                    console.log(data)
+                    $('#data').html(data);
                 },
             });
 

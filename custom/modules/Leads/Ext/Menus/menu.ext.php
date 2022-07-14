@@ -12,6 +12,7 @@ $asset = false;
 $result_access_override = 0;
 $user = BeanFactory::getBean('Users', $current_user->id);
 $id_employee = $user->id;
+$security_id_res = 0;
 $query_get_security = "SELECT securitygroup_id FROM securitygroups_users WHERE deleted = 0 AND user_id = '{$id_employee}'";
 $result_get_security = $GLOBALS['db']->query($query_get_security);
 if ($user->is_admin == 0){
@@ -36,6 +37,7 @@ if ($user->is_admin == 0){
                                         //echo $action_id;
                                         $result_access_override = $rows_get_action['access_override'];
                                         $asset = true;
+                                        $security_id_res = $security_id;
                                         break;
                                     }
                                 }
@@ -85,12 +87,17 @@ if (ACLController::checkAccess('Leads', 'list', true) && ($user->is_admin || $as
         $module_menu[] = array("index.php?module=Leads&action=divide_leads&return_module=Leads&return_action=DetailView&access_override=90", $mod_strings['LNK_DIVIDE'], "List", 'Leads');
     }
     else {
-        $module_menu[] = array("index.php?module=Leads&action=divide_leads&return_module=Leads&return_action=DetailView&access_override={$result_access_override}", $mod_strings['LNK_DIVIDE'], "List", 'Leads');
+        $module_menu[] = array("index.php?module=Leads&action=divide_leads&return_module=Leads&return_action=DetailView&access_override={$result_access_override}&security_id={$security_id_res}", $mod_strings['LNK_DIVIDE'], "List", 'Leads');
     }
 }
 
-if (ACLController::checkAccess('Leads', 'list', true)) {
-    $module_menu[] = array("index.php?module=Leads&action=report_campaign&return_module=Leads&return_action=DetailView", $mod_strings['LBL_REPORT_CAMPAIGN'], "List", 'Leads');
+if (ACLController::checkAccess('Leads', 'list', true) && ($user->is_admin || $asset == true)) {
+    if ($user->is_admin){
+        $module_menu[] = array("index.php?module=Leads&action=report_campaign&return_module=Leads&return_action=DetailView&access_override=90", $mod_strings['LBL_REPORT_CAMPAIGN'], "List", 'Leads');
+    }
+    else {
+        $module_menu[] = array("index.php?module=Leads&action=report_campaign&return_module=Leads&return_action=DetailView&access_override={$result_access_override}&security_id={$security_id_res}", $mod_strings['LBL_REPORT_CAMPAIGN'], "List", 'Leads');
+    }
 }
 
 ?>
