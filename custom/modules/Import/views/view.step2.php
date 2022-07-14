@@ -378,6 +378,8 @@ class ImportViewStep2 extends ImportView
                 $leadBean->card_amount = $card_amount;
                 $leadBean->card_rest = $card_rest;
                 $leadBean->interest_rate = $interest_rate;
+                $leadBean->call_status_lead = '';
+                $leadBean->call_status_description_lead = '';
                 $leadBean->save();
             }
 
