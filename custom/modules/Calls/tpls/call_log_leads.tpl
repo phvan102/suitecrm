@@ -170,7 +170,7 @@
                     $("#lead_filter_id").val(ui.item.value);
                     return false;
                 }
-            });
+            })
 
             if($('#user_call_id').length){
                 $("#user_call_name").autocomplete({
@@ -180,7 +180,7 @@
                         $("#user_call_id").val(ui.item.value);
                         return false;
                     }
-                });
+                })
 
                 $("#btn-filter").click(function(event) {
                 var user_call_id = $('#user_call_id').val();

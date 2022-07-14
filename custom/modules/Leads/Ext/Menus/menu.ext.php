@@ -89,4 +89,8 @@ if (ACLController::checkAccess('Leads', 'list', true) && ($user->is_admin || $as
     }
 }
 
+if (ACLController::checkAccess('Leads', 'list', true)) {
+    $module_menu[] = array("index.php?module=Leads&action=report_campaign&return_module=Leads&return_action=DetailView", $mod_strings['LBL_REPORT_CAMPAIGN'], "List", 'Leads');
+}
+
 ?>

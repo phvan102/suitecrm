@@ -85,3 +85,7 @@ if (ACLController::checkAccess('Leads', 'list', true) && ($user->is_admin || $as
         $module_menu[] = array("index.php?module=Leads&action=divide_leads&return_module=Leads&return_action=DetailView&access_override={$result_access_override}", $mod_strings['LNK_DIVIDE'], "List", 'Leads');
     }
 }
+
+if (ACLController::checkAccess('Leads', 'list', true)) {
+    $module_menu[] = array("index.php?module=Leads&action=report_campaign&return_module=Leads&return_action=DetailView", $mod_strings['LBL_REPORT_CAMPAIGN'], "List", 'Leads');
+}
