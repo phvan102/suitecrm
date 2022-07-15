@@ -42,18 +42,18 @@ class CustomLeadsViewdetail_divide extends SugarView
         $smarty->assign('COUNT_LEAD', $count_lead);
 
         # Query for count lead called of campaigns
-        $query_called_leads = "SELECT COUNT(*) AS count_called_leads FROM leads WHERE campaign_id = '{$id_campaign}' AND call_status_lead = '2'";
-        $result_called_leads = $GLOBALS['db']->query($query_called_leads);
-        $count_called_leads = $GLOBALS['db']->fetchByAssoc($result_called_leads);
-        $count_called_lead = $count_called_leads['count_called_leads'];
-        $smarty->assign('COUNT_CALLED_LEAD', $count_called_lead);
-
-        # Query for count lead called of campaigns
-        $query_not_call_leads = "SELECT COUNT(*) AS count_not_call_leads FROM leads WHERE campaign_id = '{$id_campaign}' AND call_status_lead = '1'";
+        $query_not_call_leads = "SELECT COUNT(*) AS count_not_call_leads 
+                                    FROM leads 
+                                    WHERE campaign_id = '{$id_campaign}' 
+                                    AND ((call_status_lead = '1' AND call_status_description_lead = '') OR (call_status_lead = '1' AND call_status_description_lead = NULL) OR call_status_lead = '' OR call_status_lead = NULL)";
         $result_not_call_leads = $GLOBALS['db']->query($query_not_call_leads);
         $count_not_call_leads = $GLOBALS['db']->fetchByAssoc($result_not_call_leads);
         $count_not_call_lead = $count_not_call_leads['count_not_call_leads'];
         $smarty->assign('COUNT_NOT_CALL_LEAD', $count_not_call_lead);
+
+        # Query for count lead called of campaigns
+        $count_called_lead = $count_lead - $count_not_call_lead;
+        $smarty->assign('COUNT_CALLED_LEAD', $count_called_lead);
 
         # Query for count lead not assign
         $query_not_assign_leads = "SELECT COUNT(*) AS count_not_assign_leads FROM leads WHERE campaign_id = '{$id_campaign}' AND assigned_user_id IS NULL";
@@ -62,45 +62,71 @@ class CustomLeadsViewdetail_divide extends SugarView
         $count_not_assign_lead = $count_not_assign_leads['count_not_assign_leads'];
         $smarty->assign('COUNT_NOT_ASSIGN_LEAD', $count_not_assign_lead);
 
-        $security_id = $_REQUEST['security_id'];
-        
-        # Query employee
-        $query_employee = "SELECT *  FROM users WHERE id NOT IN (
-            SELECT user_id  FROM securitygroups_users WHERE securitygroup_id = '{$security_id}' AND deleted = 0
-        ) ORDER BY date_entered DESC";
-        $result_employee = $GLOBALS['db']->query($query_employee);
-        while($rows = $GLOBALS['db']->fetchByAssoc($result_employee)){
-            if ($rows['is_admin'] == 0){
-                $idx += 1;
-                $id_employee = $rows['id'];
-                $username = $rows['user_name'];
-                $full_name = $rows['first_name'] . " " . $rows['last_name'];
+        if (isset($_REQUEST['security_id'])) {
+            $security_id = $_REQUEST['security_id'];
 
-                # Query count lead assigned for employee
-                $query_assigned_employee = "SELECT COUNT(*) AS count_assigned_employee FROM leads WHERE campaign_id = '{$id_campaign}' AND assigned_user_id = '{$id_employee}'";
-                $result_assigned_employee = $GLOBALS['db']->query($query_assigned_employee);
-                $count_assigned_employee = $GLOBALS['db']->fetchByAssoc($result_assigned_employee);
-                $count_assigned_employee = $count_assigned_employee['count_assigned_employee'];
+            # Query employee
+            $query_employee = "SELECT *  FROM users WHERE id NOT IN (
+                SELECT user_id  FROM securitygroups_users WHERE securitygroup_id = '{$security_id}' AND deleted = 0
+            ) ORDER BY date_entered DESC";
+            $result_employee = $GLOBALS['db']->query($query_employee);
+            while ($rows = $GLOBALS['db']->fetchByAssoc($result_employee)) {
+                if ($rows['is_admin'] == 0) {
+                    $idx += 1;
+                    $id_employee = $rows['id'];
+                    $username = $rows['user_name'];
+                    $full_name = $rows['first_name'] . " " . $rows['last_name'];
 
-                # Query for quantity 
-                $query_get_quantity_assigned = "SELECT COUNT(*) AS count_get_quantity_assigned FROM quantity_leads WHERE user_id = '{$id_employee}' AND campaign_id = '{$id_campaign}'";
-                $result_get_quantity_assigned = $GLOBALS['db']->query($query_get_quantity_assigned);
-                $count_get_quantity_assigned = $GLOBALS['db']->fetchByAssoc($result_get_quantity_assigned);
-                if ($count_get_quantity_assigned['count_get_quantity_assigned'] == 0){
-                    $query_quantity = "INSERT INTO quantity_leads (user_id, campaign_id, quantity_assigned, quantity_to_cancel) VALUES ('{$id_employee}', '{$id_campaign}', {$count_assigned_employee}, 0)";
-                    $GLOBALS['db']->query($query_quantity);
+                    # Query count lead assigned for employee
+                    $query_assigned_employee = "SELECT COUNT(*) AS count_assigned_employee FROM leads WHERE campaign_id = '{$id_campaign}' AND assigned_user_id = '{$id_employee}'";
+                    $result_assigned_employee = $GLOBALS['db']->query($query_assigned_employee);
+                    $count_assigned_employee = $GLOBALS['db']->fetchByAssoc($result_assigned_employee);
+                    $count_assigned_employee = $count_assigned_employee['count_assigned_employee'];
 
                     # Query for quantity 
-                    $query_get_quantity_assigned = "SELECT * FROM quantity_leads WHERE user_id = '{$id_employee}' AND campaign_id = '{$id_campaign}'";
+                    $query_get_quantity_assigned = "SELECT COUNT(*) AS count_get_quantity_assigned FROM quantity_leads WHERE user_id = '{$id_employee}' AND campaign_id = '{$id_campaign}'";
                     $result_get_quantity_assigned = $GLOBALS['db']->query($query_get_quantity_assigned);
                     $count_get_quantity_assigned = $GLOBALS['db']->fetchByAssoc($result_get_quantity_assigned);
-                    $quantity_assigned_count = $count_get_quantity_assigned['quantity_assigned'];
-                    $quantity_cancel_count = $count_get_quantity_assigned['quantity_to_cancel'];
-                    $quantity_modified = $count_get_quantity_assigned['date_modified'];
-                    $id_assigned = $id_employee . 'assigned';
-                    $id_quantity_cancel = $id_employee . 'quantity_cancel';
-                    $id_modified_date = $id_employee . 'modified_date';
-                    $html_row_table_assigned .= "
+                    if ($count_get_quantity_assigned['count_get_quantity_assigned'] == 0) {
+                        $query_quantity = "INSERT INTO quantity_leads (user_id, campaign_id, quantity_assigned, quantity_to_cancel) VALUES ('{$id_employee}', '{$id_campaign}', {$count_assigned_employee}, 0)";
+                        $GLOBALS['db']->query($query_quantity);
+
+                        # Query for quantity 
+                        $query_get_quantity_assigned = "SELECT * FROM quantity_leads WHERE user_id = '{$id_employee}' AND campaign_id = '{$id_campaign}'";
+                        $result_get_quantity_assigned = $GLOBALS['db']->query($query_get_quantity_assigned);
+                        $count_get_quantity_assigned = $GLOBALS['db']->fetchByAssoc($result_get_quantity_assigned);
+                        $quantity_assigned_count = $count_get_quantity_assigned['quantity_assigned'];
+                        $quantity_cancel_count = $count_get_quantity_assigned['quantity_to_cancel'];
+                        $quantity_modified = $count_get_quantity_assigned['date_modified'];
+                        $id_assigned = $id_employee . 'assigned';
+                        $id_quantity_cancel = $id_employee . 'quantity_cancel';
+                        $id_modified_date = $id_employee . 'modified_date';
+                        $html_row_table_assigned .= "
+                            <tr>
+                                <th scope='row'>{$idx}</th>
+                                <th scope='row'>{$username}</th>
+                                <th scope='row'>{$full_name}</th>
+                                <th scope='row' id='{$id_assigned}'>{$quantity_assigned_count}</th>
+                                <th scope='row' id='{$id_quantity_cancel}'>{$quantity_cancel_count}</th>
+                                <th scope='row' id='{$id_modified_date}'>{$quantity_modified}</th>
+                                <th scope='row'>
+                                <input type='number' class='form-control quantity_cancel' placeholder='' value=0>
+                                <input type='hidden' class='id_employees_cancel' value={$id_employee}>
+                                </th>
+                            </tr>
+                        ";
+                    } else {
+                        # Query for quantity 
+                        $query_get_quantity_assigned = "SELECT * FROM quantity_leads WHERE user_id = '{$id_employee}' AND campaign_id = '{$id_campaign}'";
+                        $result_get_quantity_assigned = $GLOBALS['db']->query($query_get_quantity_assigned);
+                        $count_get_quantity_assigned = $GLOBALS['db']->fetchByAssoc($result_get_quantity_assigned);
+                        $quantity_assigned_count = $count_get_quantity_assigned['quantity_assigned'];
+                        $quantity_cancel_count = $count_get_quantity_assigned['quantity_to_cancel'];
+                        $quantity_modified = $count_get_quantity_assigned['date_modified'];
+                        $id_assigned = $id_employee . 'assigned';
+                        $id_quantity_cancel = $id_employee . 'quantity_cancel';
+                        $id_modified_date = $id_employee . 'modified_date';
+                        $html_row_table_assigned .= "
                         <tr>
                             <th scope='row'>{$idx}</th>
                             <th scope='row'>{$username}</th>
@@ -114,47 +140,114 @@ class CustomLeadsViewdetail_divide extends SugarView
                             </th>
                         </tr>
                     ";
-                }
+                    }
 
-                else {
-                    # Query for quantity 
-                    $query_get_quantity_assigned = "SELECT * FROM quantity_leads WHERE user_id = '{$id_employee}' AND campaign_id = '{$id_campaign}'";
-                    $result_get_quantity_assigned = $GLOBALS['db']->query($query_get_quantity_assigned);
-                    $count_get_quantity_assigned = $GLOBALS['db']->fetchByAssoc($result_get_quantity_assigned);
-                    $quantity_assigned_count = $count_get_quantity_assigned['quantity_assigned'];
-                    $quantity_cancel_count = $count_get_quantity_assigned['quantity_to_cancel'];
-                    $quantity_modified = $count_get_quantity_assigned['date_modified'];
-                    $id_assigned = $id_employee . 'assigned';
-                    $id_quantity_cancel = $id_employee . 'quantity_cancel';
-                    $id_modified_date = $id_employee . 'modified_date';
-                    $html_row_table_assigned .= "
-                    <tr>
-                        <th scope='row'>{$idx}</th>
-                        <th scope='row'>{$username}</th>
-                        <th scope='row'>{$full_name}</th>
-                        <th scope='row' id='{$id_assigned}'>{$quantity_assigned_count}</th>
-                        <th scope='row' id='{$id_quantity_cancel}'>{$quantity_cancel_count}</th>
-                        <th scope='row' id='{$id_modified_date}'>{$quantity_modified}</th>
-                        <th scope='row'>
-                        <input type='number' class='form-control quantity_cancel' placeholder='' value=0>
-                        <input type='hidden' class='id_employees_cancel' value={$id_employee}>
-                        </th>
-                    </tr>
-                ";
+                    $html_row_table .= "
+                        <tr>
+                            <th scope='row'>{$idx}</th>
+                            <th scope='row'>{$username}</th>
+                            <th scope='row'>{$full_name}</th>
+                            <th scope='row'>
+                            <input type='number' class='form-control quantity' placeholder='' value=0>
+                            <input type='hidden' class='id_employees' value={$id_employee}>
+                            </th>
+                        </tr>";
                 }
-
-                $html_row_table .= "
-                    <tr>
-                        <th scope='row'>{$idx}</th>
-                        <th scope='row'>{$username}</th>
-                        <th scope='row'>{$full_name}</th>
-                        <th scope='row'>
-                        <input type='number' class='form-control quantity' placeholder='' value=0>
-                        <input type='hidden' class='id_employees' value={$id_employee}>
-                        </th>
-                    </tr>";
             }
         }
+
+        # admin
+        else {
+            # Query employee
+            $query_employee = "SELECT *  FROM users ORDER BY date_entered DESC";
+            $result_employee = $GLOBALS['db']->query($query_employee);
+            while ($rows = $GLOBALS['db']->fetchByAssoc($result_employee)) {
+                if ($rows['is_admin'] == 0) {
+                    $idx += 1;
+                    $id_employee = $rows['id'];
+                    $username = $rows['user_name'];
+                    $full_name = $rows['first_name'] . " " . $rows['last_name'];
+
+                    # Query count lead assigned for employee
+                    $query_assigned_employee = "SELECT COUNT(*) AS count_assigned_employee FROM leads WHERE campaign_id = '{$id_campaign}' AND assigned_user_id = '{$id_employee}'";
+                    $result_assigned_employee = $GLOBALS['db']->query($query_assigned_employee);
+                    $count_assigned_employee = $GLOBALS['db']->fetchByAssoc($result_assigned_employee);
+                    $count_assigned_employee = $count_assigned_employee['count_assigned_employee'];
+
+                    # Query for quantity 
+                    $query_get_quantity_assigned = "SELECT COUNT(*) AS count_get_quantity_assigned FROM quantity_leads WHERE user_id = '{$id_employee}' AND campaign_id = '{$id_campaign}'";
+                    $result_get_quantity_assigned = $GLOBALS['db']->query($query_get_quantity_assigned);
+                    $count_get_quantity_assigned = $GLOBALS['db']->fetchByAssoc($result_get_quantity_assigned);
+                    if ($count_get_quantity_assigned['count_get_quantity_assigned'] == 0) {
+                        $query_quantity = "INSERT INTO quantity_leads (user_id, campaign_id, quantity_assigned, quantity_to_cancel) VALUES ('{$id_employee}', '{$id_campaign}', {$count_assigned_employee}, 0)";
+                        $GLOBALS['db']->query($query_quantity);
+
+                        # Query for quantity 
+                        $query_get_quantity_assigned = "SELECT * FROM quantity_leads WHERE user_id = '{$id_employee}' AND campaign_id = '{$id_campaign}'";
+                        $result_get_quantity_assigned = $GLOBALS['db']->query($query_get_quantity_assigned);
+                        $count_get_quantity_assigned = $GLOBALS['db']->fetchByAssoc($result_get_quantity_assigned);
+                        $quantity_assigned_count = $count_get_quantity_assigned['quantity_assigned'];
+                        $quantity_cancel_count = $count_get_quantity_assigned['quantity_to_cancel'];
+                        $quantity_modified = $count_get_quantity_assigned['date_modified'];
+                        $id_assigned = $id_employee . 'assigned';
+                        $id_quantity_cancel = $id_employee . 'quantity_cancel';
+                        $id_modified_date = $id_employee . 'modified_date';
+                        $html_row_table_assigned .= "
+                            <tr>
+                                <th scope='row'>{$idx}</th>
+                                <th scope='row'>{$username}</th>
+                                <th scope='row'>{$full_name}</th>
+                                <th scope='row' id='{$id_assigned}'>{$quantity_assigned_count}</th>
+                                <th scope='row' id='{$id_quantity_cancel}'>{$quantity_cancel_count}</th>
+                                <th scope='row' id='{$id_modified_date}'>{$quantity_modified}</th>
+                                <th scope='row'>
+                                <input type='number' class='form-control quantity_cancel' placeholder='' value=0>
+                                <input type='hidden' class='id_employees_cancel' value={$id_employee}>
+                                </th>
+                            </tr>
+                        ";
+                    } else {
+                        # Query for quantity 
+                        $query_get_quantity_assigned = "SELECT * FROM quantity_leads WHERE user_id = '{$id_employee}' AND campaign_id = '{$id_campaign}'";
+                        $result_get_quantity_assigned = $GLOBALS['db']->query($query_get_quantity_assigned);
+                        $count_get_quantity_assigned = $GLOBALS['db']->fetchByAssoc($result_get_quantity_assigned);
+                        $quantity_assigned_count = $count_get_quantity_assigned['quantity_assigned'];
+                        $quantity_cancel_count = $count_get_quantity_assigned['quantity_to_cancel'];
+                        $quantity_modified = $count_get_quantity_assigned['date_modified'];
+                        $id_assigned = $id_employee . 'assigned';
+                        $id_quantity_cancel = $id_employee . 'quantity_cancel';
+                        $id_modified_date = $id_employee . 'modified_date';
+                        $html_row_table_assigned .= "
+                        <tr>
+                            <th scope='row'>{$idx}</th>
+                            <th scope='row'>{$username}</th>
+                            <th scope='row'>{$full_name}</th>
+                            <th scope='row' id='{$id_assigned}'>{$quantity_assigned_count}</th>
+                            <th scope='row' id='{$id_quantity_cancel}'>{$quantity_cancel_count}</th>
+                            <th scope='row' id='{$id_modified_date}'>{$quantity_modified}</th>
+                            <th scope='row'>
+                            <input type='number' class='form-control quantity_cancel' placeholder='' value=0>
+                            <input type='hidden' class='id_employees_cancel' value={$id_employee}>
+                            </th>
+                        </tr>
+                    ";
+                    }
+
+                    $html_row_table .= "
+                        <tr>
+                            <th scope='row'>{$idx}</th>
+                            <th scope='row'>{$username}</th>
+                            <th scope='row'>{$full_name}</th>
+                            <th scope='row'>
+                            <input type='number' class='form-control quantity' placeholder='' value=0>
+                            <input type='hidden' class='id_employees' value={$id_employee}>
+                            </th>
+                        </tr>";
+                }
+            }
+        }
+
+
         $smarty->assign('INFORMATION', $mod_strings['LBL_INFORMATION_CAMPAIGN']);
         $smarty->assign('CAMPAIGN', $mod_strings['LBL_CAMPAIGNS']);
         $smarty->assign('STATUS', $mod_strings['LBL_STATUS_CAMPAIGN']);
