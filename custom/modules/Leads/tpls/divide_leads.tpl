@@ -55,6 +55,10 @@
     </style>
 {/literal}
 
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
 <div class="row">
     <h1>{$DIVIDE}</h1>
 </div>
@@ -75,3 +79,9 @@
         {$DATA}
     </tbody>
 </table>
+
+{literal}
+    <script type="text/javascript">
+        $('#show-history-import').DataTable();
+    </script>
+{/literal}

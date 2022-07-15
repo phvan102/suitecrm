@@ -102,6 +102,10 @@
     </style>
 {/literal}
 
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
 {$ADMIN}
 
 <table class="table table-bordered" id="show-call-log-leads">
@@ -121,21 +125,6 @@
 
 <input type="hidden" name="user_id" id="user_id" value="{$USER_ID}">
 
-{if $TOTAL_PAGE > 1}
-    <div class="row text-center">
-        <div class="pagination">
-            <a href="#">&laquo;</a>
-            {section name=foo loop=$TOTAL_PAGE}
-                {if $ACTIVE == $smarty.section.foo.iteration}
-                    <a href="#" class="active" id="number-page-{$smarty.section.foo.iteration}">{$smarty.section.foo.iteration}</a>
-                {else}
-                    <a href="#" id="number-page-{$smarty.section.foo.iteration}">{$smarty.section.foo.iteration}</a>
-                {/if}
-            {/section}
-            <a href="#">&raquo;</a>
-        </div>
-    </div>
-{/if}
 
 <p id="test"></p>
 
@@ -190,10 +179,11 @@
                 console.log(start_date);
                 $.ajax({
                     url: "index.php?module=Calls&entryPoint=call_log_leads_filter_paging",
-                    data: {page_number: 1, user_id: user_call_id, lead_id: lead_id, start_date: start_date, end_date: end_date},
+                    data: {user_id: user_call_id, lead_id: lead_id, start_date: start_date, end_date: end_date},
                     success: function(data) {
                         //console.log(data);
                         $('#data').html(data)
+                        $('#show-call-log-leads').DataTable();
                         console.log(data)
                     }
                 });
@@ -208,10 +198,11 @@
                     console.log(start_date);
                     $.ajax({
                         url: "index.php?module=Calls&entryPoint=call_log_leads_filter_user_paging",
-                        data: {page_number: 1, user_id: user_id, lead_id: lead_id, start_date: start_date, end_date: end_date},
+                        data: {user_id: user_id, lead_id: lead_id, start_date: start_date, end_date: end_date},
                         success: function(data) {
                             //console.log(data);
                             $('#data').html(data)
+                            $('#show-call-log-leads').DataTable();
                             console.log(data)
                         }
                     });
@@ -221,27 +212,13 @@
 
             $.ajax({
                 url: "index.php?module=Calls&entryPoint=call_log_leads_paging",
-                data: {page_number: 1, user_id: user_id},
+                data: {user_id: user_id},
                 success: function(data) {
                     //console.log(data);
                     $('#data').html(data)
+                    $('#show-call-log-leads').DataTable();
                 }
             });
-            $("*[id^='number-page-']").click(function(event) {
-                let page_number = this.id.split(' ')[0].split('-');
-                page_number = page_number[page_number.length - 1];
-                //alert(user_id);
-                $.ajax({
-                    url: "index.php?module=Calls&entryPoint=call_log_leads_paging",
-                    data: {page_number: page_number, user_id: user_id},
-                    success: function(data) {
-                        console.log(data);
-                        $('#data').html(data)
-                        $('.active').removeClass('active');
-                        $("#number-page-" + page_number).addClass("active");
-                    }
-                });
-            })
         })
     </script>
 {/literal}

@@ -29,6 +29,11 @@
         }
     </style>
 {/literal}
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
 <input type='hidden' id='id_campaign' value={$ID_CAMPAIGN}>
 <input type='hidden' id='total_leads_not_assign' value={$COUNT_NOT_ASSIGN_LEAD}>
 <h2>{$INFORMATION}</h2>
@@ -123,6 +128,8 @@
 
 {literal}
     <script type="text/javascript">
+        $('#table_assign').DataTable();
+        $('#table_assigned').DataTable();
         $('#btn-update-assign').click(function() {
             $('#success').html('Vui lòng đợi trong giây lát!')
             $('#btn-update-assign').prop('disabled', true);
