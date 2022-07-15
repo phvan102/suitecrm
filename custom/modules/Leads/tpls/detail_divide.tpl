@@ -164,10 +164,11 @@
                     data: {data: res, id_campaign: id_campaign},
                     success: function(data) {
                         var res = $.parseJSON(data);
-                        //console.log(res[0]['count'])
+                        console.log(res)
+                        //console.log(arr_employee)
                         $('#count_not_assign_lead').html(res[0]['count'])
                         for (let i = 0; i < arr_employee.length; i++) { 
-                            let id_assigned='#' +arr_employee[i] + 'assigned' ;
+                            let id_assigned='#' +res[i+1]['user_id'] + 'assigned' ;
                             $(id_assigned).html(res[i+1]['quantity_assigned']);
                         }
                         $('#success').html('Cập nhật thành công!')
@@ -232,11 +233,12 @@
                         data: {data: res, id_campaign: id_campaign},
                         success: function(data) {
                             var res = $.parseJSON(data);
+                            console.log(arr_employee)
                             $('#count_not_assign_lead').html(res[0]['count'])
                             for (let i = 0; i < arr_employee.length; i++) { 
-                                let id_assigned='#' +arr_employee[i] + 'assigned' ;
-                                let id_cancel='#' +arr_employee[i] + 'quantity_cancel' ; 
-                                let modified_date='#' +arr_employee[i] + 'modified_date' ;
+                                let id_assigned='#' +res[i+1]['user_id'] + 'assigned' ;
+                                let id_cancel='#' +res[i+1]['user_id'] + 'quantity_cancel' ; 
+                                let modified_date='#' +res[i+1]['user_id'] + 'modified_date' ;
                                 $(id_assigned).html(res[i+1]['quantity_assigned']);
                                 $(id_cancel).html(res[i+1]['quantity_to_cancel']);
                                 $(modified_date).html(res[i+1]['date_modified']);
