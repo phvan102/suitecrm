@@ -149,12 +149,21 @@
             //console.log(total_leads_not_assign)
             if (parseInt(total_leads_not_assign) == 0){
                 alert('Tất cả khách hàng tiềm năng đã được gán!')
+                $('#success').html('Vui lòng nhập lại!')
+                $('#btn-update-assign').prop('disabled', false);
+                return;
             }
             else if (total == 0){
                 alert('Vui lòng nhập số lượng!')
+                $('#success').html('Vui lòng nhập lại!')
+                $('#btn-update-assign').prop('disabled', false);
+                return;
             }
             else if (total > parseInt(total_leads_not_assign)){
                 alert('Số lượng nhập vượt quá quy định!')
+                $('#success').html('Vui lòng nhập lại!')
+                $('#btn-update-assign').prop('disabled', false);
+                return;
             }
             else {
                 const id_campaign = $('#id_campaign').val();
@@ -199,6 +208,8 @@
             for (let i = 0; i < arr_employee.length; i++) {
                 if (arr_quantity_cancel[i] < 0){
                     alert('Vui lòng nhập số dương!');
+                    $('#success-cancel').html('Vui lòng nhập lại!')
+                    $('#btn-update-assigned').prop('disabled', false);
                     return;
                 }
                 total += arr_quantity_cancel[i];
@@ -207,11 +218,17 @@
                 console.log(val_assigned)
                 if (parseInt(val_assigned) == 0 && parseInt(arr_quantity_cancel[i]) != 0){
                     alert('Nhân viên không được gán cho bất kì lead nào!')
+                    $('#success-cancel').html('Vui lòng nhập lại!')
+                    $('#btn-update-assigned').prop('disabled', false);
+                    return;
                     check = 0;
                     break;
                 }
                 else if (parseInt(arr_quantity_cancel[i]) > parseInt(val_assigned)){
                     alert('Số lượng nhập vượt quá quy định!')
+                    $('#success-cancel').html('Vui lòng nhập lại!')
+                    $('#btn-update-assigned').prop('disabled', false);
+                    return;
                     check = 0;
                     console.log('hello')
                     break;
@@ -224,6 +241,9 @@
             if (check == 1) {
                 if (total == 0){
                     alert('Vui lòng nhập số lượng!')
+                    $('#success-cancel').html('Vui lòng nhập lại!')
+                    $('#btn-update-assigned').prop('disabled', false);
+                    return;
                 }
                 else {
                     const id_campaign = $('#id_campaign').val();
