@@ -17,12 +17,7 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-v<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
-
+<script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/jquery.table2excel.min.js"></script>
 
 <h2>{$TITLE}</h2>
 <div class="row">
@@ -34,8 +29,9 @@ v<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js
         <input type='button' value={$FILTER_CAMPAIGN} id='filter'>
     </div>
 
-    <div class="col-lg-6 col-xs-6">
-        {* <input type='button' value={$EXPORT_REPORT} id='exporttable'> *}
+    <div class="col-lg-3 col-xs-3">
+        <input type='button' value="{$EXPORT_REPORT_PAGINATION}" id='exporttable'>
+        <input type='button' value="{$EXPORT_REPORT_ALL}" id='btn-export-all'>
     </div>
 </div>
 
@@ -74,6 +70,23 @@ v<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js
             var access_override = $('#access_override').val();
             var security_group_id = $('#security_group_id').val();
             var employee_id = $('#employee_id').val();
+            var html_row = "";   
+            
+            $("#exporttable").click(function(e){
+                            var table = $("table");
+                            if(table && table.length){
+                                $(table).table2excel({
+                                    exclude: ".noExl",
+                                    name: "Campaign_Report",
+                                    filename: "Campaign_Report" + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls",
+                                    fileext: ".xls",
+                                    exclude_img: true,
+                                    exclude_links: true,
+                                    exclude_inputs: true,
+                                    preserveColors: false
+                                });
+                            }
+                        });
 
             if (access_override == '90'){
                 $.ajax({
@@ -81,13 +94,22 @@ v<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js
                     success: function(data) {
                         console.log(data)
                         $('#data').html(data);
-                        $('table').DataTable( {
-                            dom: 'Bfrtip',
-                            buttons: [
-                            'copy', 'csv', 'excel', 'pdf', 'print'
-                            ],
+                        $('table').DataTable({
                             "searching": false
-                        } );
+                        });
+                        var table = $('table').DataTable();
+
+                        $('#btn-export-all').on('click', function(){
+                            $('<table>').append(table.$('tr').clone()).table2excel({
+                                exclude: ".noExl",
+                                name: "Campaign_Report",
+                                filename: "Campaign_Report" + new Date().toISOString().replace(/[\-\:\.]/g, ""),
+                                fileext: ".xls",
+                                exclude_img: true,
+                                exclude_links: true,
+                                exclude_inputs: true
+                            });  
+                        }); 
                     },
                 });
                 $.ajax({
@@ -104,13 +126,9 @@ v<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js
                     success: function(data) {
                         console.log(data)
                         $('#data').html(data);
-                        $('table').DataTable( {
-                            dom: 'Bfrtip',
-                            buttons: [
-                            'copy', 'csv', 'excel', 'pdf', 'print'
-                            ],
+                        $('table').DataTable({
                             "searching": false
-                        } );
+                        });
                     },
                 });
                 $.ajax({
@@ -127,7 +145,9 @@ v<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js
             $("#selectCampaign").select2();
             // Read selected option
             $('#filter').click(function() {
-                $.fn.dataTable.ext.errMode = 'none';
+                //$('table').DataTable().destroy();
+                //$('table tbody').empty();
+                //$.fn.dataTable.ext.errMode = 'none';
                 var campaign_name = $('#selectCampaign option:selected').text();
                 var campaign_id = $('#selectCampaign').val();
                 $.ajax({
@@ -136,15 +156,7 @@ v<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.2.3/js
                 success: function(data) {
                     console.log(data)
                     $('#data').html(data);
-                    $('table').DataTable( {
-                            info: false,
-                            paging: false,
-                            dom: 'Bfrtip',
-                            buttons: [
-                            'csv', 'excel', 'pdf'
-                            ],
-                            "searching": false
-                    } );
+                    $('table').DataTable();
                 },
             });
 

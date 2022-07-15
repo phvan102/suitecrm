@@ -29,7 +29,8 @@ class CustomLeadsViewreport_campaign extends SugarView
         $smarty->assign('TITLE', $mod_strings['LBL_REPORT_CAMPAIGN']);
         $smarty->assign('SELECT_CAMPAIGN', $mod_strings['LBL_SELECT_CAMPAIGN']);
         $smarty->assign('FILTER_CAMPAIGN', $mod_strings['LBL_FILTER_CAMPAIGN']);
-        $smarty->assign('EXPORT_REPORT', $mod_strings['LBL_EXPORT_REPORT']);
+        $smarty->assign('EXPORT_REPORT_PAGINATION', $mod_strings['LBL_EXPORT_REPORT_PAGINATION']);
+        $smarty->assign('EXPORT_REPORT_ALL', $mod_strings['LBL_EXPORT_REPORT_ALL']);
         $smarty->assign('ASSIGNED_QUANTITY', $mod_strings['LBL_ASSIGNED_QUANTITY']);
         $smarty->assign('CALLED_QUANTITY', $mod_strings['LBL_CALLED_QUANTITY']);
         $smarty->assign('NOT_CALL_YET_QUANTIRY', $mod_strings['LBL_NOT_CALL_YET_QUANTIRY']);
