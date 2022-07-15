@@ -89,6 +89,31 @@ class CustomLeadsViewdetail_divide extends SugarView
                 if ($count_get_quantity_assigned['count_get_quantity_assigned'] == 0){
                     $query_quantity = "INSERT INTO quantity_leads (user_id, campaign_id, quantity_assigned, quantity_to_cancel) VALUES ('{$id_employee}', '{$id_campaign}', {$count_assigned_employee}, 0)";
                     $GLOBALS['db']->query($query_quantity);
+
+                    # Query for quantity 
+                    $query_get_quantity_assigned = "SELECT * FROM quantity_leads WHERE user_id = '{$id_employee}' AND campaign_id = '{$id_campaign}'";
+                    $result_get_quantity_assigned = $GLOBALS['db']->query($query_get_quantity_assigned);
+                    $count_get_quantity_assigned = $GLOBALS['db']->fetchByAssoc($result_get_quantity_assigned);
+                    $quantity_assigned_count = $count_get_quantity_assigned['quantity_assigned'];
+                    $quantity_cancel_count = $count_get_quantity_assigned['quantity_to_cancel'];
+                    $quantity_modified = $count_get_quantity_assigned['date_modified'];
+                    $id_assigned = $id_employee . 'assigned';
+                    $id_quantity_cancel = $id_employee . 'quantity_cancel';
+                    $id_modified_date = $id_employee . 'modified_date';
+                    $html_row_table_assigned .= "
+                        <tr>
+                            <th scope='row'>{$idx}</th>
+                            <th scope='row'>{$username}</th>
+                            <th scope='row'>{$full_name}</th>
+                            <th scope='row' id='{$id_assigned}'>{$quantity_assigned_count}</th>
+                            <th scope='row' id='{$id_quantity_cancel}'>{$quantity_cancel_count}</th>
+                            <th scope='row' id='{$id_modified_date}'>{$quantity_modified}</th>
+                            <th scope='row'>
+                            <input type='number' class='form-control quantity_cancel' placeholder='' value=0>
+                            <input type='hidden' class='id_employees_cancel' value={$id_employee}>
+                            </th>
+                        </tr>
+                    ";
                 }
 
                 else {
