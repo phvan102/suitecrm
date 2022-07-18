@@ -33,12 +33,12 @@ if (isset($_GET['user_id'])) {
                     $call_status_id = $call_log_leads[$i]['call_status_id'];
                     $description_call_status_id = $call_log_leads[$i]['description_call_status_id'];
                     // Get User
-                    $query_user = "SELECT first_name FROM users WHERE id = '{$user_call_id}'";
+                    $query_user = "SELECT first_name FROM users WHERE id = '{$user_call_id}' AND deleted = 0";
                     $result_user = $GLOBALS['db']->query($query_user);
                     $user = $GLOBALS['db']->fetchByAssoc($result_user);
 
                     // Get lead
-                    $query_lead = "SELECT first_name FROM leads WHERE id = '{$lead_id}'";
+                    $query_lead = "SELECT first_name FROM leads WHERE id = '{$lead_id}' AND deleted = 0";
                     $result_lead = $GLOBALS['db']->query($query_lead);
                     $lead = $GLOBALS['db']->fetchByAssoc($result_lead);
 
@@ -73,12 +73,12 @@ if (isset($_GET['user_id'])) {
                     $description_call_status_id = $call_log_leads[$i]['description_call_status_id'];
 
                     // Get User
-                    $query_user = "SELECT first_name FROM users WHERE id = '{$user_call_id}'";
+                    $query_user = "SELECT first_name FROM users WHERE id = '{$user_call_id}' AND deleted = 0";
                     $result_user = $GLOBALS['db']->query($query_user);
                     $user = $GLOBALS['db']->fetchByAssoc($result_user);
 
                     // Get lead
-                    $query_lead = "SELECT first_name FROM leads WHERE id = '{$lead_id}'";
+                    $query_lead = "SELECT first_name FROM leads WHERE id = '{$lead_id}' AND deleted = 0";
                     $result_lead = $GLOBALS['db']->query($query_lead);
                     $lead = $GLOBALS['db']->fetchByAssoc($result_lead);
 
@@ -114,12 +114,12 @@ if (isset($_GET['user_id'])) {
                 $description_call_status_id = $call_log_leads[$i]['description_call_status_id'];
 
                 // Get User
-                $query_user = "SELECT first_name FROM users WHERE id = '{$user_call_id}'";
+                $query_user = "SELECT first_name FROM users WHERE id = '{$user_call_id}' AND deleted = 0";
                 $result_user = $GLOBALS['db']->query($query_user);
                 $user = $GLOBALS['db']->fetchByAssoc($result_user);
 
                 // Get lead
-                $query_lead = "SELECT first_name FROM leads WHERE id = '{$lead_id}'";
+                $query_lead = "SELECT first_name FROM leads WHERE id = '{$lead_id}' AND deleted = 0";
                 $result_lead = $GLOBALS['db']->query($query_lead);
                 $lead = $GLOBALS['db']->fetchByAssoc($result_lead);
 
@@ -182,12 +182,12 @@ if (isset($_GET['user_id'])) {
                     $call_status_id = $call_log_leads[$i]['call_status_id'];
                     $description_call_status_id = $call_log_leads[$i]['description_call_status_id'];
                     // Get User
-                    $query_user = "SELECT first_name FROM users WHERE id = '{$user_call_id}'";
+                    $query_user = "SELECT first_name FROM users WHERE id = '{$user_call_id}' AND deleted = 0";
                     $result_user = $GLOBALS['db']->query($query_user);
                     $user = $GLOBALS['db']->fetchByAssoc($result_user);
 
                     // Get lead
-                    $query_lead = "SELECT first_name FROM leads WHERE id = '{$lead_id}'";
+                    $query_lead = "SELECT first_name FROM leads WHERE id = '{$lead_id}' AND deleted = 0";
                     $result_lead = $GLOBALS['db']->query($query_lead);
                     $lead = $GLOBALS['db']->fetchByAssoc($result_lead);
 
@@ -222,12 +222,12 @@ if (isset($_GET['user_id'])) {
                     $description_call_status_id = $call_log_leads[$i]['description_call_status_id'];
 
                     // Get User
-                    $query_user = "SELECT first_name FROM users WHERE id = '{$user_call_id}'";
+                    $query_user = "SELECT first_name FROM users WHERE id = '{$user_call_id}' AND deleted = 0";
                     $result_user = $GLOBALS['db']->query($query_user);
                     $user = $GLOBALS['db']->fetchByAssoc($result_user);
 
                     // Get lead
-                    $query_lead = "SELECT first_name FROM leads WHERE id = '{$lead_id}'";
+                    $query_lead = "SELECT first_name FROM leads WHERE id = '{$lead_id}' AND deleted = 0";
                     $result_lead = $GLOBALS['db']->query($query_lead);
                     $lead = $GLOBALS['db']->fetchByAssoc($result_lead);
 
@@ -263,12 +263,12 @@ if (isset($_GET['user_id'])) {
                 $description_call_status_id = $call_log_leads[$i]['description_call_status_id'];
 
                 // Get User
-                $query_user = "SELECT first_name FROM users WHERE id = '{$user_call_id}'";
+                $query_user = "SELECT first_name FROM users WHERE id = '{$user_call_id}' AND deleted = 0";
                 $result_user = $GLOBALS['db']->query($query_user);
                 $user = $GLOBALS['db']->fetchByAssoc($result_user);
 
                 // Get lead
-                $query_lead = "SELECT first_name FROM leads WHERE id = '{$lead_id}'";
+                $query_lead = "SELECT first_name FROM leads WHERE id = '{$lead_id}' AND deleted = 0";
                 $result_lead = $GLOBALS['db']->query($query_lead);
                 $lead = $GLOBALS['db']->fetchByAssoc($result_lead);
 
@@ -333,12 +333,12 @@ if (isset($_GET['user_id'])) {
                     $call_status_id = $call_log_leads[$i]['call_status_id'];
                     $description_call_status_id = $call_log_leads[$i]['description_call_status_id'];
                     // Get User
-                    $query_user = "SELECT first_name FROM users WHERE id = '{$user_call_id}'";
+                    $query_user = "SELECT first_name FROM users WHERE id = '{$user_call_id}' AND deleted = 0";
                     $result_user = $GLOBALS['db']->query($query_user);
                     $user = $GLOBALS['db']->fetchByAssoc($result_user);
 
                     // Get lead
-                    $query_lead = "SELECT first_name FROM leads WHERE id = '{$lead_id}'";
+                    $query_lead = "SELECT first_name FROM leads WHERE id = '{$lead_id}' AND deleted = 0";
                     $result_lead = $GLOBALS['db']->query($query_lead);
                     $lead = $GLOBALS['db']->fetchByAssoc($result_lead);
 
@@ -373,12 +373,12 @@ if (isset($_GET['user_id'])) {
                     $description_call_status_id = $call_log_leads[$i]['description_call_status_id'];
 
                     // Get User
-                    $query_user = "SELECT first_name FROM users WHERE id = '{$user_call_id}'";
+                    $query_user = "SELECT first_name FROM users WHERE id = '{$user_call_id}' AND deleted = 0";
                     $result_user = $GLOBALS['db']->query($query_user);
                     $user = $GLOBALS['db']->fetchByAssoc($result_user);
 
                     // Get lead
-                    $query_lead = "SELECT first_name FROM leads WHERE id = '{$lead_id}'";
+                    $query_lead = "SELECT first_name FROM leads WHERE id = '{$lead_id}' AND deleted = 0";
                     $result_lead = $GLOBALS['db']->query($query_lead);
                     $lead = $GLOBALS['db']->fetchByAssoc($result_lead);
 
@@ -414,12 +414,12 @@ if (isset($_GET['user_id'])) {
                 $description_call_status_id = $call_log_leads[$i]['description_call_status_id'];
 
                 // Get User
-                $query_user = "SELECT first_name FROM users WHERE id = '{$user_call_id}'";
+                $query_user = "SELECT first_name FROM users WHERE id = '{$user_call_id}' AND deleted = 0";
                 $result_user = $GLOBALS['db']->query($query_user);
                 $user = $GLOBALS['db']->fetchByAssoc($result_user);
 
                 // Get lead
-                $query_lead = "SELECT first_name FROM leads WHERE id = '{$lead_id}'";
+                $query_lead = "SELECT first_name FROM leads WHERE id = '{$lead_id}' AND deleted = 0";
                 $result_lead = $GLOBALS['db']->query($query_lead);
                 $lead = $GLOBALS['db']->fetchByAssoc($result_lead);
 

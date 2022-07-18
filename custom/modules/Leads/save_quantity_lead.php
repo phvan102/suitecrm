@@ -12,7 +12,7 @@ class save_quantity_lead
             $user_id = $bean->assigned_user_id;
             $id = $bean->id;
             #query leads
-            $query_leads = "SELECT COUNT(*) AS total FROM leads WHERE id = '{$id}'";
+            $query_leads = "SELECT COUNT(*) AS total FROM leads WHERE id = '{$id}' AND deleted = 0";
             $result_leads = $GLOBALS['db']->query($query_leads);
             $leads = $GLOBALS['db']->fetchByAssoc($result_leads);
             if ($leads['total'] == 0){

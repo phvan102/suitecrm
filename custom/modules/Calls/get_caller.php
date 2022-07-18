@@ -8,7 +8,7 @@ while($rows = $GLOBALS['db']->fetchByAssoc($result_get_call_log_leads)){
     else {
         $myObj = new stdClass();
         $user_call_id = $rows['user_call_id'];
-        $query_user = "SELECT first_name FROM users WHERE id = '{$user_call_id}'";
+        $query_user = "SELECT first_name FROM users WHERE id = '{$user_call_id}' AND deleted = 0";
         $result_user = $GLOBALS['db']->query($query_user);
         $user = $GLOBALS['db']->fetchByAssoc($result_user);
         $myObj->label = $user['first_name'];

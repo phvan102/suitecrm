@@ -21,7 +21,7 @@ class CustomLeadsViewdetail_divide extends SugarView
         $id_modified_date = "";
 
         $id_campaign = $_REQUEST['id'];
-        $query_campaigns = "SELECT name, status, start_date, end_date FROM campaigns WHERE id = '{$id_campaign}'";
+        $query_campaigns = "SELECT name, status, start_date, end_date FROM campaigns WHERE id = '{$id_campaign}' AND deleted = 0";
         $result_campaigns = $GLOBALS['db']->query($query_campaigns);
         $row = $GLOBALS['db']->fetchByAssoc($result_campaigns);
         $name = $row['name'];
@@ -35,7 +35,7 @@ class CustomLeadsViewdetail_divide extends SugarView
         $smarty->assign('END_NAME_VALUE', $end_day);
 
         # Query for count leads of campaigns
-        $query_leads = "SELECT COUNT(*) AS count_leads FROM leads WHERE campaign_id = '{$id_campaign}'";
+        $query_leads = "SELECT COUNT(*) AS count_leads FROM leads WHERE campaign_id = '{$id_campaign}' AND deleted = 0";
         $result_leads = $GLOBALS['db']->query($query_leads);
         $count_leads = $GLOBALS['db']->fetchByAssoc($result_leads);
         $count_lead = $count_leads['count_leads'];
@@ -44,7 +44,7 @@ class CustomLeadsViewdetail_divide extends SugarView
         # Query for count lead called of campaigns
         $query_not_call_leads = "SELECT COUNT(*) AS count_not_call_leads 
                                     FROM leads 
-                                    WHERE campaign_id = '{$id_campaign}' 
+                                    WHERE campaign_id = '{$id_campaign}' AND deleted = 0
                                     AND ((call_status_lead = '1' AND call_status_description_lead = '') OR (call_status_lead = '1' AND call_status_description_lead = NULL) OR call_status_lead = '' OR call_status_lead = NULL)";
         $result_not_call_leads = $GLOBALS['db']->query($query_not_call_leads);
         $count_not_call_leads = $GLOBALS['db']->fetchByAssoc($result_not_call_leads);
@@ -56,7 +56,7 @@ class CustomLeadsViewdetail_divide extends SugarView
         $smarty->assign('COUNT_CALLED_LEAD', $count_called_lead);
 
         # Query for count lead not assign
-        $query_not_assign_leads = "SELECT COUNT(*) AS count_not_assign_leads FROM leads WHERE campaign_id = '{$id_campaign}' AND assigned_user_id IS NULL";
+        $query_not_assign_leads = "SELECT COUNT(*) AS count_not_assign_leads FROM leads WHERE campaign_id = '{$id_campaign}' AND deleted = 0 AND assigned_user_id IS NULL";
         $result_not_assign_leads = $GLOBALS['db']->query($query_not_assign_leads);
         $count_not_assign_leads = $GLOBALS['db']->fetchByAssoc($result_not_assign_leads);
         $count_not_assign_lead = $count_not_assign_leads['count_not_assign_leads'];
@@ -66,7 +66,7 @@ class CustomLeadsViewdetail_divide extends SugarView
             $security_id = $_REQUEST['security_id'];
 
             # Query employee
-            $query_employee = "SELECT *  FROM users WHERE id NOT IN (
+            $query_employee = "SELECT *  FROM users WHERE deleted = 0 AND id NOT IN (
                 SELECT user_id  FROM securitygroups_users WHERE securitygroup_id = '{$security_id}' AND deleted = 0
             ) ORDER BY date_entered DESC";
             $result_employee = $GLOBALS['db']->query($query_employee);
@@ -78,7 +78,7 @@ class CustomLeadsViewdetail_divide extends SugarView
                     $full_name = $rows['first_name'] . " " . $rows['last_name'];
 
                     # Query count lead assigned for employee
-                    $query_assigned_employee = "SELECT COUNT(*) AS count_assigned_employee FROM leads WHERE campaign_id = '{$id_campaign}' AND assigned_user_id = '{$id_employee}'";
+                    $query_assigned_employee = "SELECT COUNT(*) AS count_assigned_employee FROM leads WHERE deleted = 0 AND campaign_id = '{$id_campaign}' AND assigned_user_id = '{$id_employee}'";
                     $result_assigned_employee = $GLOBALS['db']->query($query_assigned_employee);
                     $count_assigned_employee = $GLOBALS['db']->fetchByAssoc($result_assigned_employee);
                     $count_assigned_employee = $count_assigned_employee['count_assigned_employee'];
@@ -159,7 +159,7 @@ class CustomLeadsViewdetail_divide extends SugarView
         # admin
         else {
             # Query employee
-            $query_employee = "SELECT *  FROM users ORDER BY date_entered DESC";
+            $query_employee = "SELECT *  FROM users WHERE deleted = 0 ORDER BY date_entered DESC";
             $result_employee = $GLOBALS['db']->query($query_employee);
             while ($rows = $GLOBALS['db']->fetchByAssoc($result_employee)) {
                 if ($rows['is_admin'] == 0) {
@@ -169,7 +169,7 @@ class CustomLeadsViewdetail_divide extends SugarView
                     $full_name = $rows['first_name'] . " " . $rows['last_name'];
 
                     # Query count lead assigned for employee
-                    $query_assigned_employee = "SELECT COUNT(*) AS count_assigned_employee FROM leads WHERE campaign_id = '{$id_campaign}' AND assigned_user_id = '{$id_employee}'";
+                    $query_assigned_employee = "SELECT COUNT(*) AS count_assigned_employee FROM leads WHERE deleted = 0 AND campaign_id = '{$id_campaign}' AND assigned_user_id = '{$id_employee}'";
                     $result_assigned_employee = $GLOBALS['db']->query($query_assigned_employee);
                     $count_assigned_employee = $GLOBALS['db']->fetchByAssoc($result_assigned_employee);
                     $count_assigned_employee = $count_assigned_employee['count_assigned_employee'];

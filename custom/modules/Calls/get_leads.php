@@ -8,7 +8,7 @@ while($rows = $GLOBALS['db']->fetchByAssoc($result_get_call_log_leads)){
     else {
         $myObj = new stdClass();
         $lead_id = $rows['lead_id'];
-        $query_lead = "SELECT first_name FROM leads WHERE id = '{$lead_id}'";
+        $query_lead = "SELECT first_name FROM leads WHERE id = '{$lead_id}' AND deleted = 0";
         $result_lead = $GLOBALS['db']->query($query_lead);
         $lead = $GLOBALS['db']->fetchByAssoc($result_lead);
         $myObj->label = $lead['first_name'];

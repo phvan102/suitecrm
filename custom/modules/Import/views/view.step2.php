@@ -330,7 +330,7 @@ class ImportViewStep2 extends ImportView
                 }
 
                 if ($assigned_user_name != ""){
-                    $query = "SELECT id  FROM users WHERE user_name = '{$assigned_user_name}'";
+                    $query = "SELECT id  FROM users WHERE user_name = '{$assigned_user_name}' AND deleted = 0";
                     $result = $GLOBALS['db']->query($query);
                     $id_user = $GLOBALS['db']->fetchByAssoc($result);
                     if ($id_user['id'] == ""){
@@ -360,7 +360,7 @@ class ImportViewStep2 extends ImportView
                 $leadBean->campaign_id = $_POST['import_campaign'];
 
                 if ($assigned_user_name != ""){
-                    $query = "SELECT id  FROM users WHERE user_name = '{$assigned_user_name}'";
+                    $query = "SELECT id  FROM users WHERE user_name = '{$assigned_user_name}' AND deleted = 0";
                     $result = $GLOBALS['db']->query($query);
                     $id_user = $GLOBALS['db']->fetchByAssoc($result);
                     $leadBean->assigned_user_id = $id_user['id'];

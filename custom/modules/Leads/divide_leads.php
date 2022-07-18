@@ -18,17 +18,17 @@ if (isset($_GET['data']) && isset($_GET['id_campaign'])){
         $query_quantity_update = "UPDATE quantity_leads SET quantity_assigned = {$update_count_quantity_assigned} WHERE user_id = '{$id_employee}' AND campaign_id = '{$id_campaign}'";
         $GLOBALS['db']->query($query_quantity_update);
         
-        $query_not_assign_leads = "SELECT * FROM leads WHERE (campaign_id = '{$id_campaign}' AND assigned_user_id IS NULL) LIMIT {$quantity}";
+        $query_not_assign_leads = "SELECT * FROM leads WHERE (campaign_id = '{$id_campaign}' AND deleted = 0 AND assigned_user_id IS NULL) LIMIT {$quantity}";
         $result_not_assign_leads = $GLOBALS['db']->query($query_not_assign_leads);
         while($rows = $GLOBALS['db']->fetchByAssoc($result_not_assign_leads)){
             $id_lead = $rows['id'];
-            $query_update_assign_user = "UPDATE leads SET assigned_user_id = '{$id_employee}' WHERE (id = '{$id_lead}')";
+            $query_update_assign_user = "UPDATE leads SET assigned_user_id = '{$id_employee}' WHERE (id = '{$id_lead}' AND deleted = 0)";
             $GLOBALS['db']->query($query_update_assign_user);
         }
     }
 
     # Query for count lead not assign
-    $query_count_not_assign_leads = "SELECT COUNT(*) AS count_not_assign_leads FROM leads WHERE campaign_id = '{$id_campaign}' AND assigned_user_id IS NULL";
+    $query_count_not_assign_leads = "SELECT COUNT(*) AS count_not_assign_leads FROM leads WHERE campaign_id = '{$id_campaign}' AND deleted = 0 AND assigned_user_id IS NULL";
     $result_count_not_assign_leads = $GLOBALS['db']->query($query_count_not_assign_leads);
     $res = $GLOBALS['db']->fetchByAssoc($result_count_not_assign_leads);
     $count = $res['count_not_assign_leads'];

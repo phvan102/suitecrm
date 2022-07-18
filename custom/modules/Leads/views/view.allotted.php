@@ -39,7 +39,7 @@ class CustomLeadsViewallotted extends ViewList
             $this->where .= " AND (leads.assigned_user_id = '{$user_id_current}') ";
         }
         else {
-            $this->where .= "(leads.assigned_user_id = '". $user_id_current ."')";
+            $this->where .= "(leads.assigned_user_id = '". $user_id_current ."') AND (leads.deleted = 0)";
         }
 
         $this->lv->searchColumns = $this->searchForm->searchColumns;

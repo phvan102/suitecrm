@@ -17,6 +17,7 @@ class CustomLeadsViewdivide_leads extends SugarView
         if ($_REQUEST['access_override'] == '90') {
             $query_campaigns = "SELECT id, name, status, start_date, end_date 
                                 FROM campaigns 
+                                WHERE deleted = 0
                                 ORDER BY date_entered DESC";
             $result_campaigns = $GLOBALS['db']->query($query_campaigns);
             $idx = 0;
@@ -30,7 +31,7 @@ class CustomLeadsViewdivide_leads extends SugarView
                 $id = $row['id'];
 
                 # Query for count leads of campaigns
-                $query_leads = "SELECT COUNT(*) AS count_leads FROM leads WHERE campaign_id = '{$id}'";
+                $query_leads = "SELECT COUNT(*) AS count_leads FROM leads WHERE campaign_id = '{$id}' AND deleted = 0";
                 $result_leads = $GLOBALS['db']->query($query_leads);
                 $count_leads = $GLOBALS['db']->fetchByAssoc($result_leads);
                 $count_lead = $count_leads['count_leads'];
@@ -38,7 +39,7 @@ class CustomLeadsViewdivide_leads extends SugarView
                 # Query for count lead called of campaigns
                 $query_not_call_leads = "SELECT COUNT(*) AS count_not_call_leads 
                                             FROM leads 
-                                            WHERE campaign_id = '{$id}' 
+                                            WHERE campaign_id = '{$id}' AND deleted = 0
                                             AND ((call_status_lead = '1' AND call_status_description_lead = '') OR (call_status_lead = '1' AND call_status_description_lead = NULL) OR call_status_lead = '' OR call_status_lead = NULL)";
                 $result_not_call_leads = $GLOBALS['db']->query($query_not_call_leads);
                 $count_not_call_leads = $GLOBALS['db']->fetchByAssoc($result_not_call_leads);
@@ -48,7 +49,7 @@ class CustomLeadsViewdivide_leads extends SugarView
                 $count_called_lead = $count_lead - $count_not_call_lead;
 
                 # Query for count lead not assign
-                $query_not_assign_leads = "SELECT COUNT(*) AS count_not_assign_leads FROM leads WHERE campaign_id = '{$id}' AND assigned_user_id IS NULL";
+                $query_not_assign_leads = "SELECT COUNT(*) AS count_not_assign_leads FROM leads WHERE campaign_id = '{$id}' AND deleted = 0 AND assigned_user_id IS NULL";
                 $result_not_assign_leads = $GLOBALS['db']->query($query_not_assign_leads);
                 $count_not_assign_leads = $GLOBALS['db']->fetchByAssoc($result_not_assign_leads);
                 $count_not_assign_lead = $count_not_assign_leads['count_not_assign_leads'];
@@ -89,14 +90,14 @@ class CustomLeadsViewdivide_leads extends SugarView
             $idx = 0;
             //echo $count['count'];
             if ($count['count'] == 1) {
-                $query_user = "SELECT user_id FROM securitygroups_users WHERE securitygroup_id = '{$security_id}'";
+                $query_user = "SELECT user_id FROM securitygroups_users WHERE securitygroup_id = '{$security_id}' AND deleted = 0";
                 $result_user = $GLOBALS['db']->query($query_user);
                 while ($rows = $GLOBALS['db']->fetchByAssoc($result_user)) {
                     $id_user = $rows['user_id'];
                     //echo $id_user;
                     $query_campaigns = "SELECT id, name, status, start_date, end_date, date_entered
                                             FROM campaigns 
-                                            WHERE assigned_user_id = '{$id_user}' 
+                                            WHERE assigned_user_id = '{$id_user}' AND deleted = 0 
                                             ORDER BY date_entered DESC";
                     $result_campaigns = $GLOBALS['db']->query($query_campaigns);
                     while ($row = $GLOBALS['db']->fetchByAssoc($result_campaigns)) {
@@ -109,7 +110,7 @@ class CustomLeadsViewdivide_leads extends SugarView
                         $id = $row['id'];
 
                         # Query for count leads of campaigns
-                        $query_leads = "SELECT COUNT(*) AS count_leads FROM leads WHERE campaign_id = '{$id}'";
+                        $query_leads = "SELECT COUNT(*) AS count_leads FROM leads WHERE campaign_id = '{$id}' AND deleted = 0";
                         $result_leads = $GLOBALS['db']->query($query_leads);
                         $count_leads = $GLOBALS['db']->fetchByAssoc($result_leads);
                         $count_lead = $count_leads['count_leads'];
@@ -118,7 +119,7 @@ class CustomLeadsViewdivide_leads extends SugarView
                         $query_not_call_leads = "SELECT COUNT(*) AS count_not_call_leads 
                                                     FROM leads 
                                                     WHERE campaign_id = '{$id}' 
-                                                    AND ((call_status_lead = '1' AND call_status_description_lead = '') OR (call_status_lead = '1' AND call_status_description_lead = NULL) OR call_status_lead = '' OR call_status_lead = NULL)";
+                                                    AND ((call_status_lead = '1' AND deleted = 0 AND call_status_description_lead = '') OR (call_status_lead = '1' AND call_status_description_lead = NULL) OR call_status_lead = '' OR call_status_lead = NULL)";
                         $result_not_call_leads = $GLOBALS['db']->query($query_not_call_leads);
                         $count_not_call_leads = $GLOBALS['db']->fetchByAssoc($result_not_call_leads);
                         $count_not_call_lead = $count_not_call_leads['count_not_call_leads'];
@@ -127,7 +128,7 @@ class CustomLeadsViewdivide_leads extends SugarView
                         $count_called_lead = $count_lead - $count_not_call_lead;
 
                         # Query for count lead not assign
-                        $query_not_assign_leads = "SELECT COUNT(*) AS count_not_assign_leads FROM leads WHERE campaign_id = '{$id}' AND assigned_user_id IS NULL";
+                        $query_not_assign_leads = "SELECT COUNT(*) AS count_not_assign_leads FROM leads WHERE campaign_id = '{$id}' AND deleted = 0 AND assigned_user_id IS NULL";
                         $result_not_assign_leads = $GLOBALS['db']->query($query_not_assign_leads);
                         $count_not_assign_leads = $GLOBALS['db']->fetchByAssoc($result_not_assign_leads);
                         $count_not_assign_lead = $count_not_assign_leads['count_not_assign_leads'];

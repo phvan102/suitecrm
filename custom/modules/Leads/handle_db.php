@@ -15,7 +15,7 @@ class HandleDB {
             $current_language = ($_REQUEST['login_language'] == $current_language) ? $current_language : $_REQUEST['login_language'];
         }
 
-        $query_count_divide_lead_action = "SELECT COUNT(*) AS total  FROM acl_actions WHERE name = 'divide'";
+        $query_count_divide_lead_action = "SELECT COUNT(*) AS total  FROM acl_actions WHERE name = 'divide' AND deleted = 0";
         $result_count_divide_lead_action = $GLOBALS['db']->query($query_count_divide_lead_action);
         $rows_count_divide_lead_action = $GLOBALS['db']->fetchByAssoc($result_count_divide_lead_action);
         $total_divide_lead_action = $rows_count_divide_lead_action['total'];
