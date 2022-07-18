@@ -48,36 +48,8 @@ class CustomLeadsViewdisbursement extends ViewList
             
         if(empty($_REQUEST['search_form_only']) || $_REQUEST['search_form_only'] == false)
         {
-            $this->lv->setup($this->seed, 'include/ListView/ListViewGeneric.tpl', $this->where, $this->params);
-            //$savedSearchName = empty($_REQUEST['saved_search_select_name']) ? '' : (' - ' . $_REQUEST['saved_search_select_name']);
-            //echo get_form_header("CUSTOMER INTERESTED AMD AGREE", '', false);
+            $this->lv->setup($this->seed, 'custom/modules/Leads/tpls/ListViewGeneric.tpl', $this->where, $this->params);
             echo $this->lv->display();
         }
-        //$this->params['custom_from'] = "leads ";
-        //$this->params['custom_where'] = 'AND (leads.assigned_user_id = "1") ';
-
-        //parent::display();
-        //$this->params['custom_select'] = "*";
-        //$this->params['custom_from'] = "leads ";
-        //$this->where .= " and leads.assigned_user_id "."'".$user_id_current."'"."";
-        //$bean = new SugarBean();
-        //$query = "select id from leads l where l.assigned_user_id ="."'".$user_id_current."'"."";
-       /*  $query = "select * from leads where "."'".$user_id_current."'"."";
-        $result = $bean->db->query($query,true," Error filling in additional detail fields: ");
-        $results = $GLOBALS['db']->query($query);
-        while($row = $GLOBALS['db']->fetchByAssoc($results) )
-        {
-            //Use $row['id'] to grab the id fields value
-            $id = $row['id'];
-            echo $id;
-        } */
-        /* $row = $bean->db->fetchByAssoc($result);
-        foreach($row as $value){
-            echo $value;
-        } */
-
-        //parent::listViewProcess();
-
-
     }
 }

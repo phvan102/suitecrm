@@ -1,5 +1,7 @@
     <!-- tab_panel_content.tpl -->
     <div class="row edit-view-row">
+        <label for="files">Select files:</label>
+        <input type="file" id="files" name="files" multiple><br><br>
         {{foreach name=rowIteration from=$panel key=row item=rowData}}
             {*row*}
             {{counter name="columnCount" start=0 print=false assign="columnCount"}}

@@ -55,6 +55,88 @@ $dictionary['Lead'] = array('table' => 'leads', 'audited' => true, 'unified_sear
             'importable' => false,
             'comment' => 'Has Lead been converted to a Contact (and other Sugar objects)'
         ),
+        'card_number' => array(
+            'name' => 'card_number',
+            'vname' => 'LBL_CARD_NUMBER',
+            'type' => 'varchar',
+            'len' => '100',
+            'comment' => 'Card number of the card',
+            'exportable' => false,
+            'importable' => false,
+        ),
+        'cvv' => array(
+            'name' => 'cvv',
+            'vname' => 'LBL_CVV',
+            'type' => 'varchar',
+            'len' => '100',
+            'comment' => 'CVV of the card',
+            'exportable' => false,
+            'importable' => false,
+        ),
+        'expiration_date' => array(
+            'name' => 'expiration_date',
+            'vname' => 'LBL_EXPIRATION_DATE',
+            'type' => 'varchar',
+            'len' => '100',
+            'comment' => 'Expiration date of the card',
+            'exportable' => false,
+            'importable' => false,
+        ),
+        'amount_to_enter_vimo' => array(
+            'name' => 'amount_to_enter_vimo',
+            'vname' => 'LBL_AMOUNT_TO_ENTER_VIMO',
+            'type' => 'double',
+            'comment' => 'Amount money to enter vimo',
+            'exportable' => false,
+            'importable' => false,
+        ),
+
+        'amount_actually_received' => array(
+            'name' => 'amount_actually_received',
+            'vname' => 'LBL_AMOUNT_ACTUALLY_RECEIVED',
+            'type' => 'double',
+            'comment' => 'Amount money actually received',
+            'exportable' => false,
+            'importable' => false,
+        ),
+
+        'total_transactions' => array(
+            'name' => 'total_transactions',
+            'vname' => 'LBL_TOTAL_TRANSACTIONS',
+            'type' => 'int',
+            'comment' => 'Total transactions of contract',
+            'exportable' => false,
+            'importable' => false,
+        ),
+
+        'donation_month' => array(
+            'name' => 'donation_month',
+            'vname' => 'LBL_DONATION_MONTH',
+            'type' => 'int',
+            'comment' => 'Donation month of contract',
+            'exportable' => false,
+            'importable' => false,
+        ),
+
+        'contribution_amount' => array(
+            'name' => 'contribution_amount',
+            'vname' => 'LBL_CONTRIBUTION_AMOUNT',
+            'type' => 'double',
+            'comment' => 'Contribution amount of contract',
+            'exportable' => false,
+            'importable' => false,
+        ),
+
+        'bank_account' => array(
+            'name' => 'bank_account',
+            'vname' => 'LBL_BANK_ACCOUNT',
+            'type' => 'varchar',
+            'len' => '100',
+            'comment' => 'Bank account of contract',
+            'exportable' => false,
+            'importable' => false,
+        ),       
+        
         'assigned_user_id' =>
         array(
             'name' => 'assigned_user_id',

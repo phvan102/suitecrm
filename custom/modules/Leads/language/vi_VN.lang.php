@@ -59,6 +59,15 @@ $mod_strings = array(
   'LBL_ARGREED' => 'Đồng ý',
   'LBL_REFUSE' => 'Từ chối',
   'LBL_DISBURSEMENT' => 'Giải ngân',
+  'LBL_CARD_NUMBER' => 'Số thẻ',
+  'LBL_CVV' => 'CVV',
+  'LBL_EXPIRATION_DATE' => 'Ngày hết hạn',
+  'LBL_AMOUNT_TO_ENTER_VIMO' => 'Số tiền nhập vimo',
+  'LBL_AMOUNT_ACTUALLY_RECEIVED' => 'Số tiền thực nhân',
+  'LBL_TOTAL_TRANSACTIONS' => 'Tổng GD',
+  'LBL_DONATION_MONTH' => 'Tháng góp',
+  'LBL_CONTRIBUTION_AMOUNT' => 'Số tiền góp',
+  'LBL_BANK_ACCOUNT' => 'Tài khoản ngân hàng',
   
 
   'LNK_ALLOTTED_CUSTOMERS_LIST' => 'Danh sách khách hàng của bạn', 

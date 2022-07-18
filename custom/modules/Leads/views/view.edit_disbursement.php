@@ -1,4 +1,8 @@
 <?php
+if (!defined('sugarEntry') || !sugarEntry) {
+    die('Not A Valid Entry Point');
+}
+
 /**
  *
  * SugarCRM Community Edition is a customer relationship management program developed by
@@ -38,44 +42,15 @@
  * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
-class CustomLeadsController extends SugarController {
-    function action_allotted(){
-        $GLOBALS['log']->fatal('Am in Controller');
-        $this->view = "allotted";
+class LeadsViewedit_disbursement extends ViewEdit
+{
+    public function preDisplay() {
+        $this->type = 'edit_disbursement';
+        parent::preDisplay();
+        $this->ev->view = 'edit_disbursementView';
     }
 
-    function action_unaeffect(){
-        $GLOBALS['log']->fatal('Am in Controller');
-        $this->view = "unaeffect";
-    }
-
-    function action_interested(){
-        $GLOBALS['log']->fatal('Am in Controller');
-        $this->view = "interested";
-    }
-
-    function action_divide_leads(){
-        $GLOBALS['log']->fatal('Am in Controller');
-        $this->view = "divide_leads";
-    }
-
-    function action_detail_divide(){
-        $GLOBALS['log']->fatal('Am in Controller');
-        $this->view = "detail_divide";
-    }
-
-    function action_report_campaign(){
-        $GLOBALS['log']->fatal('Am in Controller');
-        $this->view = "report_campaign";
-    }
-
-    function action_disbursement(){
-        $GLOBALS['log']->fatal('Am in Controller');
-        $this->view = "disbursement";
-    }
-
-    function action_edit_disbursement(){
-        $GLOBALS['log']->fatal('Am in Controller');
-        $this->view = "edit_disbursement";
+    public function display() {
+        parent::display();
     }
 }

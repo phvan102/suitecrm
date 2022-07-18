@@ -62,6 +62,15 @@ $mod_strings = array(
   'LBL_ARGREED' => 'Agreed',
   'LBL_REFUSE' => 'Refuse',
   'LBL_DISBURSEMENT' => 'Disbursement',
+  'LBL_CARD_NUMBER' => 'Card Number',
+  'LBL_CVV' => 'CVV',
+  'LBL_EXPIRATION_DATE' => 'Expiration Date',
+  'LBL_AMOUNT_TO_ENTER_VIMO' => 'Amount to enter vimo',
+  'LBL_AMOUNT_ACTUALLY_RECEIVED' => 'Amount actually received',
+  'LBL_TOTAL_TRANSACTIONS' => 'Total transactions',
+  'LBL_DONATION_MONTH' => 'Donation month',
+  'LBL_CONTRIBUTION_AMOUNT' => 'Contribution amount',
+  'LBL_BANK_ACCOUNT' => 'Bank account',
 
 
   'LNK_ALLOTTED_CUSTOMERS_LIST' => 'Your customer list', 

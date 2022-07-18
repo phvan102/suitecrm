@@ -122,11 +122,11 @@
             {{if isset($tabDefs[$label_upper].newTab) && $tabDefs[$label_upper].newTab == true}}
             {{if $tabCount == '0'}}
             <div class="tab-pane-NOBOOTSTRAPTOGGLER active fade in" id='tab-content-{{$tabCount}}'>
-                {{include file='themes/SuiteP/include/EditView/tab_panel_content.tpl'}}
+                {{include file='custom/themes/SuiteP/include/EditView/tab_panel_content.tpl'}}
             </div>
             {{else}}
             <div class="tab-pane-NOBOOTSTRAPTOGGLER fade" id='tab-content-{{$tabCount}}'>
-                {{include file='themes/SuiteP/include/EditView/tab_panel_content.tpl'}}
+                {{include file='custom/themes/SuiteP/include/EditView/tab_panel_content.tpl'}}
             </div>
             {{/if}}
              {{counter name="tabCount" print=false}}
@@ -182,7 +182,7 @@
                 </div>
                 <div class="panel-body {{$collapse}} panelContainer" id="detailpanel_{{$panelCount}}" data-id="{{$label_upper}}">
                     <div class="tab-content">
-                        {{include file='themes/SuiteP/include/EditView/tab_panel_content.tpl'}}
+                        {{include file='custom/themes/SuiteP/include/EditView/tab_panel_content.tpl'}}
                     </div>
                 </div>
             </div>
