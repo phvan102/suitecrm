@@ -68,4 +68,9 @@ class CustomLeadsController extends SugarController {
         $GLOBALS['log']->fatal('Am in Controller');
         $this->view = "report_campaign";
     }
+
+    function action_disbursement(){
+        $GLOBALS['log']->fatal('Am in Controller');
+        $this->view = "disbursement";
+    }
 }

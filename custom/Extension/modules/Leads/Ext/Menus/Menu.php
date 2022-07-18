@@ -96,3 +96,9 @@ if (ACLController::checkAccess('Leads', 'list', true) && ($user->is_admin || $as
         $module_menu[] = array("index.php?module=Leads&action=report_campaign&return_module=Leads&return_action=DetailView&access_override={$result_access_override}&security_id={$security_id_res}", $mod_strings['LBL_REPORT_CAMPAIGN'], "List", 'Leads');
     }
 }
+
+if (ACLController::checkAccess('Leads', 'list', true) && ($user->is_admin)) {
+    if ($user->is_admin){
+        $module_menu[] = array("index.php?module=Leads&action=disbursement&return_module=Leads&return_action=DetailView&access_override=90", $mod_strings['LBL_DISBURSEMENT'], "List", 'Leads');
+    }
+}

@@ -61,6 +61,7 @@ $mod_strings = array(
   'LBL_INTEREST' => 'Interest',
   'LBL_ARGREED' => 'Agreed',
   'LBL_REFUSE' => 'Refuse',
+  'LBL_DISBURSEMENT' => 'Disbursement',
 
 
   'LNK_ALLOTTED_CUSTOMERS_LIST' => 'Your customer list', 

@@ -5,7 +5,7 @@ if (!defined('sugarEntry') || !sugarEntry) {
 
 require_once('include/MVC/View/views/view.list.php');
 
-class CustomLeadsViewinterested extends ViewList
+class CustomLeadsViewdisbursement extends ViewList
 {
 /*     public function display()
     {
@@ -22,7 +22,7 @@ class CustomLeadsViewinterested extends ViewList
     {
         global $sugar_version, $sugar_flavor, $server_unique_key, $current_language, $action;
         //[logic here]ETCETCETC
-        $params[] = $GLOBALS['app_strings']['LBL_CUSTOMERS_ARE_INTERESTED_OR_AGREE'];
+        $params[] = $GLOBALS['mod_strings']['LBL_DISBURSEMENT'];
         return $params;
     }
 
@@ -35,10 +35,10 @@ class CustomLeadsViewinterested extends ViewList
         //global $current_user;
         $this->processSearchForm();
         if ($this->where != "") {
-            $this->where .= "  AND (leads.deleted = 0) AND (leads.assigned_user_id = '{$user_id_current}') AND (leads.call_status_lead = '3' OR leads.call_status_lead = '4') AND (leads.campaign_id IS NOT NULL) AND (leads.campaign_id != '')";
+            $this->where .= "AND (leads.deleted = 0) AND leads.call_status_lead = '4' AND (leads.campaign_id IS NOT NULL) AND (leads.campaign_id != '')";
         }
         else {
-            $this->where .= "(leads.assigned_user_id = '{$user_id_current}') AND (leads.deleted = 0) AND (leads.call_status_lead = '3' OR leads.call_status_lead = '4') AND (leads.campaign_id IS NOT NULL) AND (leads.campaign_id != '')";
+            $this->where .= "(leads.deleted = 0) AND (leads.call_status_lead = '4') AND (leads.campaign_id IS NOT NULL) AND (leads.campaign_id != '')";
         }
 
         $this->lv->searchColumns = $this->searchForm->searchColumns;

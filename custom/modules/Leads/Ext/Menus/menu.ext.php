@@ -100,4 +100,10 @@ if (ACLController::checkAccess('Leads', 'list', true) && ($user->is_admin || $as
     }
 }
 
+if (ACLController::checkAccess('Leads', 'list', true) && ($user->is_admin)) {
+    if ($user->is_admin){
+        $module_menu[] = array("index.php?module=Leads&action=disbursement&return_module=Leads&return_action=DetailView&access_override=90", $mod_strings['LBL_DISBURSEMENT'], "List", 'Leads');
+    }
+}
+
 ?>

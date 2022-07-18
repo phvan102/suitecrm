@@ -58,6 +58,7 @@ $mod_strings = array(
   'LBL_INTEREST' => 'Quan tâm',
   'LBL_ARGREED' => 'Đồng ý',
   'LBL_REFUSE' => 'Từ chối',
+  'LBL_DISBURSEMENT' => 'Giải ngân',
   
 
   'LNK_ALLOTTED_CUSTOMERS_LIST' => 'Danh sách khách hàng của bạn', 
