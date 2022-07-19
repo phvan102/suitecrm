@@ -68,6 +68,7 @@ $mod_strings = array(
   'LBL_DONATION_MONTH' => 'Tháng góp',
   'LBL_CONTRIBUTION_AMOUNT' => 'Số tiền góp',
   'LBL_BANK_ACCOUNT' => 'Tài khoản ngân hàng',
+  'LBL_CARD_IMAGE' => 'Ảnh thẻ ngân hàng',
   
 
   'LNK_ALLOTTED_CUSTOMERS_LIST' => 'Danh sách khách hàng của bạn', 

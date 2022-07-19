@@ -11,6 +11,7 @@ include("custom/metadata/relationship_call_status_leadMetaData.php");
 include("custom/metadata/import_leadsMetaData.php");
 include("custom/metadata/quantity_leadsMetaData.php");
 include("custom/metadata/call_log_leadsMetaData.php");
-
+include("custom/metadata/quantity_leadsMetaData.php");
+include("custom/metadata/leads_card_imageMetaData.php");
 
 ?>

@@ -44,13 +44,24 @@ if (!defined('sugarEntry') || !sugarEntry) {
 
 class LeadsViewedit_disbursement extends ViewEdit
 {
-    public function preDisplay() {
+    public function preDisplay()
+    {
         $this->type = 'edit_disbursement';
         parent::preDisplay();
         $this->ev->view = 'edit_disbursementView';
+        $js = "
+            <script type=\"text/javascript\">
+            function customJavascriptValidation(thisView){
+                alert('Inserire un valore non vuoto');
+                return check_form(\"edit_disbursementView\");
+            }
+            </script>";
+
+        echo $js;
     }
 
-    public function display() {
+    public function display()
+    {
         parent::display();
     }
 }

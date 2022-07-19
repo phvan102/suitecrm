@@ -71,6 +71,7 @@ $mod_strings = array(
   'LBL_DONATION_MONTH' => 'Donation month',
   'LBL_CONTRIBUTION_AMOUNT' => 'Contribution amount',
   'LBL_BANK_ACCOUNT' => 'Bank account',
+  'LBL_CARD_IMAGE' => 'Card Image',
 
 
   'LNK_ALLOTTED_CUSTOMERS_LIST' => 'Your customer list', 

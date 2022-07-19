@@ -57,4 +57,9 @@ $entry_point_registry['get_quantity_leads'] = array(
     'file' => 'custom/modules/Leads/get_quantity_leads.php',
     'auth' => false,
 );
+
+$entry_point_registry['handle_upload_card_image'] = array(
+    'file' => 'custom/modules/Leads/handle_upload_card_image.php',
+    'auth' => false,
+);
 ?>

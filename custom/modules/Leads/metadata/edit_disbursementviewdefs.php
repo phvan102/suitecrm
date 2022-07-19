@@ -7,6 +7,16 @@ $viewdefs['Leads'] =
             array(
                 'form' =>
                 array(
+                    'hidden' =>
+                    array(
+                        0 => '<input type="hidden" name="prospect_id" value="{if isset($smarty.request.prospect_id)}{$smarty.request.prospect_id}{else}{$bean->prospect_id}{/if}">',
+                        1 => '<input type="hidden" name="account_id" value="{if isset($smarty.request.account_id)}{$smarty.request.account_id}{else}{$bean->account_id}{/if}">',
+                        2 => '<input type="hidden" name="contact_id" value="{if isset($smarty.request.contact_id)}{$smarty.request.contact_id}{else}{$bean->contact_id}{/if}">',
+                        3 => '<input type="hidden" name="opportunity_id" value="{if isset($smarty.request.opportunity_id)}{$smarty.request.opportunity_id}{else}{$bean->opportunity_id}{/if}">',
+                        4 => '<input type="hidden" name="call_status_description_id" id = "call_status_description_id" value="{$bean->call_status_description_lead}">',
+                        5 => '<input type="hidden" name="lead_id" id = "lead_id" value="{$bean->id}">',
+                        6 => '<input type="hidden" name="user_id" id = "user_id" value="{$bean->assigned_user_id}">',
+                    ),
                     'buttons' =>
                     array(
                         0 => 'SAVE',
@@ -28,6 +38,13 @@ $viewdefs['Leads'] =
                         'label' => '10',
                         'field' => '30',
                     ),
+                ),
+                'includes' =>
+                array(
+                    0 =>
+                    array(
+                        'file' => 'custom/modules/Leads/handle_card_image.js',
+                    )
                 ),
                 'useTabs' => false,
                 'tabDefs' =>
@@ -87,7 +104,11 @@ $viewdefs['Leads'] =
                     7 => 
                     array (
                         0 => 'contribution_amount',
-                        1 => '<input type="file" name="lead_id" id = "lead_id" value="{$bean->id}">'
+                        1 =>  array (
+                            'name' => 'contribution_amount',
+                            'label' => 'LBL_CARD_IMAGE',
+                            'customCode' => '<input type="file" id="files_card_image" name="files[]" multiple>',
+                        ),
                     ),
                 ),
             ),
