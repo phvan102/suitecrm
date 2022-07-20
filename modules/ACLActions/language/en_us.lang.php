@@ -71,4 +71,5 @@ $mod_strings = array(
     'LBL_ACTION_ADMIN' => 'Access Type',
     'LBL_ACCESS_DEFAULT' => 'Not Set',
     'LBL_DIVIDE_ACTION' => 'Divide',
+    'LBL_DISBURSEMENT_ACTION' => 'Disbursement',
 );

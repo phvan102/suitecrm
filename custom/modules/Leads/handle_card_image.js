@@ -28,6 +28,10 @@ $(document).ready(function() {
 
 function handle_upload_image(){
     var totalfiles = document.getElementById('files_card_image').files.length;
+    if (totalfiles == 0){
+        alert('Please choose at least 1 photo!')
+        return false;
+    }
     var regex =  /(\.jpg|\.jpeg|\.png|\.gif)$/i;
     var lead_id = $('#lead_id').val();
     //console.log(lead_id)
@@ -58,11 +62,15 @@ function handle_upload_image(){
         },
         
     });
+
+    return true;
 }
 
 function check_form(form_name){
         //console.log(lst)
-    handle_upload_image()
+    if (handle_upload_image() == false){
+        return false;
+    }
     cstm_validate = validate_form(form_name,'');
     if (cstm_validate  && other_condition)
         return true;

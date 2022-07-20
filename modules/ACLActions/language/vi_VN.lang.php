@@ -71,4 +71,5 @@ $mod_strings = array(
     'LBL_ACTION_ADMIN' => 'Loại truy cập',
     'LBL_ACCESS_DEFAULT' => 'Không được thiết lập',
     'LBL_DIVIDE_ACTION' => 'Chia',
+    'LBL_DISBURSEMENT_ACTION' => 'Giải ngân',
 );
