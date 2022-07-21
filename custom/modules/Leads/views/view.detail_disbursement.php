@@ -43,17 +43,30 @@ if (!defined('sugarEntry') || !sugarEntry) {
 
 class LeadsViewdetail_disbursement extends ViewDetail
 {
-    public function preDisplay()
+    public function display()
     {
-        if (!isset($this->bean->id)) {
-            // No reason to set everything up just to have it fail in the display() call
-            return;
-        }
+        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'] = array ();
+        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'][] = array (
+                0 => 'first_name',
+                1 => array (
+                    'name' => 'phone_mobile',
+                    'label' => 'LBL_PHONE_MOBILE',
+                    'displayParams' =>
+                    array(
+                        'required' => true,
+                    ),
+                ),
+        );
 
-        $metadataFile = "custom/modules/Leads/metadata/detail_disbursementviewdefs.php";
+        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'][] = array (
+            0 => 'cvv',
+            1 => 'card_id',
+        );
 
-        $this->dv = new DetailView2();
-        $this->dv->ss =& $this->ss;
-        $this->dv->setup($this->module, $this->bean, $metadataFile, get_custom_file_if_exists('custom/modules/Leads/tpls/DetailView.tpl'), false, 'detail_disbursementviewdefs');
+        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'][] = array (
+            0 => 'card_bank',
+            1 => 'card_number',
+        );
+        parent::display();
     }
 }
