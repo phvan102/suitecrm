@@ -42,56 +42,20 @@ if (!defined('sugarEntry') || !sugarEntry) {
  */
 
 require_once('include/MVC/View/views/view.detail.php');
-class CustomLeadsViewdetail_disbursement extends ViewDetail
+
+class CustomLeadsViewDetail extends ViewDetail
 {
 
     public function display()
     {
-        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'] = array ();
-        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'][] = array (
-                0 => 'first_name',
-                1 => array (
-                    'name' => 'phone_mobile',
-                    'label' => 'LBL_PHONE_MOBILE',
-                    'displayParams' =>
-                    array(
-                        'required' => true,
-                    ),
-                ),
-        );
+        global $sugar_config;
 
-        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'][] = array (
-            0 => 'card_id',
-        );
+        require_once('modules/AOS_PDF_Templates/formLetter.php');
+        formLetter::DVPopupHtml('Leads');
 
-        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'][] = array (
-            0 => 'card_bank',
-            1 => 'card_number',
-        );
-
-        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'][] = array (
-            0 => 'cvv',
-            1 => 'expiration_date',
-        );
-
-        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'][] = array (
-            0 => 'bank_account',
-            1 => 'amount_to_enter_vimo',
-        );
-
-        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'][] = array (
-            0 => 'amount_actually_received',
-            1 => 'total_transactions',
-        );
-
-        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'][] = array (
-            0 => 'donation_month',
-            1 => 'total_transactions',
-        );
-
-        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'][] = array (
-            0 => 'contribution_amount',
-        );
+        //If the convert lead action has been disabled for already converted leads, disable the action link.
+        $disableConvert = ($this->bean->status == 'Converted' && !empty($sugar_config['disable_convert_lead'])) ? true : false;
+        $this->ss->assign("DISABLE_CONVERT_ACTION", $disableConvert);
         parent::display();
-    }  
+    }
 }

@@ -30,10 +30,11 @@
             font-size: 14px;
             font-weight: 700;
             color: #534d64;
-            padding: 0 0 10px 8px;
-            text-align: left;
+            padding: 0px 10px 10px 8px;
             vertical-align: baseline;
             white-space: pre-wrap;
+            float: left;
+            text-align: right;
         }
 
         .container{
@@ -68,7 +69,7 @@
     <div class="tab-pane-NOBOOTSTRAPTOGGLER active fade in" id='tab-content-0'>
         <div class="row detail-view-row">
             <div class="col-xs-12 col-sm-6 detail-view-row-item">
-                <div class="col-xs-12 col-sm-4 label col-1-label">
+                <div class="col-xs-12 col-sm-4 label ">
                     {$TITLE_CARD_NUMBER}
                 </div>
                 <div class="col-xs-12 col-sm-8 detail-view-field inlineEdit" type="varchar" field="first_name">
@@ -76,7 +77,7 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-6 detail-view-row-item">
-                <div class="col-xs-12 col-sm-4 label col-1-label">
+                <div class="col-xs-12 col-sm-4 label ">
                     {$TITLE_CVV}
                 </div>
                 <div class="col-xs-12 col-sm-8 detail-view-field inlineEdit" type="varchar" field="first_name">
@@ -87,7 +88,7 @@
 
         <div class="row detail-view-row">
             <div class="col-xs-12 col-sm-6 detail-view-row-item">
-                <div class="col-xs-12 col-sm-4 label col-1-label">
+                <div class="col-xs-12 col-sm-4 label ">
                     {$TITLE_EXPIRATION_DATE}
                 </div>
                 <div class="col-xs-12 col-sm-8 detail-view-field inlineEdit" type="varchar" field="first_name">
@@ -98,7 +99,7 @@
 
         <div class="row detail-view-row">
             <div class="col-xs-12 col-sm-6 detail-view-row-item">
-                <div class="col-xs-12 col-sm-4 label col-1-label">
+                <div class="col-xs-12 col-sm-4 label ">
                     {$TITLE_NAME}
                 </div>
                 <div class="col-xs-12 col-sm-8 detail-view-field inlineEdit" type="varchar" field="first_name">
@@ -107,7 +108,7 @@
             </div>
 
             <div class="col-xs-12 col-sm-6 detail-view-row-item">
-                <div class="col-xs-12 col-sm-4 label col-1-label">
+                <div class="col-xs-12 col-sm-4 label ">
                     {$TITLE_PHONE_MOBILE}
                 </div>
                 <div class="col-xs-12 col-sm-8 detail-view-field inlineEdit" type="varchar" field="first_name">
@@ -118,7 +119,7 @@
 
         <div class="row detail-view-row">
             <div class="col-xs-12 col-sm-6 detail-view-row-item">
-                <div class="col-xs-12 col-sm-4 label col-1-label">
+                <div class="col-xs-12 col-sm-4 label ">
                     {$TITLE_CARD_ID}
                 </div>
                 <div class="col-xs-12 col-sm-8 detail-view-field inlineEdit" type="varchar" field="first_name">
@@ -129,7 +130,7 @@
 
         <div class="row detail-view-row">
             <div class="col-xs-12 col-sm-6 detail-view-row-item">
-                <div class="col-xs-12 col-sm-4 label col-1-label">
+                <div class="col-xs-12 col-sm-4 label ">
                     {$TITLE_AMOUNT_TO_ENTER_VIMO}
                 </div>
                 <div class="col-xs-12 col-sm-8 detail-view-field inlineEdit" type="varchar" field="first_name">
@@ -138,7 +139,7 @@
             </div>
 
             <div class="col-xs-12 col-sm-6 detail-view-row-item">
-                <div class="col-xs-12 col-sm-4 label col-1-label">
+                <div class="col-xs-12 col-sm-4 label ">
                     {$TITLE_AMOUNT_ACTUALLY_RECEIVED}
                 </div>
                 <div class="col-xs-12 col-sm-8 detail-view-field inlineEdit" type="varchar" field="first_name">
@@ -149,7 +150,7 @@
 
         <div class="row detail-view-row">
             <div class="col-xs-12 col-sm-6 detail-view-row-item">
-                <div class="col-xs-12 col-sm-4 label col-1-label">
+                <div class="col-xs-12 col-sm-4 label ">
                     {$TITLE_TOTAL_TRANSACTIONS}
                 </div>
                 <div class="col-xs-12 col-sm-8 detail-view-field inlineEdit" type="varchar" field="first_name">
@@ -158,7 +159,7 @@
             </div>
 
             <div class="col-xs-12 col-sm-6 detail-view-row-item">
-                <div class="col-xs-12 col-sm-4 label col-1-label">
+                <div class="col-xs-12 col-sm-4 label ">
                     {$TITLE_DONATION_MONTH}
                 </div>
                 <div class="col-xs-12 col-sm-8 detail-view-field inlineEdit" type="varchar" field="first_name">
@@ -169,7 +170,7 @@
 
         <div class="row detail-view-row">
             <div class="col-xs-12 col-sm-6 detail-view-row-item">
-                <div class="col-xs-12 col-sm-4 label col-1-label">
+                <div class="col-xs-12 col-sm-4 label ">
                     {$TITLE_CONTRIBUTION_AMOUNT}
                 </div>
                 <div class="col-xs-12 col-sm-8 detail-view-field inlineEdit" type="varchar" field="first_name">
@@ -178,7 +179,7 @@
             </div>
 
             <div class="col-xs-12 col-sm-6 detail-view-row-item">
-                <div class="col-xs-12 col-sm-4 label col-1-label">
+                <div class="col-xs-12 col-sm-4 label ">
                     {$TITLE_BANK_ACCOUNT}
                 </div>
                 <div class="col-xs-12 col-sm-8 detail-view-field inlineEdit" type="varchar" field="first_name">
@@ -186,9 +187,7 @@
                 </div>
             </div>
         </div>
-
         <div class="row">
-         
         <!-- Main view of our gallery -->
         <div class="main_view col-lg-12">
             <img src="{$CARD_IMAGE_FIRST}" id="main" alt="IMAGE">
