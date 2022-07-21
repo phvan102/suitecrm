@@ -229,7 +229,7 @@
 					<td>
                         {if $pageData.rowAccess[$id].edit && !empty($quickViewLinks)}
 							<a class="edit-link" title='{$editLinkString}' id="edit-{$rowData.ID}"
-							   href="index.php?module={$linkModule}&offset={$offset}&stamp={$pageData.stamp}&return_module={$linkModule}&action=edit_disbursement&record={$rowData.ID}"
+							   href="index.php?module={$linkModule}&offset={$offset}&stamp={$pageData.stamp}&return_module={$linkModule}&action=edit_disbursement&record={$rowData.ID}&return_action=index"
 							>
                                 {capture name='tmp1' assign='alt_edit'}{sugar_translate label="LNK_EDIT"}{/capture}
 								<span class="suitepicon suitepicon-action-edit"></span></a>
@@ -259,7 +259,7 @@
 						{if $col == 'NAME' || $params.bold}<b>{/if}
 					    {if $params.link && !$params.customCode}
 							{capture assign=linkModule}{if $params.dynamic_module}{$rowData[$params.dynamic_module]}{else}{$params.module|default:$pageData.bean.moduleDir}{/if}{/capture}
-							{capture assign=action}{if $act}{$act}{else}DetailView{/if}{/capture}
+							{capture assign=action}{if $act}{$act}{else}detail_disbursement{/if}{/capture}
 							{capture assign=record}{$rowData[$params.id]|default:$rowData.ID}{/capture}
 							{capture assign=url}index.php?module={$linkModule}&offset={$offset}&stamp={$pageData.stamp}&return_module={$linkModule}&action={$action}&record={$record}{/capture}
 													<{$pageData.tag.$id[$params.ACLTag]|default:$pageData.tag.$id.MAIN} href="{sugar_ajax_url url=$url}">

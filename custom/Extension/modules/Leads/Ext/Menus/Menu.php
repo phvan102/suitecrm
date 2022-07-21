@@ -76,7 +76,7 @@ if ($user->is_admin == 0){
                                 while ($rows_get_name_action_disbursement = $GLOBALS['db']->fetchByAssoc($result_get_name_action_disbursement)) {
                                     if ($rows_get_name_action_disbursement['name'] == 'disbursement' && $rows_get_name_action_disbursement['category'] == 'Leads') {
                                         //echo $action_id;
-                                        $result_access_override_disbursement = $rows_get_action['access_override'];
+                                        $result_access_override_disbursement = $rows_get_action_disbursement['access_override'];
                                         $asset_disbursement = true;
                                         $security_id_res_disbursement = $security_id_disbursement;
                                         break;
@@ -143,9 +143,9 @@ if (ACLController::checkAccess('Leads', 'list', true) && ($user->is_admin || $as
 
 if (ACLController::checkAccess('Leads', 'list', true) && ($user->is_admin || $asset_disbursement == true)) {
     if ($user->is_admin){
-        $module_menu[] = array("index.php?module=Leads&action=disbursement&return_module=Leads&return_action=DetailView&access_override=90", $mod_strings['LBL_DISBURSEMENT'], "List", 'Leads');
+        $module_menu[] = array("index.php?module=Leads&action=disbursement&return_module=Leads&access_override=90", $mod_strings['LBL_DISBURSEMENT'], "List", 'Leads');
     }
     else {
-        $module_menu[] = array("index.php?module=Leads&action=disbursement&return_module=Leads&return_action=DetailView&access_override={$result_access_override_disbursement}&security_id={$security_id_res_disbursement}", $mod_strings['LBL_DISBURSEMENT'], "List", 'Leads');
+        $module_menu[] = array("index.php?module=Leads&action=disbursement&return_module=Leads&access_override={$result_access_override_disbursement}&security_id={$security_id_res_disbursement}", $mod_strings['LBL_DISBURSEMENT'], "List", 'Leads');
     }
 }

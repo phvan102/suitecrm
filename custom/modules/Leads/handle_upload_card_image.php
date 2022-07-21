@@ -18,6 +18,9 @@ if (isset($_FILES['files']) && !empty($_FILES['files'])) {
             echo "Error: " . $_FILES["files"]["error"][$i] . "<br>";
         } else {
             if (file_exists('upload/' . $_FILES["files"]["name"][$i])) {
+                $link_url_file = $siteUrl . '/upload/' . $_FILES["files"]["name"][$i];
+                $query = "INSERT INTO leads_card_image (lead_id, card_image_link) VALUES ('{$lead_id}', '{$link_url_file}')";
+                $GLOBALS['db']->query($query);
                 echo 'File already exists : upload/' . $_FILES["files"]["name"][$i];
             } else {
                 move_uploaded_file($_FILES["files"]["tmp_name"][$i], 'upload/' . $_FILES["files"]["name"][$i]);

@@ -58,7 +58,7 @@ function handle_upload_image(){
 		data: form_data,
 		type: 'post',
         success: function(data){
-            //alert(data);
+            alert(data);
         },
         
     });
