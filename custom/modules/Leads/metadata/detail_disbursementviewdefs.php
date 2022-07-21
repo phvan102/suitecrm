@@ -144,7 +144,7 @@ $viewdefs['Leads'] =
                     0 =>
                     array(
                         0 => 'first_name',
-                        1 => array(
+                        1 => array (
                             'name' => 'phone_mobile',
                             'label' => 'LBL_PHONE_MOBILE',
                             'displayParams' =>
@@ -153,40 +153,43 @@ $viewdefs['Leads'] =
                             ),
                         ),
                     ),
-                    1 =>
-                    array(
-                        0 => 'phone_work',
-                        1 => 'phone_other',
+                    1 => array(
+                        0 => 'card_id',
+                        1 => '<input type="file" name="lead_id" id = "lead_id" value="{$bean->id}">'
                     ),
                     2 =>
                     array(
-                        0 => 'card_id',
-                        1 => 'birthdate',
+                        0 => 'card_bank',
+                        1 => 'card_number',
                     ),
-                    3 =>
-                    array(
-                        0 => 'campaign_name',
-                        1 => 'assigned_user_name',
+                    3 => 
+                    array (
+                        0 => 'cvv',
+                        1 => 'expiration_date',
                     ),
-                    4 =>
-                    array(
-                        0 => 'call_status_lead',
-                        1 => array(
-                            'name' => 'call_status_description_lead',
-                            'label' => 'LBL_DETAIL_CALL_STATUS',
-                            'displayParams' =>
-                            array(
-                                'key' => 'primary',
-                                'rows' => 2,
-                                'cols' => 30,
-                                'maxlength' => 150,
-                            ),
+                    4 => 
+                    array (
+                        0 => 'bank_account',
+                        1 => 'amount_to_enter_vimo',
+                    ),
+                    5 => 
+                    array (
+                        0 => 'amount_actually_received',
+                        1 => 'total_transactions',
+                    ),
+                    6 => 
+                    array (
+                        0 => 'donation_month',
+                        1 => 'total_transactions',
+                    ),
+                    7 => 
+                    array (
+                        0 => 'contribution_amount',
+                        1 =>  array (
+                            'name' => 'contribution_amount',
+                            'label' => 'LBL_CARD_IMAGE',
+                            'customCode' => '<input type="file" id="files_card_image" name="files[]" multiple>',
                         ),
-                    ),
-                    5 =>
-                    array(
-                        0 => 'processing_date',
-                        1 => 'statement_date',
                     ),
                 ),
                 'LBL_PANEL_ADVANCED' =>

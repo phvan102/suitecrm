@@ -41,22 +41,19 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
-require_once('include/MVC/View/views/view.detail.php');
-
-class LeadsViewDetail extends ViewDetail
+class LeadsViewdetail_disbursement extends ViewDetail
 {
-    public function display()
+    public function preDisplay()
     {
-        global $sugar_config;
+        if (!isset($this->bean->id)) {
+            // No reason to set everything up just to have it fail in the display() call
+            return;
+        }
 
-        require_once('modules/AOS_PDF_Templates/formLetter.php');
-        formLetter::DVPopupHtml('Leads');
+        $metadataFile = "custom/modules/Leads/metadata/detail_disbursementviewdefs.php";
 
-        echo $_REQUEST['action'];
-
-        //If the convert lead action has been disabled for already converted leads, disable the action link.
-        $disableConvert = ($this->bean->status == 'Converted' && !empty($sugar_config['disable_convert_lead'])) ? true : false;
-        $this->ss->assign("DISABLE_CONVERT_ACTION", $disableConvert);
-        parent::display();
+        $this->dv = new DetailView2();
+        $this->dv->ss =& $this->ss;
+        $this->dv->setup($this->module, $this->bean, $metadataFile, get_custom_file_if_exists('custom/modules/Leads/tpls/DetailView.tpl'), false, 'detail_disbursementviewdefs');
     }
 }
