@@ -46,6 +46,61 @@ require_once('include/MVC/View/views/view.detail.php');
 class CustomLeadsViewDetail extends ViewDetail
 {
 
+    /* public function preDisplay()
+    {
+        parent::preDisplay();
+        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'] = array ();
+        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'][] = array (
+                0 => 'first_name',
+                1 => array (
+                    'name' => 'phone_mobile',
+                    'label' => 'LBL_PHONE_MOBILE',
+                    'displayParams' =>
+                    array(
+                        'required' => true,
+                    ),
+                ),
+        );
+
+        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'][] = array (
+            0 => 'card_id',
+        );
+
+        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'][] = array (
+            0 => 'card_bank',
+            1 => 'card_number',
+        );
+
+        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'][] = array (
+            0 => 'cvv',
+            1 => 'expiration_date',
+        );
+
+        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'][] = array (
+            0 => 'bank_account',
+            1 => 'amount_to_enter_vimo',
+        );
+
+        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'][] = array (
+            0 => 'amount_actually_received',
+            1 => 'total_transactions',
+        );
+
+        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'][] = array (
+            0 => 'donation_month',
+            1 => 'total_transactions',
+        );
+    }
+ */
+    public function preDisplay()
+    {
+
+        $metadataFile = "custom/modules/Leads/metadata/detailviewdefs.php";
+
+        $this->dv = new DetailView2();
+        $this->dv->ss = &$this->ss;
+        $this->dv->setup($this->module, $this->bean, $metadataFile, get_custom_file_if_exists('include/DetailView/DetailView.tpl'), true, 'detailviewdefs');
+    }
     public function display()
     {
         global $sugar_config;

@@ -58,7 +58,18 @@ array(
         ),
         'buttons' =>
         array(
-          0 => "EDIT",
+          0 => array(
+            'customCode' => '
+            <input 
+              title="Edit" 
+              accesskey="a" 
+              class="button primary" 
+              type="button" 
+              name="button" 
+              value="Edit" 
+              id="EDIT"
+            >'
+          ),
         ),
         'headerTpl' => 'modules/Leads/tpls/DetailViewHeader.tpl',
       ),
@@ -80,7 +91,7 @@ array(
       array(
         0 =>
         array(
-          'file' => 'modules/Leads/Lead.js',
+          'file' => 'custom/modules/Leads/handle_show_disbursement.js',
         ),
       ),
       'useTabs' => true,
@@ -162,7 +173,6 @@ array(
                 <div class="main_view col-lg-12">
                 </div>
                 <div class="side_view">
-                  <img src="{$foo}" onclick="change(this.src)">
                 </div>
               </div>',
           ),

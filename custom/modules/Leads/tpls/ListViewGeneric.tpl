@@ -259,7 +259,7 @@
 						{if $col == 'NAME' || $params.bold}<b>{/if}
 					    {if $params.link && !$params.customCode}
 							{capture assign=linkModule}{if $params.dynamic_module}{$rowData[$params.dynamic_module]}{else}{$params.module|default:$pageData.bean.moduleDir}{/if}{/capture}
-							{capture assign=action}{if $act}{$act}{else}detail_lead_disbursement{/if}{/capture}
+							{capture assign=action}{if $act}{$act}{else}detail_disbursement{/if}{/capture}
 							{capture assign=record}{$rowData[$params.id]|default:$rowData.ID}{/capture}
 							{capture assign=url}index.php?module={$linkModule}&offset={$offset}&stamp={$pageData.stamp}&return_module={$linkModule}&action={$action}&record={$record}{/capture}
 													<{$pageData.tag.$id[$params.ACLTag]|default:$pageData.tag.$id.MAIN} href="{sugar_ajax_url url=$url}">

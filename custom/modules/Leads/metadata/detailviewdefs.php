@@ -38,6 +38,7 @@
  * reasonably feasible for technical reasons, the Appropriate Legal Notices must
  * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
+
 $viewdefs['Leads'] =
     array(
         'DetailView' =>
@@ -114,7 +115,7 @@ $viewdefs['Leads'] =
                 array(
                     0 =>
                     array(
-                        'file' => 'modules/Leads/Lead.js',
+                        'file' =>'custom/modules/Leads/detail_lead_ajax.js'
                     ),
                 ),
                 'useTabs' => true,

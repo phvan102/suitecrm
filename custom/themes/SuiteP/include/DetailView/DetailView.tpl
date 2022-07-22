@@ -133,15 +133,18 @@
         {/if}
         {{/if}}
         {if $config.enable_action_menu and $config.enable_action_menu != false}
-        <li id="tab-actions" class="dropdown">
-            {if $module == 'Leads'}
-                <li>{{sugar_button module="$module" id="EDIT" view="$view" form_id="formDetailView"}}</li>
-            {else}
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{$APP.LBL_LINK_ACTIONS}}<span class="suitepicon suitepicon-action-caret"></span></a>
-                {{include file="themes/SuiteP/include/DetailView/actions_menu.tpl"}}
-            {/if}
-            
+        {if $module == "Leads"}
+            <li role="presentation" class="hidden-xs">
+                <a id="tab-actions" data-toggle="tab">
+                EDIT
+                </a>
+            </li>
+        {else}
+            <li id="tab-actions" class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{$APP.LBL_LINK_ACTIONS}}<span class="suitepicon suitepicon-action-caret"></span></a>
+            {{include file="themes/SuiteP/include/DetailView/actions_menu.tpl"}}
         </li>
+        {/if}
         <li class="tab-inline-pagination">
             {{if $panelCount == 0}}
             {{* Render tag for VCR control if SHOW_VCR_CONTROL is true *}}
@@ -342,10 +345,8 @@
                         selectTabDetailView(tab);
                         $('#content ul.nav.nav-tabs > li').removeClass('active');
                         $('#content ul.nav.nav-tabs > li a').css('color', '');
-
                         $('#content ul.nav.nav-tabs > li').eq(tab).find('a').first().css('color', 'red');
                         $('#content ul.nav.nav-tabs > li').eq(tab).addClass('active');
-
                     };
 
                     var selectTabOnErrorInputHandle = function(inputHandle) {
@@ -366,4 +367,3 @@
                 </script>
 
             {/literal}
-

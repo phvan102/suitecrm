@@ -1,7 +1,4 @@
 <?php
-if (!defined('sugarEntry') || !sugarEntry) {
-    die('Not A Valid Entry Point');
-}
 /**
  *
  * SugarCRM Community Edition is a customer relationship management program developed by
@@ -41,67 +38,70 @@ if (!defined('sugarEntry') || !sugarEntry) {
  * display the words "Powered by SugarCRM" and "Supercharged by SuiteCRM".
  */
 
-require_once('custom/include/MVC/View/views/view.detail_1.php');
-class CustomLeadsViewdetail_disbursement extends ViewDetail_1
+require_once('custom/include/DetailView_1/DetailView2.php');
+
+/**
+ * Default view class for handling DetailViews
+ *
+ * @package MVC
+ * @category Views
+ */
+class ViewDetail_1 extends SugarView
 {
-    /* public function preDisplay()
+    /**
+     * @see SugarView::$type
+     */
+    public $type = 'detail_1';
+
+    /**
+     * @var DetailView2 object
+     */
+    public $dv;
+
+    /**
+     * Constructor
+     *
+     * @see SugarView::SugarView()
+     */
+    public function __construct()
     {
-        parent::preDisplay();
-        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'] = array ();
-        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'][] = array (
-                0 => 'first_name',
-                1 => array (
-                    'name' => 'phone_mobile',
-                    'label' => 'LBL_PHONE_MOBILE',
-                    'displayParams' =>
-                    array(
-                        'required' => true,
-                    ),
-                ),
-        );
+        parent::__construct();
+    }
 
-        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'][] = array (
-            0 => 'card_id',
-        );
-
-        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'][] = array (
-            0 => 'card_bank',
-            1 => 'card_number',
-        );
-
-        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'][] = array (
-            0 => 'cvv',
-            1 => 'expiration_date',
-        );
-
-        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'][] = array (
-            0 => 'bank_account',
-            1 => 'amount_to_enter_vimo',
-        );
-
-        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'][] = array (
-            0 => 'amount_actually_received',
-            1 => 'total_transactions',
-        );
-
-        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'][] = array (
-            0 => 'donation_month',
-            1 => 'total_transactions',
-        );
-
-        $this->dv->defs['panels']['LBL_CONTACT_INFORMATION'][] = array (
-            0 => 'contribution_amount',
-        );
-    } */
-
-/*     public function preDisplay()
+    /**
+     * @deprecated deprecated since version 7.6, PHP4 Style Constructors are deprecated and will be remove in 7.8, please update your code, use __construct instead
+     */
+    public function ViewDetail()
     {
+        $deprecatedMessage = 'PHP4 Style Constructors are deprecated and will be remove in 7.8, please update your code';
+        if (isset($GLOBALS['log'])) {
+            $GLOBALS['log']->deprecated($deprecatedMessage);
+        } else {
+            trigger_error($deprecatedMessage, E_USER_DEPRECATED);
+        }
+        self::__construct();
+    }
 
-        $metadataFile = "custom/modules/Leads/metadata/detail_disbursementviewdefs.php";
-
+    /**
+     * @see SugarView::preDisplay()
+     */
+    public function preDisplay()
+    {
+        $metadataFile = $this->getMetaDataFile();
         $this->dv = new DetailView2();
-        $this->dv->ss = &$this->ss;
-        $this->dv->setup($this->module, $this->bean, $metadataFile, get_custom_file_if_exists('include/DetailView/DetailView.tpl'), true, 'detail_disbursementviewdefs');
-    } */
-    
+        $this->dv->ss =&  $this->ss;
+        $this->dv->setup($this->module, $this->bean, $metadataFile, get_custom_file_if_exists('include/DetailView/DetailView.tpl'));
+    }
+
+    /**
+     * @see SugarView::display()
+     */
+    public function display()
+    {
+        if (empty($this->bean->id)) {
+            sugar_die($GLOBALS['app_strings']['ERROR_NO_RECORD']);
+        }
+        $this->dv->process();
+        echo $this->dv->display();
+    }
 }

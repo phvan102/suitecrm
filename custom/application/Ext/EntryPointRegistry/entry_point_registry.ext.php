@@ -48,6 +48,11 @@ $entry_point_registry['get_campaign'] = array(
     'auth' => false,
 );
 
+$entry_point_registry['get_card_image'] = array(
+    'file' => 'custom/modules/Leads/get_card_image.php',
+    'auth' => false,
+);
+
 $entry_point_registry['get_leads'] = array(
     'file' => 'custom/modules/Calls/get_leads.php',
     'auth' => false,
