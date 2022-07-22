@@ -134,7 +134,7 @@
         {{/if}}
         {if $config.enable_action_menu and $config.enable_action_menu != false}
         {if $module == "Leads"}
-            <li role="presentation" class="hidden-xs">
+            <li role="presentation" class="dropdown">
                 <a id="tab-actions" data-toggle="tab">
                 EDIT
                 </a>

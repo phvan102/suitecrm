@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    var lead_id = $('#lead_id').val();
     $("#tab-actions").css({
         "cursor": "pointer",
         "background-color": "#f08377",
